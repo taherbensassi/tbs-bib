@@ -1,0 +1,13 @@
+backend:
+  login:
+    intro: Sign in to start your session
+    remember_me: Remember Me
+    sign_in: Sign In
+    jira: Sign in using Jira
+    forgot_passord: I forgot my password
+    register: Don't have an account?
+  global:
+    inputs:
+      email: Email
+      password: password
+
