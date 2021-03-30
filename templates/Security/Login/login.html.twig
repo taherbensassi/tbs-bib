@@ -1,34 +1,31 @@
 {% extends '@security/core.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
-
+{% block title %}
+    Log in!
+{% endblock %}
 
 {% block body %}
-
-{% if error %}
-    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
-
-{% if app.user %}
-    <div class="mb-3">
-        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-    </div>
-{% endif %}
-
 <!-- /.login-box -->
 <div class="hold-transition login-page">
     <div class="login-box">
+        {# read and display several types of flash messages #}
+        {% for label, messages in app.flashes(['success', 'danger']) %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
         <!-- /.login-logo -->
         <div class="card card-outline card-dark">
-            <div class="card-header text-center">
-                <img src="{{ asset('dist/img/logo/logo.svg') }}" alt="THE BRETTINGHAMS logo"><br>
-                <b>THE BRETTINGHAMS</b>
-            </div>
+            {% include '@security/_logo.html.twig' %}
             <div class="card-body">
                 <p class="login-box-msg">{{ "backend.login.intro"|trans }}</p>
-
                 <form method="post">
-
                     <div class="input-group mb-3">
                         <input type="email" class="form-control" value="{{ last_username }}" name="email" id="inputEmail"  placeholder="{{"backend.global.inputs.email"|trans }}" required/>
                         <div class="input-group-append">
@@ -47,8 +44,8 @@
                     </div>
                     <div class="row">
                         <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="remember" name="_remember_me">
+                            <div class="icheck-secondary">
+                                <input type="checkbox" id="remember" name="_remember_me" required>
                                 <label for="remember">
                                     {{"backend.login.remember_me"|trans }}
                                 </label>
@@ -72,12 +69,11 @@
 
                 </div>-->
                 <!-- /.social-auth-links -->
-
                 <p class="mb-1">
                     <a href="forgot-password.html">{{"backend.login.forgot_passord"|trans }}</a>
                 </p>
                 <p class="mb-0">
-                    <a href="register.html" class="text-center">{{"backend.login.register"|trans }}</a>
+                    <a href="{{ path('app_register')}}" class="text-center">{{"backend.login.register"|trans }}</a>
                 </p>
             </div>
             <!-- /.card-body -->

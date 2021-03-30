@@ -1,0 +1,88 @@
+{% extends '@security/core.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<div class="hold-transition register-page">
+    <div class="register-box">
+        {% if not registrationForm.vars.valid %}
+            {# Loop through every form item #}
+            {% for child in registrationForm.children %}
+                    {# Display the errors of the form item #}
+                    {%for error in child.vars.errors %}
+                        {% set already = 'true' %}
+                        <div class="alert alert-danger">
+                            {{error.message}}
+                        </div>
+                    {%endfor%}
+                    {%for repeated in child %}
+                        {%for error in repeated.vars.errors %}
+                            <div class="alert alert-danger">
+                                {{error.message}}
+                            </div>
+                        {%endfor%}
+                    {%endfor%}
+            {%endfor%}
+        {%endif%}
+
+        {% for flashError in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+        {% endfor %}
+
+        <div class="card card-outline card-drk">
+            {% include '@security/_logo.html.twig' %}
+            <div class="card-body">
+                <p class="login-box-msg"> {{"backend.register.intro"|trans }}</p>
+                {{ form_start(registrationForm) }}
+                    <div class="input-group mb-3">
+                        {{ form_widget(registrationForm.email, { 'attr': {'class': 'form-control'} }) }}
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="input-group mb-3">
+                        {{ form_widget(registrationForm.plainPassword.first, { 'attr': {'class': 'form-control'} }) }}
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        {{ form_widget(registrationForm.plainPassword.second, { 'attr': {'class': 'form-control'} }) }}
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-7">
+                            <div class="icheck-secondary">
+                                {{ form_widget(registrationForm.agreeTerms) }}
+                                <label for="registration_form_agreeTerms">
+                                    {{"backend.register.first_term"|trans }} <a href="#"> {{"backend.register.second_term"|trans }}</a>
+                                    {% if locale == 'de' %}
+                                         {{"backend.register.third_term"|trans }}
+                                    {% endif %}
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-5">
+                            <button type="submit" class="btn btn-outline-dark btn-block">{{"backend.register.register"|trans }}</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                {{ form_end(registrationForm) }}
+                <a href="{{ path('app_login')}}" class="text-center">{{"backend.register.already_register"|trans }}</a>
+            </div>
+            <!-- /.form-box -->
+        </div><!-- /.card -->
+    </div>
+    <!-- /.register-box -->
+</div>
+{% endblock %}

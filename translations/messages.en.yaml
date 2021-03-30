@@ -6,8 +6,19 @@ backend:
     jira: Sign in using Jira
     forgot_passord: I forgot my password
     register: Don't have an account?
+  register:
+    intro: Register a new membership
+    already_register: I already have a membership
+    register: Register
+    first_term: I agree to the
+    second_term: terms
+    third_term: .
+    v_email: verify your email address and login
+    email_verifier: Your email address has been verified.
   global:
     inputs:
       email: Email
       password: password
+      repassword: Repeat Password
+      v_re_password: The password fields must match.
 

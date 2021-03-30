@@ -7,11 +7,16 @@
            and uncomment the following Encore helpers to start using Symfony UX #}
     {% block stylesheets %}
         {#{{ encore_entry_link_tags('app') }}#}
+        <link rel="icon" type="shortcut icon" href="{{ asset('dist/img/favicons/favicon.ico') }}" />
+        <link rel="icon" type="image/png" href="{{ asset('dist/img/favicons/favicon-32x32.png') }}" sizes="32x32">
+        <link rel="manifest" href="{{ asset('dist/img/favicons/manifest.json') }}">
+        <link rel="mask-icon" href="{{ asset('dist/img/favicons/safari-pinned-tab.svg') }}" >
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('dist/img/favicons/apple-touch-icon.png') }}">
+
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}" />
-
         <!-- icheck bootstrap -->
         <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
         <!-- Theme style -->

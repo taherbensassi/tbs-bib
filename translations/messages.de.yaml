@@ -6,7 +6,20 @@ backend:
     jira: Weiter mit Jira
     forgot_passord: Passwort vergessen?
     register: Du hast kein Konto?
+  register:
+    intro: Eine neue Mitgliedschaft registrieren
+    already_register: Du hast bereits ein Konto?
+    register: Registrieren
+    first_term: Ich stimme den
+    second_term: Bedingungen
+    third_term: zu
+    v_email:  Verifizieren Sie Ihre E-Mail Adresse und melden Sie sich an
+    email_verifier:  Ihre E-Mail-Adresse wurde verifiziert.
   global:
     inputs:
       email: E-mail
       password: Passwort
+      repassword: Passwort wiederholen
+
+
+
