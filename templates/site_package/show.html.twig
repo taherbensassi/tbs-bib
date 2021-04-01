@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SitePackage{% endblock %}
+
+{% block body %}
+    <h1>SitePackage</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ site_package.id }}</td>
+            </tr>
+            <tr>
+                <th>Typo3Version</th>
+                <td>{{ site_package.typo3Version }}</td>
+            </tr>
+            <tr>
+                <th>BasePackage</th>
+                <td>{{ site_package.basePackage }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ site_package.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ site_package.description }}</td>
+            </tr>
+            <tr>
+                <th>RepositoryUrl</th>
+                <td>{{ site_package.repositoryUrl }}</td>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <td>{{ site_package.author }}</td>
+            </tr>
+            <tr>
+                <th>AuthorEmail</th>
+                <td>{{ site_package.authorEmail }}</td>
+            </tr>
+            <tr>
+                <th>AuthorCompany</th>
+                <td>{{ site_package.authorCompany }}</td>
+            </tr>
+            <tr>
+                <th>AuthorHomePage</th>
+                <td>{{ site_package.authorHomePage }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('site_package_index') }}">back to list</a>
+
+    <a href="{{ path('site_package_edit', {'id': site_package.id}) }}">edit</a>
+
+    {{ include('site_package/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,4 @@
+validators:
+    email_verfier: Es gibt bereits ein Konto mit dieser E-Mail
+    password: Die Passwortfelder müssen identisch sein.
+    password_length: Ihr Passwort sollte mindestens 6 Zeichen lang sein

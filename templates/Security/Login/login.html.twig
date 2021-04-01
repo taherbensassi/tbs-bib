@@ -1,0 +1,87 @@
+{% extends '@security/core.html.twig' %}
+
+{% block title %}
+    {{ "title.sign_in" | trans({}, 'metadata') }}
+{% endblock %}
+
+{% block body %}
+<!-- /.login-box -->
+
+<div class="hold-transition login-page">
+    <div class="login-box">
+        {# read and display several types of flash messages #}
+        {% for label, messages in app.flashes(['success', 'danger']) %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <!-- /.login-logo -->
+        <div class="card card-outline card-dark">
+            {% include '@security/_logo.html.twig' %}
+            <div class="card-body">
+                <p class="login-box-msg">{{ "backend.login.intro"|trans }}</p>
+                <form method="post">
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" value="{{ last_username }}" name="email" id="inputEmail"  placeholder="{{"backend.global.inputs.email"|trans }}" required/>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input  placeholder="{{"backend.global.inputs.password"|trans }}" type="password" name="password" id="inputPassword" class="form-control" required/>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-secondary">
+                                <input type="checkbox" id="remember" name="_remember_me" required>
+                                <label for="remember">
+                                    {{"backend.login.remember_me"|trans }}
+                                </label>
+                            </div>
+                        </div>
+                        <input type="hidden" name="_csrf_token"
+                               value="{{ csrf_token('authenticate') }}"
+                        >
+                        <!-- /.col -->
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-outline-dark btn-block"> {{"backend.login.sign_in"|trans }}</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+                <!--
+                <div class="social-auth-links text-center mt-2 mb-3">
+                    <a href="#" class="btn btn-block btn-dark">
+                        <i class="fab fa-jira mr-2"></i> {{"backend.login.jira"|trans }}
+                    </a>
+
+                </div>-->
+                <!-- /.social-auth-links -->
+                <p class="mb-1">
+                    <a href="{{ path('app_forgot_password_request')}}">{{"backend.login.forgot_passord"|trans }}</a>
+                </p>
+                <p class="mb-0">
+                    <a href="{{ path('app_register')}}" class="text-center">{{"backend.login.register"|trans }}</a>
+                </p>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.login-box -->
+</div>
+{% endblock %}
+

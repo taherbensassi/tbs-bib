@@ -1,0 +1,43 @@
+{% extends '@security/core.html.twig' %}
+
+{% block title %}
+    {{ "title.reset" | trans({}, 'metadata') }}
+{% endblock %}
+
+{% block body %}
+    <!-- /.login-box -->
+    <div class="hold-transition login-page">
+        <div class="login-box">
+            {% for flashError in app.flashes('reset_password_error') %}
+                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+            {% endfor %}
+            <div class="card card-outline card-dark">
+                {% include '@security/_logo.html.twig' %}
+                <div class="card-body">
+                    <p class="login-box-msg">{{"backend.reset.intro"|trans }}</p>
+                    {{ form_start(requestForm) }}
+                    <div class="input-group mb-3">
+                        {{ form_widget(requestForm.email, { 'attr': {'class': 'form-control'} }) }}
+                        <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-outline-dark btn-block">{{"backend.reset.send"|trans }}</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                    {{ form_end(requestForm) }}
+                    <p class="mt-3 mb-1">
+                        <a href="{{ path('app_login')}}">{{"backend.login.sign_in"|trans }}</a>
+                    </p>
+                </div>
+                <!-- /.login-card-body -->
+            </div>
+        </div>
+     </div>
+{% endblock %}
+

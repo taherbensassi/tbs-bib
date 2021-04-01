@@ -1,0 +1,33 @@
+backend:
+  login:
+    intro: Melden Sie sich an, um Ihre Session zu starten
+    remember_me: Zugangsdaten speichern
+    sign_in: einloggen
+    jira: Weiter mit Jira
+    forgot_passord: Passwort vergessen?
+    register: Du hast kein Konto?
+    start: Sie müssen sich anmelden, um auf diese Seite zugreifen zu können.
+  register:
+    intro: Eine neue Mitgliedschaft registrieren
+    already_register: Du hast bereits ein Konto?
+    register: Registrieren
+    first_term: Ich stimme den
+    second_term: Bedingungen
+    third_term: zu
+    v_email:  Verifizieren Sie Ihre E-Mail Adresse und melden Sie sich an
+    email_verifier:  Ihre E-Mail-Adresse wurde verifiziert.
+  reset:
+    intro: Sie haben Ihr Passwort vergessen? Hier können Sie ganz einfach ein neues Passwort bekommen.
+    send: Neues Passwort anfordern
+    email_check: Es wurde eine E-Mail gesendet, die einen Link enthält, auf den Sie klicken können, um Ihr Passwort zurückzusetzen.
+    email_check_info_1: Wenn Sie keine E-Mail erhalten, überprüfen Sie bitte Ihren Spam-Ordner oder
+    email_check_info_2: erneut versuchen
+    token: Kein Token zum Zurücksetzen des Passworts in der URL oder in der Sitzung gefunden.
+    error: Es gab ein Problem bei der Validierung Ihrer Reset-Anfrage.
+    intro_2: Sie sind nur noch einen Schritt von Ihrem neuen Passwort entfernt, stellen Sie Ihr Passwort jetzt wieder her.
+    button_reset: Passwort ändern
+  global:
+    inputs:
+      email: E-mail
+      password: Passwort
+      repassword: Passwort wiederholen

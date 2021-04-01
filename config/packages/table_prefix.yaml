@@ -1,0 +1,6 @@
+# mapping from bundle name to table prefix
+parameters:
+  table_prefix:
+    user: tbs_
+    reset_password_request: tbs_
+    site_package: tbs_

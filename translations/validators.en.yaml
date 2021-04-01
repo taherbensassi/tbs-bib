@@ -1,0 +1,4 @@
+validators:
+    email_verfier: There is already an account with this email
+    password: The password fields must match.
+    password_length: Your password should be at least 6 characters

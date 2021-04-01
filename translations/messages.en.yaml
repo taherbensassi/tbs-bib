@@ -1,0 +1,34 @@
+backend:
+  login:
+    intro: Sign in to start your session
+    remember_me: Remember Me
+    sign_in: Sign In
+    jira: Sign in using Jira
+    forgot_passord: I forgot my password
+    register: Don't have an account?
+    start: You have to login in order to access this page.
+  register:
+    intro: Register a new membership
+    already_register: I already have a membership
+    register: Register
+    first_term: I agree to the
+    second_term: terms
+    third_term: .
+    v_email: verify your email address and login
+    email_verifier: Your email address has been verified.
+  reset:
+    intro: You forgot your password? Here you can easily retrieve a new password.
+    send: Request new password
+    email_check: An email has been sent that contains a link that you can click to reset your password.
+    email_check_info_1: If you don't receive an email please check your spam folder or
+    email_check_info_2: try again
+    token: No reset password token found in the URL or in the session.
+    error: There was a problem validating your reset request
+    intro_2: You are only one step a way from your new password, recover your password now.
+    button_reset: Change password
+  global:
+    inputs:
+      email: Email
+      password: password
+      repassword: Repeat Password
+      v_re_password: The password fields must match.
