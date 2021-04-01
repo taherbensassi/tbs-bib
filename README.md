@@ -37,12 +37,22 @@ BRETTINGHAM DASHBOARD private application with user account functionality on the
     ddev config
 ~~~
 
-2 - ddev start
+2 - Install composer
+~~~
+    ddev composer install
+~~~
+
+3 - ddev start
 ~~~
     ddev start
 ~~~
 
-3 - Create scheme using migration command:
+4 - Access to container
+~~~
+    ddev ssh
+~~~
+
+5 - Create scheme using migration command:
 ~~~
     php bin/console make:migration
     php bin/console doctrine:migrations:migrate
