@@ -1,7 +1,8 @@
 {% extends '@security/core.html.twig' %}
 
-{% block title %}Register{% endblock %}
-
+{% block title %}
+    {{ "title.reset" | trans({}, 'metadata') }}
+{% endblock %}
 {% block body %}
 <div class="hold-transition register-page">
     <div class="register-box">

@@ -1,11 +1,12 @@
 {% extends '@security/core.html.twig' %}
 
 {% block title %}
-    Log in!
+    {{ "title.sign_in" | trans({}, 'metadata') }}
 {% endblock %}
 
 {% block body %}
 <!-- /.login-box -->
+
 <div class="hold-transition login-page">
     <div class="login-box">
         {# read and display several types of flash messages #}
@@ -70,7 +71,7 @@
                 </div>-->
                 <!-- /.social-auth-links -->
                 <p class="mb-1">
-                    <a href="forgot-password.html">{{"backend.login.forgot_passord"|trans }}</a>
+                    <a href="{{ path('app_forgot_password_request')}}">{{"backend.login.forgot_passord"|trans }}</a>
                 </p>
                 <p class="mb-0">
                     <a href="{{ path('app_register')}}" class="text-center">{{"backend.login.register"|trans }}</a>

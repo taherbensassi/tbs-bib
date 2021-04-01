@@ -2,18 +2,64 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
+        <title>{% block title %}THE BRETTINGHAMS{% endblock %}</title>
+        <link rel="icon" type="shortcut icon" href="{{ asset('dist/img/favicons/favicon.ico') }}" />
+        <link rel="icon" type="image/png" href="{{ asset('dist/img/favicons/favicon-32x32.png') }}" sizes="32x32">
+        <link rel="manifest" href="{{ asset('dist/img/favicons/manifest.json') }}">
+        <link rel="mask-icon" href="{{ asset('dist/img/favicons/safari-pinned-tab.svg') }}" >
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('dist/img/favicons/apple-touch-icon.png') }}">
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
+            <!-- Google Font: Source Sans Pro -->
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+            <!-- Font Awesome -->
+            <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}" />
+            <!-- Theme style -->
+            <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+            <!-- flag-icon-css -->
+            <link rel="stylesheet" href="{{ asset('plugins/flag-icon-css/css/flag-icon.min.css') }}">
+            <!-- Ionicons -->
+            <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
         {% endblock %}
 
         {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
+
+            <!-- jQuery -->
+            <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+            <!-- Bootstrap 4 -->
+            <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+            <!-- AdminLTE App -->
+            <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+
+
         {% endblock %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
+    <body class="hold-transition sidebar-mini">
+        <div class="wrapper">
+            <!-- Navbar -->
+            {% include 'Partial/Navbar/_navbar.html.twig' %}
+            <!-- /.navbar -->
+
+            <!-- Main Sidebar Container -->
+            {% include 'Partial/Sidebar/_sidebar.html.twig' %}
+            <!-- /.Main Sidebar Container -->
+
+            {% block content %}{% endblock %}
+
+            <!-- Main Footer -->
+            {% include 'Partial/Footer/_footer.htnl.twig' %}
+            <!-- /.Main Footer -->
+        </div>
     </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

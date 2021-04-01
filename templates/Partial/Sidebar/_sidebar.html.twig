@@ -1,0 +1,141 @@
+{% set route_name = app.request.attributes.get('_route') %}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    {% include 'Partial/Sidebar/_brand.htmk.twig' %}
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- SidebarSearch Form -->
+        <div class="form-inline mt-2">
+            <div class="input-group" data-widget="sidebar-search">
+                <input class="form-control form-control-sidebar" type="search" placeholder="Suche" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-sidebar">
+                        <i class="fas fa-search fa-fw"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+                <li class="nav-item">
+                    <a href="{{ path('dashboard')}}" {% if route_name == "dashboard" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Dashboard
+                        </p>
+                    </a>
+                </li>
+                <li  {% if route_name == "site_package_index" or route_name == "site_package_new" %} class="nav-item menu-open" {% else %} class="nav-item" {% endif %}>
+                    <a href="#" {% if route_name == "site_package_index" or route_name == "site_package_new" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+                        <i class="fas fa-project-diagram"></i>
+                        <p>
+                            Projekt
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Projekt generieren</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ path('site_package_index') }}" {% if route_name == "site_package_index" or route_name == "site_package_new"%} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Sitepackage</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-header">TBS CE & Plugins</li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-photo-video"></i>
+                        <p>
+                            Module
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="pages/mailbox/mailbox.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Liste</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/mailbox/compose.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Neu anlegen</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-puzzle-piece"></i>
+                        <p>
+                            Plugins
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="pages/examples/invoice.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Liste</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/examples/profile.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Neu anlegen</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="https://adminlte.io/docs/3.1/" class="nav-link">
+                        <i class="fas fa-list"></i>
+                        <p>Extensions Liste</p>
+                    </a>
+                </li>
+
+                <li class="nav-header">DEVOPS</li>
+                <li class="nav-item">
+                    <a href="https://adminlte.io/docs/3.1/" class="nav-link">
+                        <i class="fab fa-github"></i>
+                        <p>Pupline CI/CD</p>
+                    </a>
+                </li>
+
+
+                <li class="nav-header">Snippet</li>
+                <li class="nav-item">
+                    <a href="https://adminlte.io/docs/3.1/" class="nav-link">
+                        <i class="far fa-file-code"></i>
+                        <p>Backend</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://adminlte.io/docs/3.1/" class="nav-link">
+                        <i class="fas fa-code"></i>
+                        <p>Frontend</p>
+                    </a>
+                </li>
+
+
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

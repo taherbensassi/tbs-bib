@@ -1,0 +1,23 @@
+<li class="nav-item dropdown">
+    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">{% if app.request.locale == 'de' %}DE{% else %}EN{% endif %}</a>
+    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+
+        {# Check if there is a route and some parameters in the request #}
+        {% if app.request.get('_route') is not empty and app.request.get('_route_params') is not null %}
+
+            {# English #}
+            <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}" class="dropdown-item">EN</a>
+            {# Deutsch #}
+            <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'de'})) }}" class="dropdown-item">DE</a>
+
+            {# If there is no route in the request, redirect to the homepage #}
+        {% else %}
+
+            {# English #}
+            <a href="{{ path('homepage', {'_locale': 'en'}) }}" class="dropdown-item">EN</a>
+            {# Detsch #}
+            <a href="{{ path('homepage', {'_locale': 'de'}) }}" class="dropdown-item">DE</a>
+
+        {% endif %}
+    </ul>
+</li>

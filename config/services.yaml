@@ -34,4 +34,12 @@ services:
     App\EventListener\RedirectToLocaleSubscriber:
         arguments: [ '@router', '%app_locales%', '%locale%' ]
 
+    kernel.listener.prefix:
+        class: App\EventListener\TablePrefixEventListener
+        # Adding the table_prefix configuration
+        calls:
+            - [ setConfig, [ '%table_prefix%' ] ]
+        tags:
+            - { name: doctrine.event_listener, event: loadClassMetadata, method: loadClassMetadata }
+
 

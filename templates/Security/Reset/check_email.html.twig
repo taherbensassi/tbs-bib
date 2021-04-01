@@ -1,0 +1,24 @@
+{% extends '@security/core.html.twig' %}
+
+{% block title %}
+    {{ "title.reset_check" | trans({}, 'metadata') }}
+{% endblock %}
+
+{% block body %}
+    <!-- /.login-box -->
+    <div class="hold-transition login-page">
+        <div class="login-box">
+            <div class="card card-outline card-dark">
+                {% include '@security/_logo.html.twig' %}
+                <div class="card-body">
+                    <p>
+                        {{"backend.reset.email_check"|trans }}
+                    </p>
+                    <p>{{"backend.reset.email_check_info_1"|trans }} <a href="{{ path('app_forgot_password_request') }}">{{"backend.reset.email_check_info_2"|trans }} </a>.</p>
+                </div>
+                <!-- /.login-card-body -->
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
