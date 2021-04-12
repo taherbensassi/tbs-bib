@@ -9,3 +9,12 @@ controllers:
     _locale: '%app_locales%'
   defaults:
     _locale: '%locale%'
+
+
+jmose_command_scheduler:
+  resource: "@JMoseCommandSchedulerBundle/Resources/config/routing.yml"
+  prefix: /{_locale}
+  requirements:
+    _locale: '%app_locales%'
+  defaults:
+    _locale: '%locale%'

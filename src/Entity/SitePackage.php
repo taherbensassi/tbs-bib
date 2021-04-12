@@ -7,6 +7,8 @@ use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\UpdatedTrait;
 use App\Repository\SitePackageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator as AcmeAssert;
 
 /**
  * @ORM\Entity(repositoryClass=SitePackageRepository::class)
@@ -17,11 +19,6 @@ class SitePackage
     use IdTrait;
     use CreatedTrait;
     use UpdatedTrait;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $projectName;
 
     /**
      * @ORM\Column(type="integer")
@@ -35,18 +32,20 @@ class SitePackage
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @AcmeAssert\ContainsAlphanumeric
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $description;
+    private $description = null;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $repositoryUrl;
+    private $repositoryUrl = null;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -73,6 +72,38 @@ class SitePackage
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="sitePackage")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $client;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isShown = false;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $path;
+
+    /**
+     * @return bool
+     */
+    public function isShown(): bool
+    {
+        return $this->isShown;
+    }
+
+    /**
+     * @param bool $isShown
+     */
+    public function setIsShown(bool $isShown): void
+    {
+        $this->isShown = $isShown;
+    }
 
 
 
@@ -208,17 +239,33 @@ class SitePackage
     /**
      * @return mixed
      */
-    public function getProjectName()
+    public function getClient()
     {
-        return $this->projectName;
+        return $this->client;
     }
 
     /**
-     * @param mixed $projectName
+     * @param mixed $client
      */
-    public function setProjectName($projectName): void
+    public function setClient($client): void
     {
-        $this->projectName = $projectName;
+        $this->client = $client;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param mixed $path
+     */
+    public function setPath($path): void
+    {
+        $this->path = $path;
     }
 
 

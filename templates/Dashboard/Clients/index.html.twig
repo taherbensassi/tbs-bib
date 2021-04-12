@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Site Package{% endblock %}
+{% block title %}Kunden{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
@@ -26,7 +26,7 @@
 {% block content %}
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        {% include 'Partial/Breadcrumb/_breadcrumb.htnl.twig' with {'breadcrumb': 'Site Package'} %}
+        {% include 'Partial/Breadcrumb/_breadcrumb.htnl.twig' with {'breadcrumb': 'Kunden'} %}
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
@@ -35,49 +35,48 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header  d-flex justify-content-between align-items-right">
-                                <h3 class="card-title">Liste der von den Brettinghams erstellten Site Packge (tbs_provider)</h3>
-                                <a href="{{ path("site_package_new") }}" class="btn btn-outline-dark  ml-auto">
+                                <h3 class="card-title">Kunden Liste</h3>
+                                <a href="{{ path("client_new") }}" class="btn btn-outline-dark  ml-auto">
                                     <i class="fa fa-plus"></i>
-                                    Extension generieren
+                                    Neuer Kunde
                                 </a>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 {% include 'Block/Flash/_flash_message.html.twig'  %}
 
-                                <table id="table-sp" class="table">
+                                <table id="table-client" class="table">
                                     <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Projekt</th>
-                                        <th>Version</th>
-                                        <th>Titel</th>
-                                        <th>Benutzer</th>
                                         <th>Erstellt</th>
-                                        <th>Herunterladen</th>
+                                        <th>Name</th>
+                                        <th>E-Mail</th>
+                                        <th>Firma</th>
+                                        <th>HomePage</th>
                                         <th>Aktionen</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for site_package in site_packages %}
+                                    {% for client in clients %}
                                         <tr>
-                                            <td>{{ site_package.id }}</td>
-                                            <td>{{ site_package.client.name }}</td>
-                                            <td>{{ site_package.typo3Version }}</td>
-                                            <td>{{ site_package.title }}</td>
-                                            <td>{{ site_package.user.email }}</td>
-                                            <td>{{ site_package.created|date("m-d-Y") }}</td>
-                                            <td><a class="btn btn-link" href="{{ absolute_url(asset(site_package.path)) }}">Herunterladen</a></td>
+                                            <td>{{ client.id }}</td>
+                                            <td>{{ client.created|date("m-d-Y") }}</td>
+                                            <td>{{ client.name }}</td>
+                                            <td>{{ client.email }}</td>
+                                            <td>{{ client.company }}</td>
+                                            <td>{{ client.homePage }}</td>
                                             <td>
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-default btn-flat">Aktion</button>
-                                                <button type="button" class="btn btn-default btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
-                                                    <span class="sr-only">Toggle Dropdown</span>
-                                                </button>
-                                                <div class="dropdown-menu" role="menu" >
-                                                    {{ include('Dashboard/Site Package/_delete_form.html.twig') }}
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-default btn-flat">Aktionen</button>
+                                                    <button type="button" class="btn btn-default btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                    <div class="dropdown-menu" role="menu">
+                                                        {{ include('Dashboard/Clients/_delete_form.html.twig') }}
+                                                        <a class="dropdown-item" href="{{ path('client_edit', {'id': client.id}) }}">Bearbeiten</a>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             </td>
                                         </tr>
                                     {% else %}
@@ -103,15 +102,15 @@
     <!-- /.content-wrapper -->
     <script>
         $(function () {
-            $("#table-sp").DataTable({
+            $("#table-client").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
                 "buttons": [
                     { extend: 'copy', className: 'btn-default' },
                     { extend: 'pdf', className: 'btn-default' },
                     { extend: 'excel', className: 'btn-default' },
                     { extend: 'colvis', className: 'btn-default' },
-                ]
-            }).buttons().container().appendTo('#table-sp_wrapper .col-md-6:eq(0)');
+                ],
+            }).buttons().container().appendTo('#table-client_wrapper .col-md-6:eq(0)');
         });
     </script>
 {% endblock %}
