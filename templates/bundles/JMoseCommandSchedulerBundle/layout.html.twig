@@ -1,64 +1,78 @@
 {% trans_default_domain 'JMoseCommandScheduler' %}
+
 <!DOCTYPE html>
-<html lang="{{ app.request.attributes.get('_locale', 'en') }}">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Command Scheduler</title>
-    <link href="{{ asset('bundles/jmosecommandscheduler/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/jmosecommandscheduler/css/bootstrap-theme.min.css') }}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>{% block title %}THE BRETTINGHAMS{% endblock %}</title>
+    <link rel="icon" type="shortcut icon" href="{{ asset('dist/img/favicons/favicon.ico') }}" />
+    <link rel="icon" type="image/png" href="{{ asset('dist/img/favicons/favicon-32x32.png') }}" sizes="32x32">
+    <link rel="manifest" href="{{ asset('dist/img/favicons/manifest.json') }}">
+    <link rel="mask-icon" href="{{ asset('dist/img/favicons/safari-pinned-tab.svg') }}" >
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('dist/img/favicons/apple-touch-icon.png') }}">
+    {% block stylesheets %}
+        <!-- Google Font: Source Sans Pro -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}" />
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+        <!-- flag-icon-css -->
+        <link rel="stylesheet" href="{{ asset('plugins/flag-icon-css/css/flag-icon.min.css') }}">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    {% endblock %}
+
+    {% block javascripts %}
+
+        <!-- jQuery -->
+        <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+        <!-- Bootstrap 4 -->
+        <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <!-- AdminLTE App -->
+        <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+
+
+        <script type="text/javascript" src="{{ asset('bundles/jmosecommandscheduler/js/bootstrap-tooltip.js') }}"></script>
+
+
+
+
+    {% endblock %}
 </head>
-<body>
-{% include '@JMoseCommandScheduler/Navbar/navbar.html.twig' %}
-<div class="jumbotron">
-    <div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-            <div class="col-md-12">
-                <h2>{% block title %}{% endblock title %}</h2>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
 
-                {# Succes flash messages #}
-                {% for flashMessage in app.session.flashbag.get('success') %}
-                    <div class="alert alert-success" role="alert">
-                        {{ flashMessage }}
-                    </div>
-                {% endfor %}
+    <!-- Navbar -->
+    {% include 'Partial/Navbar/_navbar.html.twig' %}
+    <!-- /.navbar -->
 
-                {# Errors flash messages #}
-                {% for flashMessage in app.session.flashbag.get('error') %}
-                    <div class="alert alert-danger" role="alert">
-                        {{ flashMessage }}
-                    </div>
-                {% endfor %}
+    <!-- Main Sidebar Container -->
+    {% include 'Partial/Sidebar/_sidebar.html.twig' %}
+    <!-- /.Main Sidebar Container -->
 
-                {% block content %}{% endblock content %}
-            </div>
-        </div>
-        <hr>
-        <!--
-        <footer>
-            <p>&copy; Company</p>
-        </footer>
-        -->
-    </div>
-</div><!-- /container -->
 
-<script type="text/javascript" src="{{ asset('bundles/jmosecommandscheduler/js/jquery-1.11.1.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/jmosecommandscheduler/js/bootstrap.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/jmosecommandscheduler/js/bootstrap-tooltip.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/jmosecommandscheduler/js/bootstrap-confirmation.js') }}"></script>
 
-<script type="text/javascript">
-    // Enable bootstrap-confirmation
-    $(document).ready(function () {
-        //$('[data-toggle="confirmation"]').confirmation();
-        $('[data-toggle="confirmation"]').confirmation({
-            singleton: true,
-            popout: true,
-            placement: 'left'
-        });
-    });
-</script>
+    {% block content %}
+
+
+    {% endblock content %}
+
+    <!-- Main Footer -->
+    {% include 'Partial/Footer/_footer.htnl.twig' %}
+    <!-- /.Main Footer -->
+</div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
