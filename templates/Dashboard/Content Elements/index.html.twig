@@ -1,0 +1,49 @@
+{% extends '@layout/layout-index.html.twig' %}
+
+{% block card %}
+    <div class="card">
+        <div class="card-header  d-flex justify-content-between align-items-right">
+            <h3 class="card-title">CE Liste</h3>
+            <a href="{{ path("content_elements_new") }}" class="btn btn-outline-dark  ml-auto">
+                <i class="fa fa-plus"></i>
+                CE generieren
+            </a>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            {% include 'Block/Flash/_flash_message.html.twig'  %}
+
+            <table id="table" class="table">
+                <thead>
+                <tr>
+                    <th>User</th>
+                    <th>ElementKey</th>
+                    <th>ElementTitle</th>
+                    <th>Created</th>
+                    <th>Aktionen</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for content_element in content_elements %}
+                    <tr>
+                        <td>{{ content_element.user.email }}</td>
+                        <td>{{ content_element.elementKey }}</td>
+                        <td>{{ content_element.elementTitle }}</td>
+                        <td>{{ content_element.created ? content_element.created|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>
+                            <a href="{{ path('content_elements_show', {'id': content_element.id}) }}">show</a>
+                            <a href="{{ path('content_elements_edit', {'id': content_element.id}) }}">edit</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="11">keine Datensätze gefunden</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+{% endblock %}
+

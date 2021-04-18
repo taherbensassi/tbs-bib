@@ -62,9 +62,9 @@
                     </ul>
                 </li>
                 <li class="nav-header">TBS CE & Plugins</li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-photo-video"></i>
+                <li  {% if route_name == "content_elements_index" or route_name == "content_elements_new" %} class="nav-item menu-open" {% else %} class="nav-item" {% endif %}>
+                    <a href="#" {% if route_name == "content_elements_index" or route_name == "content_elements_new" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+                    <i class="nav-icon fas fa-photo-video"></i>
                         <p>
                             Module
                             <i class="fas fa-angle-left right"></i>
@@ -72,15 +72,21 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/mailbox/mailbox.html" class="nav-link">
+                             <a href="{{ path('content_elements_index') }}" {% if route_name == "content_elements_index"  %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
                                 <i class="nav-icon far fa-circle nav-icon"></i>
                                 <p>Liste</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/mailbox/compose.html" class="nav-link">
+                            <a href="{{ path('content_elements_new') }}" {% if route_name == "content_elements_new"  %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
                                 <i class="nav-icon far fa-circle nav-icon"></i>
                                 <p>Neu anlegen</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon far fa-circle nav-icon"></i>
+                                <p>Export Extension</p>
                             </a>
                         </li>
                     </ul>
@@ -95,29 +101,32 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/examples/invoice.html" class="nav-link">
+                            <a href="#" class="nav-link">
                                 <i class="nav-icon far fa-circle nav-icon"></i>
                                 <p>Liste</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/examples/profile.html" class="nav-link">
+                            <a href="#" class="nav-link">
                                 <i class="nav-icon far fa-circle nav-icon"></i>
                                 <p>Neu anlegen</p>
                             </a>
                         </li>
                     </ul>
                 </li>
+
                 <li class="nav-item">
-                    <a href="https://adminlte.io/docs/3.1/" class="nav-link">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-list"></i>
-                        <p>Extensions Liste</p>
+                        <p>
+                            Extensions Liste
+                        </p>
                     </a>
                 </li>
 
                 <li class="nav-header">DEVOPS</li>
                 <li class="nav-item">
-                    <a href="https://adminlte.io/docs/3.1/" class="nav-link">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fab fa-github"></i>
                         <p>Pupline CI/CD</p>
                     </a>
@@ -126,13 +135,13 @@
 
                 <li class="nav-header">Snippet</li>
                 <li class="nav-item">
-                    <a href="https://adminlte.io/docs/3.1/" class="nav-link">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon far fa-file-code"></i>
                         <p>Backend</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://adminlte.io/docs/3.1/" class="nav-link">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-code"></i>
                         <p>Frontend</p>
                     </a>

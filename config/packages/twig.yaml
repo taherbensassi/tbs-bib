@@ -2,3 +2,4 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     paths:
         '%kernel.project_dir%/templates/security/core': security
+        '%kernel.project_dir%/templates/Layout': layout

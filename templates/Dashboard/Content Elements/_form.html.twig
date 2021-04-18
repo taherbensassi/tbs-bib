@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-md-3">
+        <div class="card card-primary">
+            <div class="card-body">
+                {{ form_start(form) }}
+
+                <div class="form-group" >
+                    <label for="elementKey">{{ form_label(form.elementKey) }} </label>
+                    {{ form_widget(form.elementKey, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+
+                <div class="form-group" >
+                    <label for="elementTitle">{{ form_label(form.elementTitle) }} </label>
+                    {{ form_widget(form.elementTitle, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+
+                <div class="form-group" >
+                    <label for="shortTitle">{{ form_label(form.shortTitle) }} </label>
+                    {{ form_widget(form.shortTitle, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+
+                <div class="form-group" >
+                    <label for="shortTitle">{{ form_label(form.discription) }} </label>
+                    {{ form_widget(form.discription, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+
+
+                {{ form_end(form, {'render_rest': false}) }}
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <div class="col-md-9">
+        <div class="card card-secondary">
+            <div class="card-body">
+                <div id="fb-editor"></div>
+            </div>
+        </div>
+    </div>
+</div>
