@@ -1,20 +1,17 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Neuer CE{% endblock %}
-{% block stylesheet %}
+{% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-iconpicker-3.0.0/dist/css/fontawesome-iconpicker.min.css') }}">
+    <script src="{{ asset('plugins/bootstrap-iconpicker/dist/css/bootstrap-iconpicker.css') }}"></script>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('plugins/bootstrap-iconpicker/dist/js/bootstrap-iconpicker.bundle.min.js') }}"></script>
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.js') }}" ></script>
     <script src="{{ asset('plugins/form-builder/form-builder.min.js') }}" ></script>
-    <script src="{{ asset('plugins/fontawesome-iconpicker-3.0.0/dist/js/fontawesome-iconpicker.js') }}" ></script>
-    <script>
-        jQuery(function($) {
-            $('#fb-editor').formBuilder();
-        });
-    </script>
+    <script src="{{ asset('dist/js/module/content-element.js') }}" ></script>
+    <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
 {% endblock %}
 {% block content %}
     <div class="content-wrapper">
@@ -22,12 +19,14 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="card">
+
                     <div class="card-header  d-flex justify-content-between align-items-right">
                         <h3 class="card-title">Neuen CE</h3>
                         <a href="{{ path('content_elements_index') }}" class="btn btn-outline-dark  ml-auto">
                             Abbrechen
                         </a>
                     </div>
+
                     {{ include('Dashboard/Content Elements/_form.html.twig') }}
                 </div>
             </div>

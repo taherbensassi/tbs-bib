@@ -36,11 +36,16 @@ class ContentElements
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $discription;
-
+    private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
+     */
+    private $icon;
+
+
+    /**
+     * @ORM\Column(type="text")
      */
     private $formData;
 
@@ -91,30 +96,7 @@ class ContentElements
         return $this;
     }
 
-    public function getDiscription(): ?string
-    {
-        return $this->discription;
-    }
 
-    public function setDiscription(string $discription): self
-    {
-        $this->discription = $discription;
-
-        return $this;
-    }
-
-
-    public function getFormData(): ?string
-    {
-        return $this->formData;
-    }
-
-    public function setFormData(string $formData): self
-    {
-        $this->formData = $formData;
-
-        return $this;
-    }
 
     /**
      * @return mixed
@@ -131,6 +113,56 @@ class ContentElements
     {
         $this->user = $user;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description): void
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFormData()
+    {
+        return $this->formData;
+    }
+
+    /**
+     * @param mixed $formData
+     */
+    public function setFormData($formData): void
+    {
+        $this->formData = $formData;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIcon()
+    {
+        return $this->icon;
+    }
+
+    /**
+     * @param mixed $icon
+     */
+    public function setIcon($icon): void
+    {
+        $this->icon = $icon;
+    }
+
+
 
 
 
