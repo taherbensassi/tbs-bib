@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Form\ClientType;
 use App\Repository\ClientRepository;
+use App\Service\LoggedInUserService;
+use Doctrine\ORM\EntityManager;
+use SimpleThings\EntityAudit\AuditReader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ClientController extends AbstractController
 {
+
     /**
      * @Route("/", name="client_index", methods={"GET"})
      */
@@ -28,7 +32,7 @@ class ClientController extends AbstractController
     /**
      * @Route("/new", name="client_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,AuditReader $auditReader): Response
     {
         $client = new Client();
         $form = $this->createForm(ClientType::class, $client);
@@ -38,7 +42,6 @@ class ClientController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($client);
             $entityManager->flush();
-
             $this->addFlash('success', sprintf(
                 'Client wird erfolgreich angelegt ! Id = %s',
                 $client->getId()

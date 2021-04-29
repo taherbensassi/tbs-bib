@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Entity\Traits\CreatedTrait;
+use App\Entity\Traits\DeletedTrait;
+use App\Entity\Traits\HiddenTrait;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\UpdatedTrait;
 use App\Repository\ContentElementsRepository;
@@ -17,7 +19,8 @@ class ContentElements
     use IdTrait;
     use CreatedTrait;
     use UpdatedTrait;
-
+    use DeletedTrait;
+    use HiddenTrait;
     /**
      * @ORM\Column(type="string", length=255)
      */

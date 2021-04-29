@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Entity\Traits\CreatedTrait;
+use App\Entity\Traits\DeletedTrait;
+use App\Entity\Traits\HiddenTrait;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\UpdatedTrait;
 use App\Repository\SitePackageRepository;
@@ -19,7 +21,8 @@ class SitePackage
     use IdTrait;
     use CreatedTrait;
     use UpdatedTrait;
-
+    use DeletedTrait;
+    use HiddenTrait;
     /**
      * @ORM\Column(type="integer")
      */
@@ -73,11 +76,6 @@ class SitePackage
      */
     private $user;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="sitePackage")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $client;
 
     /**
      * @ORM\Column(type="boolean")
@@ -234,22 +232,6 @@ class SitePackage
     public function setUser($user): void
     {
         $this->user = $user;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getClient()
-    {
-        return $this->client;
-    }
-
-    /**
-     * @param mixed $client
-     */
-    public function setClient($client): void
-    {
-        $this->client = $client;
     }
 
     /**

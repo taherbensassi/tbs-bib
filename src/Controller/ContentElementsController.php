@@ -67,7 +67,7 @@ class ContentElementsController extends AbstractController
                 return $this->redirectToRoute('content_elements_new');
             }
 
-            if((null === $contentElement->getFormData()) || (null === $this->loggedInUser)){
+            if(("[]" === $contentElement->getFormData()) || (null === $this->loggedInUser)){
                 $this->addFlash('danger', 'Fehler beim Handling von json-Daten (FormBuilder)');
                 return $this->redirectToRoute('content_elements_new');
             }else{
