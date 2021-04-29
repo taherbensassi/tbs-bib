@@ -1,0 +1,58 @@
+{{ form_start(form) }}
+<div class="card-body">
+    {{ form_row(form._token) }}
+
+    {% set formErrors = form.vars.errors.form.getErrors(true) %}
+    {# If there are errors in the form, display them in this unorganized list #}
+    {% if formErrors|length %}
+        {% for error in formErrors %}
+            <div class="alert alert-danger">{{ error.message }}</div>
+        {% endfor %}
+    {% endif %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="form-group" >
+                    <label for="client">{{ form_label(form.name) }} </label>
+                    {{ form_widget(form.name, { 'attr': {'class': 'form-control select2bs4'} }) }}
+                </div>
+
+                <!-- /.form-group -->
+                <div class="form-group">
+                    <label for="email">{{ form_label(form.email) }} </label>
+                    {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+
+                <!-- /.form-group -->
+                <div class="form-group">
+                    <label for="company">{{ form_label(form.company) }} </label>
+                    {{ form_widget(form.company, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+
+            </div>
+
+
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>{{ form_label(form.homePage) }}</label>
+                {{ form_widget(form.homePage, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <!-- /.form-group -->
+            <div class="form-group">
+                <label>{{ form_label(form.description) }}</label>
+                {{ form_widget(form.description, { 'attr': {'class': 'form-control','rows': '3'} }) }}
+            </div>
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    <!-- /.row -->
+</div>
+<div class="card-footer">
+    <button type="submit" class="btn btn-dark" ><i class="fa fa-save"></i> <i class="fa fa-list"></i> Generieren und speichern</button>
+</div>
+{{ form_end(form, {'render_rest': false}) }}

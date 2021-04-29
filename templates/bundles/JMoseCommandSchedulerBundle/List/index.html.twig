@@ -1,0 +1,127 @@
+{% extends "@JMoseCommandScheduler/layout.html.twig" %}
+{% trans_default_domain 'JMoseCommandScheduler' %}
+
+{% block title %}
+    {{ 'list.title'|trans }}
+{% endblock title %}
+
+{% block content %}
+    <div class="content-wrapper">
+        {% include 'Partial/Breadcrumb/_breadcrumb.htnl.twig' with {'breadcrumb': 'Cronjob'} %}
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header  d-flex justify-content-between align-items-right">
+                                <h3 class="card-title">Cronjob</h3>
+                                <a href="{{ path("jmose_command_scheduler_detail_new") }}" class="btn btn-outline-dark  ml-auto">
+                                    <i class="fa fa-plus"></i>
+                                    {{ "action.new"|trans }}
+                                </a>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                {# Succes flash messages #}
+                                {% for flashMessage in app.session.flashbag.get('success') %}
+                                    <div class="alert alert-success" role="alert">
+                                        {{ flashMessage }}
+                                    </div>
+                                {% endfor %}
+
+                                {# Errors flash messages #}
+                                {% for flashMessage in app.session.flashbag.get('error') %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ flashMessage }}
+                                    </div>
+                                {% endfor %}
+                                <table class="table" >
+                                    <thead>
+                                    <tr>
+                                        <th>&nbsp;</th>
+                                        <th>{{ "detail.name"|trans }}</th>
+                                        <th>{{ "detail.command"|trans }}</th>
+                                        <th>{{ "detail.cronExpression"|trans }}</th>
+                                        <th>{{ "detail.logFile"|trans }}</th>
+                                        <th>{{ "detail.lastExecution"|trans }}</th>
+                                        <th>{{ "detail.lastReturnCode"|trans }}</th>
+                                        <th>{{ "detail.priority"|trans }}</th>
+                                        <th>{{ "detail.actions"|trans }}</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    {% for command in scheduledCommands %}
+                                        <tr {% if command.disabled == true %}class="text-muted" {% endif %}>
+                                            <td>
+                                                <a href="{{ path('jmose_command_scheduler_action_toggle', {'id': command.id}) }}" >
+                                                    {% if command.disabled == true %}
+                                                        <span class="text-danger glyphicon glyphicon-off"></span> <span class="sr-only">&nbsp;</span>
+                                                    {% else %}
+                                                        <span class="text-success glyphicon glyphicon-off"></span> <span class="sr-only">&nbsp;</span>
+                                                    {% endif %}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                {{ command.name }}
+                                            </td>
+                                            <td>
+                                                {{ command.command }} {{ command.arguments }}
+                                            </td>
+                                            <td>
+                                                {{ command.cronExpression }}
+                                            </td>
+                                            <td>
+                                                {{ command.logFile }}
+                                            </td>
+                                            <td>
+                                                {{ command.lastExecution|date( "dateFormat"|trans ) }}
+                                            </td>
+                                            <td>
+                                                {{ command.lastReturnCode }}
+                                            </td>
+                                            <td>
+                                                {{ command.priority }}
+                                            </td>
+                                            <td style="min-width: 90px;">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-default">Aktion</button>
+                                                    <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                    <div class="dropdown-menu" role="menu" style="">
+                                                        {% if command.locked == true %}
+                                                            <a href="#" class="dropdown-item" data-href="{{ path('jmose_command_scheduler_action_unlock', {'id': command.id}) }}" data-toggle="confirmation" data-btnOkLabel="{{ "action.unlock"|trans }}" data-title="{{ "confirm.unlock"|trans }}" >
+                                                                { "action.unlock"|trans }}
+                                                            </a>
+                                                        {% endif %}
+                                                        <a class="dropdown-item" href="{{ path('jmose_command_scheduler_detail_edit', {'scheduledCommandId': command.id}) }}"> {{ "action.edit"|trans }}</a>
+                                                        <a class="dropdown-item" href="{{ path('jmose_command_scheduler_action_remove', {'id': command.id}) }}">{{ "action.delete"|trans }}</a>
+                                                        <a class="dropdown-item" href="{{ path('jmose_command_scheduler_action_execute', {'id': command.id}) }}" data-href="{{ path('jmose_command_scheduler_action_execute', {'id': command.id}) }}" data-toggle="confirmation" data-btnOkLabel="{{ "action.execute"|trans }}" data-title="{{ "confirm.execute"|trans }}">
+                                                           {{ "action.execute"|trans }}
+                                                        </a>
+
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+    </div>
+{% endblock content %}

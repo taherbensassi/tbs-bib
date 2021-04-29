@@ -1,0 +1,78 @@
+{% extends "@JMoseCommandScheduler/layout.html.twig" %}
+{% trans_default_domain 'JMoseCommandScheduler' %}
+
+{% block title %}
+    {{ 'detail.title'|trans }}
+{% endblock title %}
+
+{% block content %}
+<div class="content-wrapper">
+        {% include 'Partial/Breadcrumb/_breadcrumb.htnl.twig' with {'breadcrumb': 'Cronjob'} %}
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header  d-flex justify-content-between align-items-right">
+                                <h3 class="card-title">Cronjob</h3>
+                                <a href="{{ path('jmose_command_scheduler_list') }}" class="btn btn-outline-dark  ml-auto">
+                                    Abbrechen
+                                </a>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                {# Succes flash messages #}
+                                {% for flashMessage in app.session.flashbag.get('success') %}
+                                    <div class="alert alert-success" role="alert">
+                                        {{ flashMessage }}
+                                    </div>
+                                {% endfor %}
+
+                                {# Errors flash messages #}
+                                {% for flashMessage in app.session.flashbag.get('error') %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ flashMessage }}
+                                    </div>
+                                {% endfor %}
+                                {% set styleConfiguration = {'class': 'form-control'} %}
+                                <div class="col-lg-6 col-sm-12">
+                                    {{ form_start( scheduledCommandForm, {'action': path('jmose_command_scheduler_detail_save')} ) }}
+                                    {{ form_row(scheduledCommandForm._token) }}
+                                    {# Form's fields #}
+                                    {{ form_row( scheduledCommandForm.id ) }}
+                                    {{ form_row( scheduledCommandForm.name, {'attr': styleConfiguration|merge({'placeholder': 'name'}) } ) }}
+                                    {{ form_row( scheduledCommandForm.command, {'attr': styleConfiguration } ) }}
+                                    {{ form_row( scheduledCommandForm.arguments, {'attr': styleConfiguration|merge({'placeholder': '--argument1=foo --bar'}) } ) }}
+                                    {{ form_row( scheduledCommandForm.cronExpression, {'attr': styleConfiguration|merge({'placeholder': '*/10 * * * *'}) } ) }}
+                                    {{ form_row( scheduledCommandForm.logFile, {'attr': styleConfiguration|merge({'placeholder': 'myFile.log'}) } ) }}
+                                    {{ form_row( scheduledCommandForm.priority, {'attr': styleConfiguration } ) }}
+                                    <div>
+                                        {{ form_widget( scheduledCommandForm.executeImmediately ) }}
+                                        {{ form_label( scheduledCommandForm.executeImmediately ) }}
+                                    </div>
+                                    <div>
+                                        {{ form_widget( scheduledCommandForm.disabled ) }}
+                                        {{ form_label( scheduledCommandForm.disabled ) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+                                {# Form's actions #}
+                                <button type="submit" id="command_scheduler_detail_save" name="command_scheduler_detail[save]" class="btn btn-dark"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Speichern</button>
+                                {{ form_end(scheduledCommandForm, {'render_rest': false}) }}
+                            </div>
+                        </div>
+                        <!-- /.card -->
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+    </div>
+{% endblock content %}

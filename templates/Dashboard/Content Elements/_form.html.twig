@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-md-3">
+        <div class="card card-primary">
+            {{ form_start(form, { 'attr': {'id': 'formCe'} }) }}
+            {{ form_row(form._token) }}
+            {{ form_widget(form.formData) }}
+
+            <div class="card-body">
+                {% include 'Block/Flash/_flash_message.html.twig'  %}
+
+
+
+                {% set formErrors = form.vars.errors.form.getErrors(true) %}
+                {# If there are errors in the form, display them in this unorganized list #}
+                {% if formErrors|length %}
+                    {% for error in formErrors %}
+                        <div class="alert alert-danger">{{ error.message }}</div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="icon">Icon</label>
+                    <button  id="content_elements_icon" name="content_elements[icon]" class="form-control"
+                         data-value="{{ content_element.icon }}">
+                    </button>
+                </div>
+                <div class="form-group" >
+                    <label for="elementKey">{{ form_label(form.elementKey) }} </label>
+                    {{ form_widget(form.elementKey, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+
+                <div class="form-group" >
+                    <label for="elementTitle">{{ form_label(form.elementTitle) }} </label>
+                    {{ form_widget(form.elementTitle, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+
+                <div class="form-group" >
+                    <label for="shortTitle">{{ form_label(form.shortTitle) }} </label>
+                    {{ form_widget(form.shortTitle, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+
+                <div class="form-group" >
+                    <label for="shortTitle">{{ form_label(form.description) }} </label>
+                    {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-dark" id="saveData">Generieren</button>
+            </div>
+            {{ form_end(form, {'render_rest': false}) }}
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="card card-secondary">
+            <div class="card-body">
+                <div id="fb-editor" ></div>
+            </div>
+        </div>
+    </div>
+</div>

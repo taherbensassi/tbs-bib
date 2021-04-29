@@ -4,3 +4,4 @@ parameters:
     user: tbs_
     reset_password_request: tbs_
     site_package: tbs_
+    client: tbs_
