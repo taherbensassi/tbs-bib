@@ -12,9 +12,16 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\VarDumper\VarDumper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Class RemoveSitePackage
+ * @package App\Command
+ */
 class RemoveSitePackage extends Command
 {
     // the name of the command (the part after "bin/console")
+    /**
+     * @var string
+     */
     protected static $defaultName = 'app:remove-old-site-package-extension';
 
 
@@ -41,6 +48,9 @@ class RemoveSitePackage extends Command
     }
 
 
+    /**
+     *
+     */
     protected function configure()
     {
         $this
@@ -53,6 +63,11 @@ class RemoveSitePackage extends Command
         ;
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $origin = new \DateTime('now');

@@ -69,8 +69,9 @@ class DashboardController extends AbstractController
         $clients = $this->usersRepository->findAll();
         $clientsCount = count($clients)  ?? 0;
 
-        $gitlabStats = $this->apiGitlab->fetchGitLabStats() ;
-        $gitlabProject = $this->apiGitlab->fetchGitLabProjects() ;
+        $gitlabStats = $this->apiGitlab->fetchGitLabStats();
+        $gitlabProject = $this->apiGitlab->fetchGitLabProjects(10);
+        $gitlabUsers= $this->apiGitlab->fetchGitLabUsers(8,'asc');
 
         return $this->render('Dashboard/Index/index.html.twig', [
             'controller_name' => 'DashboardController',
@@ -78,7 +79,8 @@ class DashboardController extends AbstractController
             'usersCount' => $usersCount,
             'clientsCount' => $clientsCount,
             'gitlabStats' => json_encode($gitlabStats),
-            'gitlabProject' => $gitlabProject,
+            'gitlabProjects' => $gitlabProject,
+            'gitlabUsers' => $gitlabUsers,
         ]);
     }
 }

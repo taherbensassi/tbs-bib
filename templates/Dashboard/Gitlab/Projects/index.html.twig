@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Gitlab-Users{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
@@ -27,18 +27,12 @@
 {% block content %}
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        {% include 'Partial/Breadcrumb/_breadcrumb.htnl.twig' with {'breadcrumb': 'Dashboard'} %}
-
+        {% include 'Partial/Breadcrumb/_breadcrumb.htnl.twig' with {'breadcrumb': 'Gitlab-Projekt'} %}
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
-                {% include 'Dashboard/Index/_statistic_info.html.twig' %}
-                <div class="row">
-                    {% include 'Dashboard/Index/_statistic_gitlab_chart.html.twig' %}
-                    {% include 'Dashboard/Index/_statistic_gitlab_users.html.twig' %}
-                </div>
-                {% include 'Dashboard/Index/_statistic_gitlab_project.html.twig' %}
+                {% include 'Dashboard/Gitlab/Projects/_list.html.twig' %}
                 <!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
