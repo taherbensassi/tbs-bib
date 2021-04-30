@@ -8,6 +8,8 @@ use App\Entity\Traits\HiddenTrait;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\UpdatedTrait;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -54,6 +56,11 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=SitePackage::class, mappedBy="user")
      */
     private $sitePackage;
+
+    public function __construct()
+    {
+        $this->sitePackage = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -175,5 +182,37 @@ class User implements UserInterface
     public function setSitePackage($sitePackage): void
     {
         $this->sitePackage = $sitePackage;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function getValid(): ?bool
+    {
+        return $this->valid;
+    }
+
+    public function addSitePackage(SitePackage $sitePackage): self
+    {
+        if (!$this->sitePackage->contains($sitePackage)) {
+            $this->sitePackage[] = $sitePackage;
+            $sitePackage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSitePackage(SitePackage $sitePackage): self
+    {
+        if ($this->sitePackage->removeElement($sitePackage)) {
+            // set the owning side to null (unless already changed)
+            if ($sitePackage->getUser() === $this) {
+                $sitePackage->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

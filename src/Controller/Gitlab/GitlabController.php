@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Gitlab;
 
 use App\Api\ApiGitlab;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

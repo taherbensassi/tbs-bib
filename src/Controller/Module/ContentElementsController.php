@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Module;
 
 use App\Entity\ContentElements;
 use App\Entity\SitePackage;

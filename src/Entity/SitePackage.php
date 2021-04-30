@@ -250,5 +250,10 @@ class SitePackage
         $this->path = $path;
     }
 
+    public function getIsShown(): ?bool
+    {
+        return $this->isShown;
+    }
+
 
 }

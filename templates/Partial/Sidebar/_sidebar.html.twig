@@ -30,9 +30,6 @@
                         </p>
                     </a>
                 </li>
-
-
-
                 <li class="nav-item">
                     <a href="{{ path('client_index')}}" {% if route_name == "client_index" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
                         <i class="nav-icon fas fa-users"></i>
@@ -64,8 +61,8 @@
                         <p>Sitepackage</p>
                     </a>
                 </li>
-                <li  {% if route_name == "content_elements_index" or route_name == "content_elements_new" or route_name == "content_elements_edit" %} class="nav-item menu-open" {% else %} class="nav-item" {% endif %}>
-                    <a href="#" {% if route_name == "content_elements_index" or route_name == "content_elements_new" or route_name == "content_elements_edit" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+                <li  {% if route_name == "content_elements_index" or route_name == "content_elements_new" or route_name == "content_elements_edit"  or route_name == "export_content_element_index" %} class="nav-item menu-open" {% else %} class="nav-item" {% endif %}>
+                    <a href="#" {% if route_name == "content_elements_index" or route_name == "content_elements_new" or route_name == "content_elements_edit" or route_name == "export_content_element_index"%} class="nav-link active" {% else %} class="nav-link" {% endif %}>
                     <i class="nav-icon fas fa-photo-video"></i>
                         <p>
                             Typo3 Module
@@ -86,7 +83,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ path('export_content_element_index') }}" {% if route_name == "export_content_element_index"  %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
                                 <i class="nav-icon far fa-circle nav-icon"></i>
                                 <p>Export module</p>
                             </a>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Package;
 
 use App\Api\ApiProvider;
 use App\Entity\SitePackage;
@@ -87,7 +87,6 @@ class SitePackageController extends AbstractController
             $sitePackageExist = $repository->findOneBy([
                 'typo3Version' => $sitePackage->getTypo3Version(),
                 'basePackage' => $sitePackage->getBasePackage(),
-                'client' => $sitePackage->getClient(),
             ]);
             if ($sitePackageExist) {
                 $this->addFlash('info', sprintf(
