@@ -16,3 +16,9 @@ framework:
     php_errors:
         log: true
 
+    http_client:
+        scoped_clients:
+            gitlab:
+                base_uri: 'https://gitlab.brettinghams-dev.de/'
+                headers:
+                    PRIVATE-TOKEN: '%env(GITLAB_TOKEN)%'

@@ -1,0 +1,66 @@
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Letzte 10 Projekte</h3>
+
+        <div class="card-tools">
+            <a href="{{ path('gitlab_project') }}" class="badge badge-primary">Alle Projekte anzeigen</a>
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover projects" id="projectTable">
+            <thead>
+            <tr>
+                <th style="width: 1%">
+                    #
+                </th>
+                <th>
+                    Projektname
+                </th>
+                <th >
+                    Repository-URL
+                </th>
+                <th>
+                    Letzte Aktivität
+                </th>
+                <th  class="text-center">
+                     Commits
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for project in gitlabProjects %}
+            <tr>
+                <td>
+                    #
+                </td>
+                <td>
+                    <a>
+                        {{ project.name }}
+                    </a>
+                    <br/>
+                    <small>
+                        Created {{ project.created_at|date("m-d-Y") }}
+                    </small>
+                </td>
+                <td>
+                    {{ project.http_url_to_repo }}
+                </td>
+                <td>
+                    {{ project.last_activity_at|date("m-d-Y H:i") }}
+                </td>
+                <td>
+                    {{ project.statistics.commit_count }}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>

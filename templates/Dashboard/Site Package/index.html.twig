@@ -17,7 +17,6 @@
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Projekt</th>
                     <th>Version</th>
                     <th>Titel</th>
                     <th>Benutzer</th>
@@ -30,7 +29,6 @@
                 {% for site_package in site_packages %}
                     <tr>
                         <td>{{ site_package.id }}</td>
-                        <td>{{ site_package.client.name }}</td>
                         <td>{{ site_package.typo3Version }}</td>
                         <td>{{ site_package.title }}</td>
                         <td>{{ site_package.user.email }}</td>

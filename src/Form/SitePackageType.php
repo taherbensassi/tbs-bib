@@ -19,16 +19,6 @@ class SitePackageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('client',EntityType::class,array(
-                'required'=>true,
-                'placeholder'=>'Client auswählen',
-                'label' => 'Kunden',
-                'class'=>'App\Entity\client',
-                'query_builder'=>function (EntityRepository $er){
-                    return  $er->createQueryBuilder('u');
-                },
-                'choice_label' => 'name',
-            ))
             ->add('title', TextType::class,[
                 'attr' => [
                     'placeholder' => 'My Sitepackage'

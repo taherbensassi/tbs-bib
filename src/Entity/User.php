@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Entity\Traits\CreatedTrait;
+use App\Entity\Traits\DeletedTrait;
+use App\Entity\Traits\HiddenTrait;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\UpdatedTrait;
 use App\Repository\UserRepository;
@@ -20,7 +22,8 @@ class User implements UserInterface
     use IdTrait;
     use CreatedTrait;
     use UpdatedTrait;
-
+    use DeletedTrait;
+    use HiddenTrait;
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
@@ -52,10 +55,6 @@ class User implements UserInterface
      */
     private $sitePackage;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $deleted = false;
 
     public function getId(): ?int
     {
@@ -158,18 +157,6 @@ class User implements UserInterface
     public function setValid(bool $valid): self
     {
         $this->valid = $valid;
-
-        return $this;
-    }
-
-    public function isDeleted(): ?bool
-    {
-        return $this->deleted;
-    }
-
-    public function setDeleted(bool $deleted): self
-    {
-        $this->deleted = $deleted;
 
         return $this;
     }

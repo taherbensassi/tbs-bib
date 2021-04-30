@@ -114,7 +114,6 @@ class SitePackageController extends AbstractController
                 $sitePackage->setAuthorEmail($this->loggedInUser->getEmail());
                 $sitePackage->setUser($this->loggedInUser);
                 $sitePackage->setAuthorHomePage(self::HOMEPAGE);
-                $sitePackage->setClient($sitePackage->getClient());
                 $sitePackage->setIsShown(true);
                 $sitePackage->setPath($response);
 

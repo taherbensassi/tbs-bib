@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Neuer CE{% endblock %}
+{% block title %}Neuer Content Element{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     <script src="{{ asset('plugins/bootstrap-iconpicker/dist/css/bootstrap-iconpicker.css') }}"></script>
@@ -18,7 +18,7 @@
         {% include 'Partial/Breadcrumb/_breadcrumb.htnl.twig' with {'breadcrumb': 'Content Element'} %}
         <div class="content">
             <div class="container-fluid">
-                <div class="card">
+                <div class="card border-0">
 
                     <div class="card-header  d-flex justify-content-between align-items-right">
                         <h3 class="card-title">Neuen CE</h3>

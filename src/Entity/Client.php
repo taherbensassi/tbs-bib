@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Entity\Traits\CreatedTrait;
+use App\Entity\Traits\HiddenTrait;
 use App\Entity\Traits\IdTrait;
+use App\Entity\Traits\DeletedTrait;
 use App\Entity\Traits\UpdatedTrait;
 use App\Repository\ClientRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,6 +19,8 @@ class Client
     use IdTrait;
     use CreatedTrait;
     use UpdatedTrait;
+    use DeletedTrait;
+    use HiddenTrait;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -43,10 +47,7 @@ class Client
      */
     private $description = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=SitePackage::class, mappedBy="client")
-     */
-    private $sitePackage;
+
 
 
     public function getName(): ?string
@@ -107,22 +108,6 @@ class Client
         $this->description = $description;
 
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSitePackage()
-    {
-        return $this->sitePackage;
-    }
-
-    /**
-     * @param mixed $sitePackage
-     */
-    public function setSitePackage($sitePackage): void
-    {
-        $this->sitePackage = $sitePackage;
     }
 
 }

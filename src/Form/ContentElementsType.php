@@ -17,7 +17,7 @@ class ContentElementsType extends AbstractType
         $builder
             ->add('elementKey', TextType::class,[
                 'attr' => [
-                    'placeholder' => 'Element-key (unique, lowercase)'
+                    'placeholder' => 'Element-key (unique)'
                 ],
                 'required' => true,
                 'label' => 'Element-Key'
