@@ -20,7 +20,7 @@ class ExportContentElementController extends AbstractController
      */
     public function index(ExportContentElementRepository $exportContentElementRepository): Response
     {
-        return $this->render('Dashboard/Export/index.html.twig', [
+        return $this->render('Dashboard/Content Elements/Export/index.html.twig', [
             'export_content_elements' => $exportContentElementRepository->findAll(),
         ]);
     }
@@ -42,21 +42,13 @@ class ExportContentElementController extends AbstractController
             return $this->redirectToRoute('export_content_element_index');
         }
 
-        return $this->render('export_content_element/new.html.twig', [
+        return $this->render('Dashboard/Content Elements/Export/new.html.twig', [
             'export_content_element' => $exportContentElement,
             'form' => $form->createView(),
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="export_content_element_show", methods={"GET"})
-     */
-    public function show(ExportContentElement $exportContentElement): Response
-    {
-        return $this->render('export_content_element/show.html.twig', [
-            'export_content_element' => $exportContentElement,
-        ]);
-    }
+
 
     /**
      * @Route("/{id}/edit", name="export_content_element_edit", methods={"GET","POST"})
@@ -72,7 +64,7 @@ class ExportContentElementController extends AbstractController
             return $this->redirectToRoute('export_content_element_index');
         }
 
-        return $this->render('export_content_element/edit.html.twig', [
+        return $this->render('Dashboard/Content Elements/Export/edit.html.twig', [
             'export_content_element' => $exportContentElement,
             'form' => $form->createView(),
         ]);

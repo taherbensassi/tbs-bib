@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %}Export Module{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper">
+        {% include 'Partial/Breadcrumb/_breadcrumb.htnl.twig' with {'breadcrumb': 'Export Module'} %}
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card border-0">
+
+                    <div class="card-header  d-flex justify-content-between align-items-right">
+                        <h3 class="card-title">Export Module</h3>
+                        <a href="{{ path('export_content_element_index') }}" class="btn btn-outline-dark  ml-auto">
+                            Abbrechen
+                        </a>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
