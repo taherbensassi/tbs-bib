@@ -105,16 +105,15 @@ class ContentElementsController extends AbstractController
             ]);
             if (($contentElementExist) && ($contentElement->getId() != $contentElementExist->getId())) {
                 $this->addFlash('danger', sprintf(
-                    'elementKey existiert schon ! Id %s',
-                    $contentElementExist->getId()
+                    'elementKey Name existiert!'
                 ));
-
-                return $this->redirectToRoute('content_elements_edit');
+                return $this->redirectToRoute('content_elements_edit', ['id' => $contentElement->getId()]);
             }
 
             if(("[]" === $contentElement->getFormData()) || (null === $this->loggedInUser)){
-                $this->addFlash('danger', 'Fehler beim Handling von json-Daten (FormBuilder)');
-                return $this->redirectToRoute('content_elements_edit');
+                $this->addFlash('danger', 'Fehler beim Handling von json-Daten (FormBuilder)!');
+                return $this->redirectToRoute('content_elements_edit', ['id' => $contentElement->getId()]);
+
             }else{
                 $this->getDoctrine()->getManager()->flush();
                 return $this->redirectToRoute('content_elements_index');

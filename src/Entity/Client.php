@@ -47,10 +47,7 @@ class Client
      */
     private $description = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=SitePackage::class, mappedBy="client")
-     */
-    private $sitePackage;
+
 
 
     public function getName(): ?string
@@ -111,22 +108,6 @@ class Client
         $this->description = $description;
 
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSitePackage()
-    {
-        return $this->sitePackage;
-    }
-
-    /**
-     * @param mixed $sitePackage
-     */
-    public function setSitePackage($sitePackage): void
-    {
-        $this->sitePackage = $sitePackage;
     }
 
 }

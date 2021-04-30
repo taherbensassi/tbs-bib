@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Api\ApiGitlab;
 use App\Repository\ClientRepository;
 use App\Repository\ContentElementsRepository;
 use App\Repository\UserRepository;
@@ -9,6 +10,7 @@ use App\Service\LoggedInUserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\VarDumper\VarDumper;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class DashboardController extends AbstractController
@@ -30,16 +32,23 @@ class DashboardController extends AbstractController
     private $clientRepository;
 
     /**
+     * @var ApiGitlab
+     */
+    private $apiGitlab;
+
+    /**
      * DashboardController constructor.
      * @param ContentElementsRepository $contentElementRepository
      * @param UserRepository $usersRepository
      * @param ClientRepository $clientRepository
+     * @param ApiGitlab $apiGitlab
      */
-    public function __construct(ContentElementsRepository $contentElementRepository, UserRepository $usersRepository, ClientRepository $clientRepository)
+    public function __construct(ContentElementsRepository $contentElementRepository, UserRepository $usersRepository, ClientRepository $clientRepository, ApiGitlab $apiGitlab)
     {
         $this->contentElementRepository = $contentElementRepository;
         $this->usersRepository = $usersRepository;
         $this->clientRepository = $clientRepository;
+        $this->apiGitlab = $apiGitlab;
     }
 
 
@@ -60,11 +69,16 @@ class DashboardController extends AbstractController
         $clients = $this->usersRepository->findAll();
         $clientsCount = count($clients)  ?? 0;
 
+        $gitlabStats = $this->apiGitlab->fetchGitLabStats() ;
+        $gitlabProject = $this->apiGitlab->fetchGitLabProjects() ;
+
         return $this->render('Dashboard/Index/index.html.twig', [
             'controller_name' => 'DashboardController',
             'contentElementCount' => $contentsElementCount,
             'usersCount' => $usersCount,
             'clientsCount' => $clientsCount,
+            'gitlabStats' => json_encode($gitlabStats),
+            'gitlabProject' => $gitlabProject,
         ]);
     }
 }
