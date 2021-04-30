@@ -15,7 +15,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class DashboardController extends AbstractController
 {
-
     /**
      * @var ContentElementsRepository
      */
@@ -73,6 +72,15 @@ class DashboardController extends AbstractController
         $gitlabProject = $this->apiGitlab->fetchGitLabProjects(10);
         $gitlabUsers= $this->apiGitlab->fetchGitLabUsers(8,'asc');
 
+        if ($gitlabStats == null)
+            $gitlabStatsFailed = true;
+
+        if ($gitlabProject == null)
+            $gitlabProjectFailed = true;
+
+        if ($gitlabUsers == null)
+            $gitlabUsersFailed = true;
+
         return $this->render('Dashboard/Index/index.html.twig', [
             'controller_name' => 'DashboardController',
             'contentElementCount' => $contentsElementCount,
@@ -81,6 +89,9 @@ class DashboardController extends AbstractController
             'gitlabStats' => json_encode($gitlabStats),
             'gitlabProjects' => $gitlabProject,
             'gitlabUsers' => $gitlabUsers,
+            'gitlabStatsFailed' => $gitlabStatsFailed ?? false,
+            'gitlabProjectFailed' => $gitlabProjectFailed ?? false,
+            'gitlabUsersFailed' => $gitlabUsersFailed ?? false,
         ]);
     }
 }

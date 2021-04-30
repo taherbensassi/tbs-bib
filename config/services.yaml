@@ -34,6 +34,7 @@ services:
     App\EventListener\RedirectToLocaleSubscriber:
         arguments: [ '@router', '%app_locales%', '%locale%' ]
 
+
     kernel.listener.prefix:
         class: App\EventListener\TablePrefixEventListener
         # Adding the table_prefix configuration

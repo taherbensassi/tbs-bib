@@ -1,3 +1,4 @@
+{% if apiFailed is defined and apiFailed == false  %}
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">BRETTINGHAMS GITLAB PROJEKT</h3>
@@ -63,3 +64,11 @@
     </div>
     <!-- /.card-body -->
 </div>
+{% else %}
+<div class="card-body ">
+    <div class="alert alert-danger ">
+        <h5><i class="icon fas fa-ban"></i> Achtung!</h5>
+        Bitte überprüfen Sie die Konfiguration der Gitlab-Api und aktualisieren Sie die Seite!
+    </div>
+</div>
+{% endif %}
