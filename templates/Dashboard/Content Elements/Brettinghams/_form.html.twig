@@ -1,4 +1,35 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="card-body">
+
+    {{ form_start(form, { 'attr': {'id': 'formCe'} }) }}
+    {{ form_row(form._token) }}
+    {% include 'Block/Flash/_flash_message.html.twig'  %}
+    {% set formErrors = form.vars.errors.form.getErrors(true) %}
+    {# If there are errors in the form, display them in this unorganized list #}
+    {% if formErrors|length %}
+        {% for error in formErrors %}
+            <div class="alert alert-danger">{{ error.message }}</div>
+        {% endfor %}
+    {% endif %}
+
+
+
+    <div class="form-group" >
+        <label for="elementKey">{{ form_label(form.title) }} </label>
+        {{ form_widget(form.title, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <div class="form-group" >
+        <label for="elementTitle">{{ form_label(form.description) }} </label>
+        {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <div class="form-group" >
+        <label for="shortTitle">{{ form_label(form.image) }} </label>
+        {{ form_widget(form.image, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+</div>
+<div class="card-footer" >
+    <button type="submit" class="btn btn-dark" id="saveData">Speichern</button>
+</div>
+{{ form_end(form, {'render_rest': false}) }}

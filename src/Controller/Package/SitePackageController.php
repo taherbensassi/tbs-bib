@@ -151,7 +151,7 @@ class SitePackageController extends AbstractController
             // remove file
             $filesystem = new Filesystem();
             $currentDirPath = getcwd();
-            $filesystem->remove(['symlink', $currentDirPath.$sitePackage->getPath(),$fileName]);
+            $filesystem->remove(['unlink', $currentDirPath.$sitePackage->getPath(),$fileName]);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($sitePackage);

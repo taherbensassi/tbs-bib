@@ -1,11 +1,24 @@
 {% extends 'base.html.twig' %}
+{% block title %}Neuer Tbs Module{% endblock %}
 
-{% block title %}New TbsModule{% endblock %}
 
-{% block body %}
-    <h1>Create new TbsModule</h1>
+{% block content %}
+    <div class="content-wrapper">
+        {% include 'Partial/Breadcrumb/_breadcrumb.htnl.twig' with {'breadcrumb': 'Tbs Module'} %}
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card border-0">
 
-    {{ include('tbs_module/_form.html.twig') }}
+                    <div class="card-header  d-flex justify-content-between align-items-right">
+                        <h3 class="card-title">Neuen Tbs Module</h3>
+                        <a href="{{ path('tbs_module_index') }}" class="btn btn-outline-dark  ml-auto">
+                            Abbrechen
+                        </a>
+                    </div>
 
-    <a href="{{ path('tbs_module_index') }}">back to list</a>
+                    {{ include('Dashboard/Content Elements/Brettinghams/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

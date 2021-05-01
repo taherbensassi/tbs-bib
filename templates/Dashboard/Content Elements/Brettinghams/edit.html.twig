@@ -1,13 +1,29 @@
 {% extends 'base.html.twig' %}
+{% block title %}Bearbeitung Module{% endblock %}
 
-{% block title %}Edit TbsModule{% endblock %}
-
-{% block body %}
-    <h1>Edit TbsModule</h1>
-
-    {{ include('tbs_module/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('tbs_module_index') }}">back to list</a>
-
-    {{ include('tbs_module/_delete_form.html.twig') }}
+{% block content %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        {% include 'Partial/Breadcrumb/_breadcrumb.htnl.twig' with {'breadcrumb': 'Module Bearbeitung'} %}
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+                <div class="card">
+                    <div class="card-header  d-flex justify-content-between align-items-right">
+                        <h3 class="card-title">Module Bearbeiten</h3>
+                        <a href="{{ path('tbs_module_index') }}" class="btn btn-outline-dark  ml-auto">
+                            Abbrechen
+                        </a>
+                    </div>
+                    <!-- /.card-header -->
+                    {{ include('Dashboard/Content Elements/Brettinghams/_form.html.twig') }}
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
 {% endblock %}

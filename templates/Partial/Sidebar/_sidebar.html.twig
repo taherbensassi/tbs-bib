@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ path('client_index')}}" {% if route_name == "client_index" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+                    <a href="{{ path('client_index')}}" {% if route_name == "client_index" or route_name == "client_new"  or route_name == "client_edit"%} class="nav-link active" {% else %} class="nav-link" {% endif %}>
                         <i class="nav-icon fas fa-users"></i>
                         <p>Kunden</p>
                     </a>

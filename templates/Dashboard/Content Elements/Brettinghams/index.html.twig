@@ -1,7 +1,20 @@
 {% extends '@layout/layout-index.html.twig' %}
 {% block title %}Brettinghams Module{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('plugins/ekko-lightbox/ekko-lightbox.css') }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('plugins/ekko-lightbox/ekko-lightbox.min.js') }}"></script>
+    <script src="{{ asset('dist/js/module/tbs-content-element.js') }}"></script>
 
+{% endblock %}
 {% block card %}
+    <div class="callout callout-info">
+        <h5><i class="fas fa-info"></i> Hinweis:</h5>
+        Vor dem Einfügen des Tbs Content-Elements ! Modul-Code sollte eingefügt werden (Bearbeitung nur Super admin)
+    </div>
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-right">
             <h3 class="card-title">Brettinghams Module</h3>
@@ -13,21 +26,41 @@
         <!-- /.card-header -->
         <div class="card-body">
             {% include 'Block/Flash/_flash_message.html.twig'  %}
-
             <table id="table" class="table">
                 <thead>
                 <tr>
                     <th>Title</th>
                     <th>Bild</th>
                     <th>Beschreibung</th>
+                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <th>Aktionen</th>
+                    {% endif %}
                 </tr>
                 </thead>
                 <tbody>
                 {% for tbs_module in tbs_modules %}
                     <tr>
                         <td>{{ tbs_module.title }}</td>
-                        <td>{{ tbs_module.image }}</td>
-                        <td>{{ tbs_module.description }}</td>
+                        <td>
+                            <a href="{{ asset('uploads/images/' ~ tbs_module.image) }}" data-toggle="lightbox" data-title="{{ tbs_module.title }}">
+                                <img width="300" height="300" src="{{ asset('uploads/images/' ~ tbs_module.image) }}"  class="img-fluid " alt="{{ tbs_module.title }}" />
+                            </a>
+                        </td>
+                        <td>{{ tbs_module.description|nl2br }}</td>
+                        {% if is_granted('ROLE_SUPER_ADMIN') %}
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-flat">Aktionen</button>
+                                    <button type="button" class="btn btn-default btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu" role="menu">
+                                        {{ include('Dashboard/Content Elements/Brettinghams/_delete_form.html.twig') }}
+                                        <a class="dropdown-item" href="{{ path('tbs_module_edit', {'id': tbs_module.id}) }}">Bearbeiten</a>
+                                    </div>
+                                </div>
+                            </td>
+                        {% endif %}
                     </tr>
                 {% else %}
                     <tr>
