@@ -4,7 +4,7 @@
 {% block card %}
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-right">
-            <h3 class="card-title">CE Liste</h3>
+            <h3 class="card-title">Costum Content Element Liste</h3>
             <a href="{{ path("content_elements_new") }}" class="btn btn-outline-dark  ml-auto">
                 <i class="fa fa-plus"></i>
                 CE generieren
@@ -17,20 +17,20 @@
             <table id="table" class="table">
                 <thead>
                 <tr>
-                    <th>Icon</th>
-                    <th>ElementKey</th>
-                    <th>ElementTitle</th>
-                    <th>Created</th>
-                    <th>User</th>
+                    <th>Element-Key</th>
+                    <th>Element-Titel</th>
+                    <th>Beschreibung</th>
+                    <th>Erstellt</th>
+                    <th>Benutzer</th>
                     <th>Aktionen</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for content_element in content_elements %}
                     <tr>
-                        <td><i class="{{ content_element.icon }}"></i> </td>
                         <td>{{ content_element.elementKey }}</td>
                         <td>{{ content_element.elementTitle }}</td>
+                        <td>{{ content_element.description }}</td>
                         <td>{{ content_element.created ? content_element.created|date('Y-m-d H:i:s') : '' }}</td>
                         <td>{{ content_element.user.email }}</td>
                         <td>

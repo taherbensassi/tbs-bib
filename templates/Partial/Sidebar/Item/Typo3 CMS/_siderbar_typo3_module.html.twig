@@ -1,0 +1,58 @@
+<li class="nav-item" >
+    <a href="#"  class="nav-link">
+        <i class="nav-icon fas fa-project-diagram"></i>
+        <p>
+            Typo3 Projekt
+            <i class="fas fa-angle-left right"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="nav-icon far fa-circle"></i>
+                <p>Projekt generieren</p>
+            </a>
+        </li>
+    </ul>
+</li>
+<li  {% if route_name == "site_package_index" or route_name == "site_package_new" %} class="nav-item menu-open" {% else %} class="nav-item" {% endif %}>
+    <a href="{{ path('site_package_index')}}" {% if route_name == "site_package_index"  or route_name == "site_package_new" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+        <i class="nav-icon fa fa-cube"></i>
+        <p>Sitepackage</p>
+    </a>
+</li>
+<li  {% if route_name == "content_elements_index" or route_name == "content_elements_new" or route_name == "content_elements_edit"  or route_name == "export_content_element_index" or route_name == "export_content_element_new" or route_name == "tbs_module_index" %} class="nav-item menu-open" {% else %} class="nav-item" {% endif %}>
+    <a href="#" {% if route_name == "content_elements_index" or route_name == "content_elements_new" or route_name == "content_elements_edit" or route_name == "export_content_element_index" or  route_name == "export_content_element_new" or route_name == "tbs_module_index" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+        <i class="nav-icon fas fa-photo-video"></i>
+        <p>
+            Typo3 Module
+            <i class="fas fa-angle-left right"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{{ path('tbs_module_index') }}" {% if route_name == "tbs_module_index"    %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+                <i class="nav-icon far fa-circle nav-icon text-danger"></i>
+                <p>BRETTINGHAMS Module</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ path('content_elements_index') }}" {% if route_name == "content_elements_index" or route_name == "content_elements_edit"   %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+                <i class="nav-icon far fa-circle nav-icon"></i>
+                <p>Custom Module</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ path('content_elements_new') }}" {% if route_name == "content_elements_new"  %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+                <i class="nav-icon far fa-circle nav-icon"></i>
+                <p>Neu anlegen</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ path('export_content_element_index') }}" {% if route_name == "export_content_element_index" or route_name == "export_content_element_new" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+                <i class="nav-icon far fa-circle nav-icon"></i>
+                <p>Export module</p>
+            </a>
+        </li>
+    </ul>
+</li>

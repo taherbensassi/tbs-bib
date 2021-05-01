@@ -1,12 +1,8 @@
 {% extends 'base.html.twig' %}
-{% block title %}Neuer Content Element{% endblock %}
-{% block stylesheets %}
-    {{ parent() }}
-    <script src="{{ asset('plugins/bootstrap-iconpicker/dist/css/bootstrap-iconpicker.css') }}"></script>
-{% endblock %}
+{% block title %}Neuer Custom Content Element{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('plugins/bootstrap-iconpicker/dist/js/bootstrap-iconpicker.bundle.min.js') }}"></script>
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.js') }}" ></script>
     <script src="{{ asset('plugins/form-builder/form-builder.min.js') }}" ></script>
     <script src="{{ asset('dist/js/module/content-element.js') }}" ></script>
@@ -15,13 +11,13 @@
 {% endblock %}
 {% block content %}
     <div class="content-wrapper">
-        {% include 'Partial/Breadcrumb/_breadcrumb.htnl.twig' with {'breadcrumb': 'Content Element'} %}
+        {% include 'Partial/Breadcrumb/_breadcrumb.htnl.twig' with {'breadcrumb': 'Custom Content Element'} %}
         <div class="content">
             <div class="container-fluid">
                 <div class="card border-0">
 
                     <div class="card-header  d-flex justify-content-between align-items-right">
-                        <h3 class="card-title">Neuen CE</h3>
+                        <h3 class="card-title">Neuen Custom CE</h3>
                         <a href="{{ path('content_elements_index') }}" class="btn btn-outline-dark  ml-auto">
                             Abbrechen
                         </a>

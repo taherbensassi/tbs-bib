@@ -1,17 +1,7 @@
 $(function () {
     'use strict'
 
-    $(function($) {
-        const icon = $('#content_elements_icon');
-        let valueIcon = icon.data('value');
-        if ((null === valueIcon) || ("" === valueIcon)) {
-            valueIcon = "fas fa-video"
-        }
-        icon.iconpicker({
-            icon: valueIcon,
-            unselectedClass: ''
-        });
-    })
+
 
     $(function($) {
         const fbTemplate = $('#fb-editor');

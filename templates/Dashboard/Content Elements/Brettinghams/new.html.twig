@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TbsModule{% endblock %}
+
+{% block body %}
+    <h1>Create new TbsModule</h1>
+
+    {{ include('tbs_module/_form.html.twig') }}
+
+    <a href="{{ path('tbs_module_index') }}">back to list</a>
+{% endblock %}

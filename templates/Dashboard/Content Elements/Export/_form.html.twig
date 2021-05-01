@@ -1,4 +1,67 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="card-body">
+    {{ form_row(form._token) }}
+
+    {% set formErrors = form.vars.errors.form.getErrors(true) %}
+    {# If there are errors in the form, display them in this unorganized list #}
+    {% if formErrors|length %}
+        {% for error in formErrors %}
+            <div class="alert alert-danger">{{ error.message }}</div>
+        {% endfor %}
+    {% endif %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+
+                <label for="icon">Icon </label>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="custom-control custom-radio image-checkbox">
+                            <input type="radio" class="custom-control-input"  id="content_elements_1" name="export_content_element[icon]" {% if export_content_element.icon=="dist/img/extension/extension.svg" %} checked {% endif  %}value="dist/img/extension/extension.svg" required>
+                            <label class="custom-control-label" for="content_elements_1">
+                                <img src="{{ asset('dist/img/extension/extension.svg') }}" alt="#" width="50" height="50" class="img-fluid">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="custom-control custom-radio image-checkbox">
+                            <input type="radio" class="custom-control-input" id="content_elements_2" {% if export_content_element.icon=="dist/img/extension/extension-2.svg" %} checked {% endif  %} name="export_content_element[icon]" value="dist/img/extension/extension-2.svg" required>
+                            <label class="custom-control-label" for="content_elements_2">
+                                <img src="{{ asset('dist/img/extension/extension-2.svg') }}" alt="#" width="50" height="50"  class="img-fluid">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <!-- /.form-group -->
+                <div class="form-group">
+                    <label for="extensionName">{{ form_label(form.extensionName) }} </label>
+                    {{ form_widget(form.extensionName, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="vendorName">{{ form_label(form.vendorName) }} </label>
+                    {{ form_widget(form.vendorName, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+
+            </div>
+
+
+
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-6">
+
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    <!-- /.row -->
+</div>
+<div class="card-footer">
+    <button type="submit" class="btn btn-dark" ><i class="fa fa-save"></i> <i class="fa fa-list"></i> Generieren und exportieren</button>
+</div>
+{{ form_end(form, {'render_rest': false}) }}
