@@ -2,20 +2,26 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\CreatedTrait;
+use App\Entity\Traits\DeletedTrait;
+use App\Entity\Traits\HiddenTrait;
+use App\Entity\Traits\IdTrait;
+use App\Entity\Traits\UpdatedTrait;
 use App\Repository\TbsModuleRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=TbsModuleRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class TbsModule
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+
+    use IdTrait;
+    use CreatedTrait;
+    use UpdatedTrait;
+    use DeletedTrait;
+    use HiddenTrait;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -32,10 +38,6 @@ class TbsModule
      */
     private $description;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getTitle(): ?string
     {
