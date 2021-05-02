@@ -46,11 +46,11 @@
             </div>
             <div class="card card-dark">
                 <div class="card-header">
-                    <h3 class="card-title">BRETTINGHAMS Module</h3>
+                    <h3 class="card-title">BRETTINGHAMS Module *</h3>
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <select class="duallistbox" multiple="multiple" required>
+                        <select class="duallistbox" multiple="multiple" >
                             {% for tbs in tbsContentElement %}
                                  <option value="{{ tbs.id }}">{{ tbs.title }}</option>
                             {% endfor %}
@@ -62,11 +62,11 @@
         <div class="col-md-6 ">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Custom Module</h3>
+                    <h3 class="card-title">Custom Module *</h3>
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <select class="duallistboxCustom" multiple="multiple" required>
+                        <select class="duallistboxCustom" multiple="multiple" >
                             {% for tbs in customContentElement %}
                                 <option value="{{ tbs.id }}">{{ tbs.elementTitle }}</option>
                             {% endfor %}

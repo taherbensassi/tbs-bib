@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Module;
+namespace App\Controller\Export\Module;
 
 use App\Entity\ExportContentElement;
 use App\Form\ExportContentElementType;

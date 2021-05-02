@@ -40,9 +40,16 @@ class ExportContentElement
     private $icon;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text",nullable=false)
      */
-    private $module;
+    private $tbsModule;
+
+    /**
+     * @ORM\Column(type="text",nullable=false)
+     */
+    private $customModule;
+
+
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
@@ -101,19 +108,32 @@ class ExportContentElement
     /**
      * @return mixed
      */
-    public function getModule()
+    public function getTbsModule()
     {
-        return $this->module;
+        return $this->tbsModule;
     }
 
     /**
-     * @param mixed $module
+     * @param mixed $tbsModule
      */
-    public function setModule($module): void
+    public function setTbsModule($tbsModule): void
     {
-        $this->module = $module;
+        $this->tbsModule = $tbsModule;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCustomModule()
+    {
+        return $this->customModule;
+    }
 
-
+    /**
+     * @param mixed $customModule
+     */
+    public function setCustomModule($customModule): void
+    {
+        $this->customModule = $customModule;
+    }
 }

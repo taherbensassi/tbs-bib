@@ -58,12 +58,12 @@ class TbsModuleController extends AbstractController
     {
         $tbsModule = new TbsModule();
         $form = $this->createForm(TbsModuleType::class, $tbsModule);
-
         $form->handleRequest($request);
 
         $entityManager = $this->getDoctrine()->getManager();
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             /** @var UploadedFile $image */
             $image = $form->get('previewImageFileName')->getData();
             /** @var UploadedFile $images */
@@ -82,9 +82,7 @@ class TbsModuleController extends AbstractController
                     $file->setImageSize($img->getSize());
                     $entityManager->persist($file);
                     $entityManager->flush();
-
                 }
-
             }
             $entityManager->persist($tbsModule);
             $entityManager->flush();
@@ -95,7 +93,6 @@ class TbsModuleController extends AbstractController
         return $this->render('Dashboard/Content Elements/Brettinghams/new.html.twig', [
             'tbs_module' => $tbsModule,
             'form' => $form->createView(),
-
         ]);
     }
 
@@ -109,10 +106,12 @@ class TbsModuleController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             /** @var UploadedFile $image */
             $image = $form->get('previewImageFileName')->getData();
             /** @var UploadedFile $images */
             $images = $form->get('moduleImages')->getData();
+
             if ($image) {
                 $imageFileName = $fileUploader->upload($image);
                 $tbsModule->setPreviewImageFileName($imageFileName);
