@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ username }}{% endblock %}
+
+{% block content %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        {% include 'Partial/Breadcrumb/_breadcrumb.htnl.twig' with {'breadcrumb': username} %}
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+                {% include 'Dashboard/Gitlab/Users/Detail/_user_detai.html.twig' %}
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+{% endblock %}

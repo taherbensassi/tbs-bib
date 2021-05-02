@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ExportContentElement{% endblock %}
+
+{% block body %}
+    <h1>Edit ExportContentElement</h1>
+
+    {{ include('export_content_element/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('export_content_element_index') }}">back to list</a>
+
+    {{ include('export_content_element/_delete_form.html.twig') }}
+{% endblock %}

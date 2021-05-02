@@ -1,30 +1,41 @@
+{% if apiFailed is defined and apiFailed == false  %}
 <div class="card card-solid">
     <div class="card-body pb-0">
         <div class="row">
             {% for user in gitlabUsers %}
-            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
-                <div class="card bg-light d-flex flex-fill">
-                    <div class="card-header text-muted border-bottom-0">
-                        Entwickler
-                    </div>
-                    <div class="card-body pt-0">
-                        <div class="row">
-                            <div class="col-7">
-                                <h2 class="lead"><b>{{ user.name }}</b></h2>
-                                <p class="text-muted text-sm">Erstellt am: <b> {{ user.created_at|date('d-m-Y')}} </b></p>
-                                <ul class="ml-4 mb-0 fa-ul text-muted">
-                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> {{ user.email }}</li>
-                                </ul>
-                            </div>
-                            <div class="col-5 text-center">
-                                <img src="{{ user.avatar_url }}" alt="user-avatar" class="img-circle img-fluid">
+                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                    <a href="{{ path('gitlab_user_detail', {'username': user.username}) }}">
+                    <div class="card bg-light d-flex flex-fill">
+                        <div class="card-header text-muted border-bottom-0">
+                            Entwickler
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="lead"><b>{{ user.name }}</b></h2>
+                                    <p class="text-muted text-sm">Erstellt am: <b> {{ user.created_at|date('d-m-Y')}} </b></p>
+                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> {{ user.email }}</li>
+                                    </ul>
+                                </div>
+                                <div class="col-5 text-center">
+                                    <img src="{{ user.avatar_url }}" alt="user-avatar" class="img-circle img-fluid" height="80" width="80">
+                                </div>
                             </div>
                         </div>
                     </div>
+                    </a>
                 </div>
-            </div>
             {% endfor %}
         </div>
     </div>
     <!-- /.card-footer -->
 </div>
+{% else %}
+<div class="card-body ">
+    <div class="alert alert-danger ">
+        <h5><i class="icon fas fa-ban"></i> Achtung!</h5>
+        Bitte überprüfen Sie die Konfiguration der Gitlab-Api und aktualisieren Sie die Seite!
+    </div>
+</div>
+{% endif %}

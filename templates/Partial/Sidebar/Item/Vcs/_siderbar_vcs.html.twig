@@ -1,0 +1,34 @@
+<li  {% if route_name == "gitlab_users"  or route_name == "gitlab_project" or route_name == "gitlab_user_detail" %} class="nav-item menu-open" {% else %} class="nav-item" {% endif %}>
+    <a href="#" {% if route_name == "gitlab_users" or route_name == "gitlab_project" or route_name == "gitlab_user_detail" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+        <i class="nav-icon fab fa-gitlab"></i>
+        <p>
+            Gitlab
+            <i class="fas fa-angle-left right"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{{ path("gitlab_users") }}" {% if route_name == "gitlab_users" or route_name == "gitlab_user_detail" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+                <i class="nav-icon far fa-circle"></i>
+                <p>Benutzer</p>
+            </a>
+        </li>
+    </ul>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{{ path("gitlab_project") }}" {% if route_name == "gitlab_project" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+                <i class="nav-icon far fa-circle "></i>
+                <p>Projekte</p>
+            </a>
+        </li>
+    </ul>
+
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="" class="nav-link" >
+                <i class="nav-icon far fa-circle "></i>
+                <p>Pupline CI/CD</p>
+            </a>
+        </li>
+    </ul>
+</li>

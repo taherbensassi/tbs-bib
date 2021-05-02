@@ -1,0 +1,49 @@
+{% extends '@layout/layout-index.html.twig' %}
+{% block title %}Export Content Element {% endblock %}
+
+{% block card %}
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-right">
+            <h3 class="card-title">CE Export</h3>
+            <a href="{{ path("export_content_element_new") }}" class="btn btn-outline-dark  ml-auto">
+                <i class="fa fa-file-export"></i>
+                Export
+            </a>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            {% include 'Block/Flash/_flash_message.html.twig'  %}
+
+            <table id="table" class="table">
+                <thead>
+                <tr>
+                    <th>User</th>
+                    <th>ExtensionName</th>
+                    <th>VendorName</th>
+                    <th>Icon</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for export_content_element in export_content_elements %}
+                    <tr>
+                        <td>{{ export_content_element.user.email }}</td>
+                        <td>{{ export_content_element.extensionName }}</td>
+                        <td>{{ export_content_element.vendorName }}</td>
+                        <td>{{ export_content_element.icon }}</td>
+                        <td class="project-state">
+                            <span class="badge badge-success">{{ export_content_element.status }}</span>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="11">keine Datensätze gefunden</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+{% endblock %}
+

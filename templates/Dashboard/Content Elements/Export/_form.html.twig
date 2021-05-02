@@ -1,0 +1,83 @@
+{{ form_start(form) }}
+<div class="card-body">
+    {{ form_row(form._token) }}
+
+    {% set formErrors = form.vars.errors.form.getErrors(true) %}
+    {# If there are errors in the form, display them in this unorganized list #}
+    {% if formErrors|length %}
+        {% for error in formErrors %}
+            <div class="alert alert-danger">{{ error.message }}</div>
+        {% endfor %}
+    {% endif %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-primary">
+                <div class="card-body">
+                    <label for="icon">Icon </label>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="custom-control custom-radio image-checkbox">
+                                <input type="radio" class="custom-control-input"  id="content_elements_1" name="export_content_element[icon]" {% if export_content_element.icon=="dist/img/extension/extension.svg" %} checked {% endif  %}value="dist/img/extension/extension.svg" required>
+                                <label class="custom-control-label" for="content_elements_1">
+                                    <img src="{{ asset('dist/img/extension/extension.svg') }}" alt="#" width="50" height="50" class="img-fluid">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="custom-control custom-radio image-checkbox">
+                                <input type="radio" class="custom-control-input" id="content_elements_2" {% if export_content_element.icon=="dist/img/extension/extension-2.svg" %} checked {% endif  %} name="export_content_element[icon]" value="dist/img/extension/extension-2.svg" required>
+                                <label class="custom-control-label" for="content_elements_2">
+                                    <img src="{{ asset('dist/img/extension/extension-2.svg') }}" alt="#" width="50" height="50"  class="img-fluid">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="extensionName">{{ form_label(form.extensionName) }} </label>
+                        {{ form_widget(form.extensionName, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="vendorName">{{ form_label(form.vendorName) }} </label>
+                        {{ form_widget(form.vendorName, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                </div>
+            </div>
+            <div class="card card-dark">
+                <div class="card-header">
+                    <h3 class="card-title">BRETTINGHAMS Module *</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <select class="duallistbox" multiple="multiple" >
+                            {% for tbs in tbsContentElement %}
+                                 <option value="{{ tbs.id }}">{{ tbs.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Custom Module *</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <select class="duallistboxCustom" multiple="multiple" >
+                            {% for tbs in customContentElement %}
+                                <option value="{{ tbs.id }}">{{ tbs.elementTitle }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card-footer">
+    <button type="submit" class="btn btn-dark" ><i class="fa fa-save"></i> <i class="fa fa-list"></i> Generieren und exportieren</button>
+</div>
+{{ form_end(form, {'render_rest': false}) }}

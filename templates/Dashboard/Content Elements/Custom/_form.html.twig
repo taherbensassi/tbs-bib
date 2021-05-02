@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-md-3 border-right">
+            {{ form_start(form, { 'attr': {'id': 'formCe'} }) }}
+            {{ form_row(form._token) }}
+            {{ form_widget(form.formData) }}
+
+            <div class="card-body">
+                {% include 'Block/Flash/_flash_message.html.twig'  %}
+                {% set formErrors = form.vars.errors.form.getErrors(true) %}
+                {# If there are errors in the form, display them in this unorganized list #}
+                {% if formErrors|length %}
+                    {% for error in formErrors %}
+                        <div class="alert alert-danger">{{ error.message }}</div>
+                    {% endfor %}
+                {% endif %}
+
+                <label for="icon">Icon </label>
+                <hr>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="custom-control custom-radio image-checkbox">
+                            <input type="radio" class="custom-control-input"  id="content_elements_1" name="content_elements[icon]" {% if content_element.icon=="dist/img/extension/extension.svg" %} checked {% endif  %}value="dist/img/extension/extension.svg" required>
+                            <label class="custom-control-label" for="content_elements_1">
+                                <img src="{{ asset('dist/img/extension/extension.svg') }}" alt="#" width="50" height="50" class="img-fluid">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="custom-control custom-radio image-checkbox">
+                            <input type="radio" class="custom-control-input" id="content_elements_2" {% if content_element.icon=="dist/img/extension/extension-2.svg" %} checked {% endif  %} name="content_elements[icon]" value="dist/img/extension/extension-2.svg" required>
+                            <label class="custom-control-label" for="content_elements_2">
+                                <img src="{{ asset('dist/img/extension/extension-2.svg') }}" alt="#" width="50" height="50"  class="img-fluid">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="form-group" >
+                    <label for="elementKey">{{ form_label(form.elementKey) }} </label>
+                    {{ form_widget(form.elementKey, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+
+                <div class="form-group" >
+                    <label for="elementTitle">{{ form_label(form.elementTitle) }} </label>
+                    {{ form_widget(form.elementTitle, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+
+                <div class="form-group" >
+                    <label for="shortTitle">{{ form_label(form.shortTitle) }} </label>
+                    {{ form_widget(form.shortTitle, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+
+                <div class="form-group" >
+                    <label for="shortTitle">{{ form_label(form.description) }} </label>
+                    {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+
+            </div>
+            <div class="card-footer" style="background-color: #fff">
+                <button type="submit" class="btn btn-dark" id="saveData">Generieren</button>
+            </div>
+            {{ form_end(form, {'render_rest': false}) }}
+    </div>
+    <div class="col-md-9 p-5">
+        <div id="fb-editor"></div>
+    </div>
+</div>

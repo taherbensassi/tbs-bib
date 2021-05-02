@@ -9,6 +9,7 @@ use App\Entity\Traits\DeletedTrait;
 use App\Entity\Traits\UpdatedTrait;
 use App\Repository\ClientRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ClientRepository::class)
@@ -24,16 +25,19 @@ class Client
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $company;
 
@@ -45,8 +49,7 @@ class Client
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $description = null;
-
+    private $description;
 
 
 

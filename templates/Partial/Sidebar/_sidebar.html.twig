@@ -30,140 +30,22 @@
                         </p>
                     </a>
                 </li>
-
-
-
                 <li class="nav-item">
-                    <a href="{{ path('client_index')}}" {% if route_name == "client_index" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+                    <a href="{{ path('client_index')}}" {% if route_name == "client_index" or route_name == "client_new"  or route_name == "client_edit"%} class="nav-link active" {% else %} class="nav-link" {% endif %}>
                         <i class="nav-icon fas fa-users"></i>
                         <p>Kunden</p>
                     </a>
                 </li>
 
                 <li class="nav-header">Typo3 CMS</li>
-                <li  {% if route_name == "site_package_index" or route_name == "site_package_new" %} class="nav-item menu-open" {% else %} class="nav-item" {% endif %}>
-                    <a href="#" {% if route_name == "site_package_index" or route_name == "site_package_new" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
-                        <i class="nav-icon fas fa-project-diagram"></i>
-                        <p>
-                            Typo3 Projekt
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
-                                <p>Projekt generieren</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ path('site_package_index') }}" {% if route_name == "site_package_index" or route_name == "site_package_new"%} class="nav-link active" {% else %} class="nav-link" {% endif %}>
-                                <i class="nav-icon far fa-circle "></i>
-                                <p>Sitepackage</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li  {% if route_name == "content_elements_index" or route_name == "content_elements_new" or route_name == "content_elements_edit" %} class="nav-item menu-open" {% else %} class="nav-item" {% endif %}>
-                    <a href="#" {% if route_name == "content_elements_index" or route_name == "content_elements_new" or route_name == "content_elements_edit" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
-                    <i class="nav-icon fas fa-photo-video"></i>
-                        <p>
-                            Typo3 Module
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                             <a href="{{ path('content_elements_index') }}" {% if route_name == "content_elements_index" or route_name == "content_elements_edit"   %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
-                                <i class="nav-icon far fa-circle nav-icon"></i>
-                                <p>Liste</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ path('content_elements_new') }}" {% if route_name == "content_elements_new"  %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
-                                <i class="nav-icon far fa-circle nav-icon"></i>
-                                <p>Neu anlegen</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-circle nav-icon"></i>
-                                <p>Export Extension</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-puzzle-piece"></i>
-                        <p>
-                            Typo3 Plugins
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-circle nav-icon"></i>
-                                <p>Liste</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-circle nav-icon"></i>
-                                <p>Neu anlegen</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                {% include 'Partial/Sidebar/Item/Typo3 CMS/_siderbar_typo3_module.html.twig' %}
+                {% include 'Partial/Sidebar/Item/Typo3 CMS/_siderbar_typo3_plugin.html.twig' %}
+                {% include 'Partial/Sidebar/Item/Typo3 CMS/_siderbar_typo3_extension.html.twig' %}
 
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-list"></i>
-                        <p>
-                            Typo3 Extensions
-                        </p>
-                    </a>
-                </li>
 
                 <li class="nav-header">VCS</li>
+                {% include 'Partial/Sidebar/Item/Vcs/_siderbar_vcs.html.twig' %}
 
-                <li  {% if route_name == "gitlab_users"  or route_name == "gitlab_project" %} class="nav-item menu-open" {% else %} class="nav-item" {% endif %}>
-                    <a href="#" {% if route_name == "gitlab_users" or route_name == "gitlab_project" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
-                        <i class="nav-icon fab fa-gitlab"></i>
-                        <p>
-                            Gitlab
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ path("gitlab_users") }}" {% if route_name == "gitlab_users" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
-                                <i class="nav-icon far fa-circle"></i>
-                                <p>Benutzer</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ path("gitlab_project") }}" {% if route_name == "gitlab_project" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
-                                <i class="nav-icon far fa-circle "></i>
-                                <p>Projekte</p>
-                            </a>
-                        </li>
-                    </ul>
-
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="" class="nav-link" >
-                                <i class="nav-icon far fa-circle "></i>
-                                <p>Pupline CI/CD</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
 
 
                 <li class="nav-header">Snippet</li>

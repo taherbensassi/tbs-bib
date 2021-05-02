@@ -6,6 +6,7 @@
 parameters:
     locale: 'de'
     app_locales: de|en
+    upload_directory: '%kernel.project_dir%/public/uploads/images'
 
 services:
     # default configuration for services in *this* file
@@ -33,6 +34,10 @@ services:
     # please note that last definitions always *replace* previous ones
     App\EventListener\RedirectToLocaleSubscriber:
         arguments: [ '@router', '%app_locales%', '%locale%' ]
+
+    App\Service\FileUploader:
+        arguments:
+            $targetDirectory: '%upload_directory%'
 
     kernel.listener.prefix:
         class: App\EventListener\TablePrefixEventListener
