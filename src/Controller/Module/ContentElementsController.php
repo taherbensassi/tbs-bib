@@ -38,7 +38,7 @@ class ContentElementsController extends AbstractController
      */
     public function index(ContentElementsRepository $contentElementsRepository): Response
     {
-        return $this->render('Dashboard/Content Elements/index.html.twig', [
+        return $this->render('Dashboard/Content Elements/Custom/index.html.twig', [
             'content_elements' => $contentElementsRepository->findAll(),
         ]);
     }
@@ -83,7 +83,7 @@ class ContentElementsController extends AbstractController
             }
         }
 
-        return $this->render('Dashboard/Content Elements/new.html.twig', [
+        return $this->render('Dashboard/Content Elements/Custom/new.html.twig', [
             'content_element' => $contentElement,
             'form' => $form->createView(),
         ]);
@@ -120,7 +120,7 @@ class ContentElementsController extends AbstractController
             }
         }
 
-        return $this->render('Dashboard/Content Elements/edit.html.twig', [
+        return $this->render('Dashboard/Content Elements/Custom/edit.html.twig', [
             'content_element' => $contentElement,
             'form' => $form->createView(),
         ]);

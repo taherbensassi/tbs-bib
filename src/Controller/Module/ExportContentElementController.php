@@ -4,17 +4,41 @@ namespace App\Controller\Module;
 
 use App\Entity\ExportContentElement;
 use App\Form\ExportContentElementType;
+use App\Repository\ContentElementsRepository;
 use App\Repository\ExportContentElementRepository;
+use App\Repository\TbsModuleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/export/module")
+ * @Route("/admin/export-module")
  */
 class ExportContentElementController extends AbstractController
 {
+    /**
+     * @var ContentElementsRepository
+     */
+    private $contentElementRepository;
+
+    /**
+     * @var TbsModuleRepository
+     */
+    private $tbsModuleRepository;
+
+    /**
+     * ExportContentElementController constructor.
+     * @param ContentElementsRepository $contentElementRepository
+     * @param TbsModuleRepository $tbsModuleRepository
+     */
+    public function __construct(ContentElementsRepository $contentElementRepository, TbsModuleRepository $tbsModuleRepository)
+    {
+        $this->contentElementRepository = $contentElementRepository;
+        $this->tbsModuleRepository = $tbsModuleRepository;
+    }
+
+
     /**
      * @Route("/", name="export_content_element_index", methods={"GET"})
      */
@@ -33,6 +57,8 @@ class ExportContentElementController extends AbstractController
         $exportContentElement = new ExportContentElement();
         $form = $this->createForm(ExportContentElementType::class, $exportContentElement);
         $form->handleRequest($request);
+        $contentElement = $this->contentElementRepository->findAll();
+        $tbsContentElement = $this->tbsModuleRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -45,6 +71,8 @@ class ExportContentElementController extends AbstractController
         return $this->render('Dashboard/Content Elements/Export/new.html.twig', [
             'export_content_element' => $exportContentElement,
             'form' => $form->createView(),
+            'customContentElement' => $contentElement,
+            'tbsContentElement' => $tbsContentElement,
         ]);
     }
 

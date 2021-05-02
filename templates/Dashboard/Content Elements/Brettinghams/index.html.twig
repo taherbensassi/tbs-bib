@@ -13,7 +13,7 @@
 {% block card %}
     <div class="callout callout-info">
         <h5><i class="fas fa-info"></i> Hinweis:</h5>
-        Vor dem Einfügen des Tbs Content-Elements ! Modul-Code sollte eingefügt werden (Bearbeitung nur Super admin)
+        Vor dem Einfügen des Tbs Content-Elements ! Modul-Code sollte eingefügt werden! (Bearbeitung nur für SUPERADMIN sichtbar!)
     </div>
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-right">
@@ -31,36 +31,38 @@
                 <tr>
                     <th>Title</th>
                     <th>Bild</th>
-                    <th>Beschreibung</th>
-                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <th>Erstellt</th>
                     <th>Aktionen</th>
-                    {% endif %}
                 </tr>
                 </thead>
                 <tbody>
                 {% for tbs_module in tbs_modules %}
                     <tr>
-                        <td>{{ tbs_module.title }}</td>
+                        <td><a href="{{ path('tbs_module_show', {'id': tbs_module.id}) }}"><i class="fa fa-info"></i> {{ tbs_module.title }}</a></td>
                         <td>
-                            <a href="{{ asset('uploads/images/' ~ tbs_module.image) }}" data-toggle="lightbox" data-title="{{ tbs_module.title }}">
-                                <img width="300" height="300" src="{{ asset('uploads/images/' ~ tbs_module.image) }}"  class="img-fluid " alt="{{ tbs_module.title }}" />
+                            <a href="{{ asset('uploads/images/' ~ tbs_module.previewImageFileName) }}" data-toggle="lightbox" data-title="{{ tbs_module.title }}" data-gallery="gallery">
+                                <img width="400" height="400" src="{{ asset('uploads/images/' ~ tbs_module.previewImageFileName) }}"  class="img-fluid " alt="{{ tbs_module.title }}" />
                             </a>
                         </td>
-                        <td>{{ tbs_module.description|nl2br }}</td>
-                        {% if is_granted('ROLE_SUPER_ADMIN') %}
-                            <td>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default btn-flat">Aktionen</button>
-                                    <button type="button" class="btn btn-default btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <div class="dropdown-menu" role="menu">
-                                        {{ include('Dashboard/Content Elements/Brettinghams/_delete_form.html.twig') }}
-                                        <a class="dropdown-item" href="{{ path('tbs_module_edit', {'id': tbs_module.id}) }}">Bearbeiten</a>
-                                    </div>
+                        <td>{{ tbs_module.created ? tbs_module.created|date('d-m-Y') : '' }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-flat">Aktionen</button>
+                                <button type="button" class="btn btn-default btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu" role="menu">
+                                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                    {{ include('Dashboard/Content Elements/Brettinghams/_delete_form.html.twig') }}
+                                    {% endif %}
+                                    <a class="dropdown-item" href="{{ path('tbs_module_show', {'id': tbs_module.id}) }}">Anzeigen</a>
+                                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                     <a class="dropdown-item" href="{{ path('tbs_module_edit', {'id': tbs_module.id}) }}">Bearbeiten</a>
+                                    {% endif %}
                                 </div>
-                            </td>
-                        {% endif %}
+                            </div>
+                        </td>
+
                     </tr>
                 {% else %}
                     <tr>

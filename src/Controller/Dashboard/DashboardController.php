@@ -5,6 +5,7 @@ namespace App\Controller\Dashboard;
 use App\Api\ApiGitlab;
 use App\Repository\ClientRepository;
 use App\Repository\ContentElementsRepository;
+use App\Repository\TbsModuleRepository;
 use App\Repository\UserRepository;
 use App\Service\LoggedInUserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,6 +32,11 @@ class DashboardController extends AbstractController
     private $clientRepository;
 
     /**
+     * @var TbsModuleRepository
+     */
+    private $tbsModuleRepository;
+
+    /**
      * @var ApiGitlab
      */
     private $apiGitlab;
@@ -42,9 +48,10 @@ class DashboardController extends AbstractController
      * @param ClientRepository $clientRepository
      * @param ApiGitlab $apiGitlab
      */
-    public function __construct(ContentElementsRepository $contentElementRepository, UserRepository $usersRepository, ClientRepository $clientRepository, ApiGitlab $apiGitlab)
+    public function __construct(ContentElementsRepository $contentElementRepository, UserRepository $usersRepository, ClientRepository $clientRepository, ApiGitlab $apiGitlab, TbsModuleRepository $tbsModuleRepository)
     {
         $this->contentElementRepository = $contentElementRepository;
+        $this->tbsModuleRepository = $tbsModuleRepository;
         $this->usersRepository = $usersRepository;
         $this->clientRepository = $clientRepository;
         $this->apiGitlab = $apiGitlab;
@@ -67,6 +74,10 @@ class DashboardController extends AbstractController
         // clients
         $clients = $this->usersRepository->findAll();
         $clientsCount = count($clients)  ?? 0;
+
+        // tbs content Element
+        $tbsContentElement = $this->tbsModuleRepository->findAll();
+        $tbsContentElementCount = count($tbsContentElement)  ?? 0;
 
         $gitlabStats = $this->apiGitlab->fetchGitLabStats();
         $gitlabProject = $this->apiGitlab->fetchGitLabProjects(10);
@@ -92,6 +103,7 @@ class DashboardController extends AbstractController
             'gitlabStatsFailed' => $gitlabStatsFailed ?? false,
             'gitlabProjectFailed' => $gitlabProjectFailed ?? false,
             'gitlabUsersFailed' => $gitlabUsersFailed ?? false,
+            'tbsContentElementCount' => $tbsContentElementCount,
         ]);
     }
 }

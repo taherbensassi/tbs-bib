@@ -4,6 +4,8 @@ namespace App\Controller\Module;
 
 use App\Entity\TbsModule;
 use App\Form\TbsModuleType;
+use App\Repository\ContentElementsRepository;
+use App\Repository\FileRepository;
 use App\Repository\TbsModuleRepository;
 use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,6 +22,22 @@ use Symfony\Component\VarDumper\VarDumper;
  */
 class TbsModuleController extends AbstractController
 {
+
+    /**
+     * @var FileRepository
+     */
+    private $fileRepository;
+
+    /**
+     * TbsModuleController constructor.
+     * @param FileRepository $fileRepository
+     */
+    public function __construct(FileRepository $fileRepository)
+    {
+        $this->fileRepository = $fileRepository;
+    }
+
+
     /**
      * @Route("/", name="tbs_module_index", methods={"GET"})
      */
@@ -37,16 +55,34 @@ class TbsModuleController extends AbstractController
     {
         $tbsModule = new TbsModule();
         $form = $this->createForm(TbsModuleType::class, $tbsModule);
+
         $form->handleRequest($request);
+
+        $entityManager = $this->getDoctrine()->getManager();
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $image */
-            $image = $form->get('image')->getData();
+            $image = $form->get('previewImageFileName')->getData();
+            /** @var UploadedFile $images */
+            $images = $form->get('moduleImages')->getData();
+
             if ($image) {
                 $imageFileName = $fileUploader->upload($image);
-                $tbsModule->setImage($imageFileName);
+                $tbsModule->setPreviewImageFileName($imageFileName);
             }
-            $entityManager = $this->getDoctrine()->getManager();
+            if ($images) {
+                foreach ($images as $img){
+                    $imageFileName = $fileUploader->upload($img);
+                    $file = new \App\Entity\File();
+                    $file->setImageName($imageFileName);
+                    $file->setModule($tbsModule);
+                    $file->setImageSize($img->getSize());
+                    $entityManager->persist($file);
+                    $entityManager->flush();
+
+                }
+
+            }
             $entityManager->persist($tbsModule);
             $entityManager->flush();
 
@@ -56,10 +92,9 @@ class TbsModuleController extends AbstractController
         return $this->render('Dashboard/Content Elements/Brettinghams/new.html.twig', [
             'tbs_module' => $tbsModule,
             'form' => $form->createView(),
+
         ]);
     }
-
-
 
     /**
      * @Route("/{id}/edit", name="tbs_module_edit", methods={"GET","POST"})
@@ -68,22 +103,47 @@ class TbsModuleController extends AbstractController
     {
         $form = $this->createForm(TbsModuleType::class, $tbsModule);
         $form->handleRequest($request);
+        $entityManager = $this->getDoctrine()->getManager();
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $image */
-            $image = $form->get('image')->getData();
+            $image = $form->get('previewImageFileName')->getData();
+            /** @var UploadedFile $images */
+            $images = $form->get('moduleImages')->getData();
             if ($image) {
                 $imageFileName = $fileUploader->upload($image);
-                $tbsModule->setImage($imageFileName);
+                $tbsModule->setPreviewImageFileName($imageFileName);
+            }
+            if ($images) {
+                foreach ($images as $img){
+                    $imageFileName = $fileUploader->upload($img);
+                    $file = new \App\Entity\File();
+                    $file->setImageName($imageFileName);
+                    $file->setModule($tbsModule);
+                    $file->setImageSize($img->getSize());
+                    $entityManager->persist($file);
+                    $entityManager->flush();
+
+                }
+
             }
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('tbs_module_index');
         }
 
         return $this->render('Dashboard/Content Elements/Brettinghams/edit.html.twig', [
             'tbs_module' => $tbsModule,
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="tbs_module_show", methods={"GET"})
+     */
+    public function show(TbsModule $tbsModule): Response
+    {
+        return $this->render('Dashboard/Content Elements/Brettinghams/show.html.twig', [
+            'tbs_module' => $tbsModule,
         ]);
     }
 
@@ -97,8 +157,16 @@ class TbsModuleController extends AbstractController
 
             $filesystem = new Filesystem();
             $currentDirPath = getcwd();
-            $filesystem->remove(['unlink',$currentDirPath.'/uploads/images/'.$tbsModule->getImage()]);
+            $filesystem->remove(['unlink',$currentDirPath.'/uploads/images/'.$tbsModule->getPreviewImageFileName()]);
 
+            $files = $this->fileRepository->findBy([
+                    'module' => $tbsModule->getId()
+            ]);
+            if(!empty($files)){
+                foreach ($files as $file){
+                    $filesystem->remove(['unlink',$currentDirPath.'/uploads/images/'.$file->getImageName()]);
+                }
+            }
             $entityManager->remove($tbsModule);
             $entityManager->flush();
         }

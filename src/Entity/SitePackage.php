@@ -6,6 +6,7 @@ use App\Entity\Traits\CreatedTrait;
 use App\Entity\Traits\DeletedTrait;
 use App\Entity\Traits\HiddenTrait;
 use App\Entity\Traits\IdTrait;
+use App\Entity\Traits\Typo3VersionTrait;
 use App\Entity\Traits\UpdatedTrait;
 use App\Repository\SitePackageRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -23,10 +24,8 @@ class SitePackage
     use UpdatedTrait;
     use DeletedTrait;
     use HiddenTrait;
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $typo3Version;
+    use Typo3VersionTrait;
+
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -110,17 +109,6 @@ class SitePackage
         return $this->id;
     }
 
-    public function getTypo3Version(): ?int
-    {
-        return $this->typo3Version;
-    }
-
-    public function setTypo3Version(int $typo3Version): self
-    {
-        $this->typo3Version = $typo3Version;
-
-        return $this;
-    }
 
     public function getBasePackage(): ?string
     {
