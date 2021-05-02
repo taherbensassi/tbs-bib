@@ -17,7 +17,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\VarDumper\VarDumper;
 
+
+
 /**
+ * @todo add display images by edit to remove with ajax
  * @Route("/admin/tbs-module")
  */
 class TbsModuleController extends AbstractController
@@ -123,14 +126,11 @@ class TbsModuleController extends AbstractController
                     $file->setImageSize($img->getSize());
                     $entityManager->persist($file);
                     $entityManager->flush();
-
                 }
-
             }
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('tbs_module_index');
         }
-
         return $this->render('Dashboard/Content Elements/Brettinghams/edit.html.twig', [
             'tbs_module' => $tbsModule,
             'form' => $form->createView(),
@@ -142,8 +142,13 @@ class TbsModuleController extends AbstractController
      */
     public function show(TbsModule $tbsModule): Response
     {
+        $files = $this->fileRepository->findBy([
+            'module' => $tbsModule->getId()
+        ]);
+
         return $this->render('Dashboard/Content Elements/Brettinghams/show.html.twig', [
             'tbs_module' => $tbsModule,
+            'images' => $files,
         ]);
     }
 

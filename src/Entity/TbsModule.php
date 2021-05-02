@@ -14,6 +14,7 @@ use App\Service\FileUploader;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TbsModuleRepository::class)
@@ -27,11 +28,11 @@ class TbsModule
     use UpdatedTrait;
     use DeletedTrait;
     use HiddenTrait;
-    use Typo3VersionTrait;
     use LinkTrait;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $title;
 
@@ -41,7 +42,8 @@ class TbsModule
     private $previewImageFileName;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text",nullable=true)
+     *
      */
     private $description;
 
@@ -50,16 +52,31 @@ class TbsModule
      */
     private $moduleImages;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $typo3Version;
+
+    /**
+     * TbsModule constructor.
+     */
     public function __construct()
     {
         $this->moduleImages = new ArrayCollection();
     }
 
+    /**
+     * @return string|null
+     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
+    /**
+     * @param string $title
+     * @return $this
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -68,11 +85,18 @@ class TbsModule
     }
 
 
+    /**
+     * @return string|null
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
+    /**
+     * @param string $description
+     * @return $this
+     */
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -104,6 +128,10 @@ class TbsModule
         return $this->moduleImages;
     }
 
+    /**
+     * @param File $moduleImage
+     * @return $this
+     */
     public function addModuleImage(File $moduleImage): self
     {
         if (!$this->moduleImages->contains($moduleImage)) {
@@ -114,6 +142,10 @@ class TbsModule
         return $this;
     }
 
+    /**
+     * @param File $moduleImage
+     * @return $this
+     */
     public function removeModuleImage(File $moduleImage): self
     {
         if ($this->moduleImages->removeElement($moduleImage)) {
@@ -125,4 +157,23 @@ class TbsModule
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTypo3Version()
+    {
+        return $this->typo3Version;
+    }
+
+    /**
+     * @param mixed $typo3Version
+     */
+    public function setTypo3Version($typo3Version): void
+    {
+        $this->typo3Version = $typo3Version;
+    }
+
+
+
 }

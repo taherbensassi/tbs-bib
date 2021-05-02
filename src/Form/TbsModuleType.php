@@ -33,7 +33,7 @@ class TbsModuleType extends AbstractType
                     'rows' => 10,
                 ],
                 'label' => 'Beschreibung',
-                'required' => false
+                'required' => true
             ])
 
             ->add('previewImageFileName', FileType::class, [
@@ -44,7 +44,7 @@ class TbsModuleType extends AbstractType
 
                 // make it optional so you don't have to re-upload the PDF file
                 // every time you edit the Product details
-                'required' => false,
+                'required' => true,
 
                 // unmapped fields can't define their validation using annotations
                 // in the associated entity, so you can use the PHP constraint classes
@@ -64,18 +64,20 @@ class TbsModuleType extends AbstractType
             ->add('typo3Version',ChoiceType::class,[
                 'label' => 'TYPO3 Version *',
                 'choices'  => [
-                    '10.4' => 10004000,
-                    '9.5' => 9005000,
-                    '8.7' => 8007000,
+                    '^10.4' => '^10,4',
+                    '^9.5' => '^9.5',
+                    '^8.7' => '^8.7',
                 ],
                 'expanded' => true,
             ])
             ->add('link',UrlType::class,[
                 'label' => 'Link Beispiel',
+                'required' => false
             ])
             ->add('moduleImages', FileType::class, array(
                     'multiple' => true,
                     'mapped' => false,
+                    'required' => false,
                     // unmapped fields can't define their validation using annotations
                     // in the associated entity, so you can use the PHP constraint classes
                     'constraints' => [

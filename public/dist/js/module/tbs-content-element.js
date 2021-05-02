@@ -8,5 +8,11 @@ $(function () {
                 alwaysShowClose: true
             });
         });
+
+
     })
+    $(function () {
+        bsCustomFileInput.init();
+    });
+
 });
