@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Traits\CreatedTrait;
 use App\Entity\Traits\DeletedTrait;
+use App\Entity\Traits\ExtensionNameTrait;
 use App\Entity\Traits\HiddenTrait;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\StatusTrait;
@@ -23,11 +24,9 @@ class ExportContentElement
     use DeletedTrait;
     use HiddenTrait;
     use StatusTrait;
+    use ExtensionNameTrait;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $extensionName;
+
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -49,25 +48,12 @@ class ExportContentElement
      */
     private $customModule;
 
-
-
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
-    public function getExtensionName(): ?string
-    {
-        return $this->extensionName;
-    }
-
-    public function setExtensionName(string $extensionName): self
-    {
-        $this->extensionName = $extensionName;
-
-        return $this;
-    }
 
     public function getVendorName(): ?string
     {

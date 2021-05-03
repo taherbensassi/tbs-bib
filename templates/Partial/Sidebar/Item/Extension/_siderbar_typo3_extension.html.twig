@@ -1,0 +1,25 @@
+<li  {% if route_name in  "tbs_extension_index,tbs_extension_new,tbs_extension_edit" %} class="nav-item menu-open" {% else %} class="nav-item" {% endif %}>
+    <a href="#" {% if route_name in  "tbs_extension_index,tbs_extension_new,tbs_extension_edit" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+        <i class="nav-icon fas fa-list"></i>
+        <p>
+            Typo3 Extensions
+            <i class="fas fa-angle-left right"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{{ path('tbs_extension_index') }}" {% if route_name in "tbs_extension_index"    %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+                <i class="nav-icon far fa-circle"></i>
+                <p>Extension List</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ path('tbs_extension_new') }}" {% if route_name in "tbs_extension_new"    %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+                <i class="nav-icon far fa-circle"></i>
+                <p>Extension Anlegen</p>
+            </a>
+        </li>
+    </ul>
+</li>
+
+

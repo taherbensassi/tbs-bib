@@ -19,23 +19,27 @@
                         <div class="row">
                             <div class="col col-md-6">
                                 <dl class="row">
-                                    <dt class="col-sm-4">Beschreibung</dt>
-                                    <dd class="col-sm-8">{{ tbs_module.description|nl2br }}</dd>
-                                    <dt class="col-sm-4">Typo3 Version</dt>
-                                    <dd class="col-sm-8">{{ tbs_module.typo3Version }}
+                                    <dt class="col-sm-4">Title</dt>
+                                    <dd class="col-sm-8">{{ tbs_module.title }}</dd>
+                                    {% if tbs_module.description is not empty %}
+                                        <dt class="col-sm-4">Beschreibung</dt>
+                                        <dd class="col-sm-8">{{ tbs_module.description|nl2br }}</dd>
+                                    {% endif %}
+                                    <dt class="col-sm-4"></dt>
+                                    <dd class="col-sm-8 " style="background-color: #eee8d5;border-radius: 5px">
+                                        {% include 'Dashboard/Content Elements/Brettinghams/Card/_typo3_version.html.twig'%}
                                     </dd>
-                                    <dt class="col-sm-4">Erstellt</dt>
-                                    <dd class="col-sm-8">{{ tbs_module.created ? tbs_module.created|date('d-m-Y') : '' }}</dd>
-                                    <dt class="col-sm-4">Author</dt>
-                                    <dd class="col-sm-8">taher.bensassi@brettingham.de
-                                    <dt class="col-sm-4">Beispiel</dt>
-                                    <dd class="col-sm-8"><a href="{{ tbs_module.link }}" >{{ tbs_module.link }}</a>
+                                    {% if tbs_module.link is not empty %}
+                                        <dt class="col-sm-4">Link</dt>
+                                        <dd class="col-sm-8"><a href="{{ tbs_module.link }}" >{{ tbs_module.link }}</a>
+                                    {% endif %}
                                     <dt class="col-sm-4">Icon</dt>
                                     <dd class="col-sm-8"><img width="50" height="50" src="{{ asset('dist/img/extension/extension.svg') }}" >
                                     </dd>
                                 </dl>
                             </div>
-                            <div class="col col-md-12">
+                            {% if images is not empty %}
+                                <div class="col col-md-12">
                                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                     <ol class="carousel-indicators">
                                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active" style="background-color: #000;"></li>
@@ -43,15 +47,11 @@
                                         <li data-target="#carouselExampleIndicators" data-slide-to="2" style="background-color: #000;"></li>
                                     </ol>
                                     <div class="carousel-inner">
-                                        <div class="carousel-item active">
-                                            <img class="d-block w-100" src="{{ asset('uploads/images/' ~ tbs_module.previewImageFileName) }}" >
-                                        </div>
                                         {% for image in images %}
-                                            <div class="carousel-item ">
+                                            <div  {% if loop.first  %} class="carousel-item active" {% else %} class="carousel-item " {% endif %}>
                                                 <img class="d-block w-100" src="{{ asset('uploads/images/' ~ image.imageName) }}" >
                                             </div>
                                         {% endfor %}
-
                                     </div>
                                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                                        <span class="carousel-control-custom-icon" aria-hidden="true">
@@ -67,7 +67,7 @@
                                     </a>
                                 </div>
                             </div>
-
+                            {% endif %}
                         </div>
                     </div>
                 </div>

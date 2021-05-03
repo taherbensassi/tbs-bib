@@ -1,0 +1,18 @@
+<div class="col-md-3">
+    <div class="card-container">
+        <div class="card card-size-large mb-3">
+            <div class="card-header">
+                Sortieren nach
+            </div>
+            <div class="card-body">
+                <form method="GET" action="{{ path('tbs_module_index') }}" name="filter-tbs-module" >
+                    <div>
+                        {% include 'Dashboard/Content Elements/Brettinghams/Filter/Filter Sort/_filter_title.html.twig'  %}
+                        {% include 'Dashboard/Content Elements/Brettinghams/Filter/Filter Sort/_filter_date.html.twig'  %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% include 'Dashboard/Content Elements/Brettinghams/Filter/Filter Version/_filter_version.html.twig'  %}
+</div>

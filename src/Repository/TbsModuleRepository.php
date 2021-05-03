@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\TbsModule;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,37 +15,55 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TbsModuleRepository extends ServiceEntityRepository
 {
+    /**
+     * TbsModuleRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, TbsModule::class);
     }
 
-    // /**
-    //  * @return TbsModule[] Returns an array of TbsModule objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?TbsModule
+    /**
+     * @param string $filter
+     * @param string $field
+     * @return int|mixed|string
+     */
+    public function filterByOrder(string $filter, string $field)
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
+            ->orderBy('t.'.$field, $filter)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
+
+
+    /**
+     * @param string $version
+     * @return ArrayCollection
+     */
+    public function filerByVersion(string $version): ArrayCollection
+    {
+        $versionArray = array();
+        $versionArray[] = $version;
+
+
+        $ar = new ArrayCollection();
+        $qb = $this->createQueryBuilder('m');
+        $qb ->select('m');
+        foreach($versionArray as $item){
+            $qb->andWhere('m.typo3Version LIKE :v')
+                ->setParameter('v', '%"'.$item.'"%');
+        }
+        $results = $qb->getQuery()->getResult();
+        foreach ($results as $result){
+            $ar[] = $result;
+        }
+
+        return $ar;
+
+
+    }
+
 }

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Traits\CreatedTrait;
 use App\Entity\Traits\DeletedTrait;
+use App\Entity\Traits\DescriptionTrait;
 use App\Entity\Traits\HiddenTrait;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\LinkTrait;
@@ -29,6 +30,7 @@ class TbsModule
     use DeletedTrait;
     use HiddenTrait;
     use LinkTrait;
+    use DescriptionTrait;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -36,16 +38,6 @@ class TbsModule
      */
     private $title;
 
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $previewImageFileName;
-
-    /**
-     * @ORM\Column(type="text",nullable=true)
-     *
-     */
-    private $description;
 
     /**
      * @ORM\OneToMany(targetEntity=File::class, mappedBy="module",cascade={"persist", "remove"})
@@ -53,9 +45,16 @@ class TbsModule
     private $moduleImages;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="array")
+     * @Assert\NotBlank
      */
     private $typo3Version;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
 
     /**
      * TbsModule constructor.
@@ -84,41 +83,6 @@ class TbsModule
         return $this;
     }
 
-
-    /**
-     * @return string|null
-     */
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     * @return $this
-     */
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPreviewImageFileName()
-    {
-        return $this->previewImageFileName;
-    }
-
-    /**
-     * @param mixed $previewImageFileName
-     */
-    public function setPreviewImageFileName($previewImageFileName): void
-    {
-        $this->previewImageFileName = $previewImageFileName;
-    }
 
     /**
      * @return Collection|File[]
@@ -176,4 +140,19 @@ class TbsModule
 
 
 
+    /**
+     * @return mixed
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param mixed $author
+     */
+    public function setAuthor($author): void
+    {
+        $this->author = $author;
+    }
 }

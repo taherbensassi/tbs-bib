@@ -8,9 +8,10 @@ $(function () {
                 alwaysShowClose: true
             });
         });
-
-
     })
+    $(function() {
+        $('.item').matchHeight();
+    });
     $(function () {
         bsCustomFileInput.init();
     });

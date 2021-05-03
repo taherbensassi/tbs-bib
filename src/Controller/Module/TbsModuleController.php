@@ -8,6 +8,7 @@ use App\Repository\ContentElementsRepository;
 use App\Repository\FileRepository;
 use App\Repository\TbsModuleRepository;
 use App\Service\FileUploader;
+use App\Service\LoggedInUserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
@@ -27,32 +28,81 @@ class TbsModuleController extends AbstractController
 {
 
     /**
+     * @var LoggedInUserService
+     */
+    private $loggedInUser;
+
+    /**
      * @var FileRepository
      */
     private $fileRepository;
 
     /**
-     * TbsModuleController constructor.
-     * @param FileRepository $fileRepository
+     * @var TbsModuleRepository
      */
-    public function __construct(FileRepository $fileRepository)
-    {
-        $this->fileRepository = $fileRepository;
-    }
+    private $tbsModuleRepository;
 
+    /**
+     * TbsModuleController constructor.
+     * @param LoggedInUserService $loggedInUser
+     * @param FileRepository $fileRepository
+     * @param TbsModuleRepository $tbsModuleRepository
+     */
+    public function __construct(LoggedInUserService $loggedInUser, FileRepository $fileRepository, TbsModuleRepository $tbsModuleRepository)
+    {
+        $this->loggedInUser= $loggedInUser->getUser();
+        $this->fileRepository = $fileRepository;
+        $this->tbsModuleRepository = $tbsModuleRepository;
+    }
 
     /**
      * @Route("/", name="tbs_module_index", methods={"GET"})
+     * @param TbsModuleRepository $tbsModuleRepository
+     * @return Response
      */
-    public function index(TbsModuleRepository $tbsModuleRepository): Response
+    public function index(Request $request): Response
     {
+        $result = $this->tbsModuleRepository->findAll();
+
+        if ($request->isMethod('GET'))  {
+            $filterTitle = $request->query->get('filterTitle');
+            $filterDate = $request->query->get('filterDate');
+            if($filterTitle){
+                $result = $this->tbsModuleRepository->filterByOrder($this->getSortParameter($filterTitle),'title');
+            }
+            if($filterDate){
+                $result = $this->tbsModuleRepository->filterByOrder($this->getSortParameter($filterDate),'created');
+            }
+            $filterTypo3_11 = $request->query->get('filterTypo3-11-dev');
+            if($filterTypo3_11){
+                $result = $this->tbsModuleRepository->filerByVersion('11-dev');
+            }
+
+            $filterTypo3_10 = $request->query->get('filterTypo3-10');
+            if($filterTypo3_10){
+                $result = $this->tbsModuleRepository->filerByVersion('10 LTS');
+            }
+            $filterTypo3_9 = $request->query->get('filterTypo3-9');
+            if($filterTypo3_9){
+                $result = $this->tbsModuleRepository->filerByVersion('9 LTS');
+            }
+        }
+
         return $this->render('Dashboard/Content Elements/Brettinghams/index.html.twig', [
-            'tbs_modules' => $tbsModuleRepository->findAll(),
+            'tbs_modules' => $result,
+            'filterTitle' => $filterTitle ?? null,
+            'filterDate' => $filterDate ?? null,
+            'filterTypo3_11' => $filterTypo3_11 ?? null,
+            'filterTypo3_10' => $filterTypo3_10 ?? null,
+            'filterTypo3_9' => $filterTypo3_9 ?? null,
         ]);
     }
 
     /**
      * @Route("/new", name="tbs_module_new", methods={"GET","POST"})
+     * @param Request $request
+     * @param FileUploader $fileUploader
+     * @return Response
      */
     public function new(Request $request,FileUploader $fileUploader): Response
     {
@@ -64,15 +114,9 @@ class TbsModuleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            /** @var UploadedFile $image */
-            $image = $form->get('previewImageFileName')->getData();
             /** @var UploadedFile $images */
             $images = $form->get('moduleImages')->getData();
 
-            if ($image) {
-                $imageFileName = $fileUploader->upload($image);
-                $tbsModule->setPreviewImageFileName($imageFileName);
-            }
             if ($images) {
                 foreach ($images as $img){
                     $imageFileName = $fileUploader->upload($img);
@@ -81,9 +125,9 @@ class TbsModuleController extends AbstractController
                     $file->setModule($tbsModule);
                     $file->setImageSize($img->getSize());
                     $entityManager->persist($file);
-                    $entityManager->flush();
                 }
             }
+            $tbsModule->setAuthor($this->loggedInUser);
             $entityManager->persist($tbsModule);
             $entityManager->flush();
 
@@ -107,15 +151,9 @@ class TbsModuleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            /** @var UploadedFile $image */
-            $image = $form->get('previewImageFileName')->getData();
             /** @var UploadedFile $images */
             $images = $form->get('moduleImages')->getData();
 
-            if ($image) {
-                $imageFileName = $fileUploader->upload($image);
-                $tbsModule->setPreviewImageFileName($imageFileName);
-            }
             if ($images) {
                 foreach ($images as $img){
                     $imageFileName = $fileUploader->upload($img);
@@ -127,6 +165,7 @@ class TbsModuleController extends AbstractController
                     $entityManager->flush();
                 }
             }
+            $tbsModule->setAuthor($this->loggedInUser);
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('tbs_module_index');
         }
@@ -161,8 +200,6 @@ class TbsModuleController extends AbstractController
 
             $filesystem = new Filesystem();
             $currentDirPath = getcwd();
-            $filesystem->remove(['unlink',$currentDirPath.'/uploads/images/'.$tbsModule->getPreviewImageFileName()]);
-
             $files = $this->fileRepository->findBy([
                     'module' => $tbsModule->getId()
             ]);
@@ -177,4 +214,14 @@ class TbsModuleController extends AbstractController
 
         return $this->redirectToRoute('tbs_module_index');
     }
+
+    /**
+     * @param string $paramater
+     * @return string
+     */
+    private function getSortParameter(string $paramater):string{
+        $sortPos = strpos($paramater,"+");
+        return strtoupper(substr($paramater,$sortPos+1));
+    }
+
 }

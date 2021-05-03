@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\TbsModule;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -36,39 +37,18 @@ class TbsModuleType extends AbstractType
                 'required' => true
             ])
 
-            ->add('previewImageFileName', FileType::class, [
-                'label' => 'Bild Preview',
 
-                // unmapped means that this field is not associated to any entity property
-                'mapped' => false,
-
-                // make it optional so you don't have to re-upload the PDF file
-                // every time you edit the Product details
-                'required' => true,
-
-                // unmapped fields can't define their validation using annotations
-                // in the associated entity, so you can use the PHP constraint classes
-                'constraints' => [
-                    new File([
-                        'mimeTypes' => [
-                            'image/png',
-                            'image/jpeg',
-                        ],
-                        'mimeTypesMessage' => 'Bitte laden Sie ein gültiges Bild hoch',
-                    ])
-                ],
-                'attr' => [
-                    'accept' => '.jpg, .jpeg, .png'
-                ],
-            ])
             ->add('typo3Version',ChoiceType::class,[
                 'label' => 'TYPO3 Version *',
                 'choices'  => [
-                    '^10.4' => '^10,4',
-                    '^9.5' => '^9.5',
-                    '^8.7' => '^8.7',
+                    '11-dev' => '11-dev',
+                    '10.4' => '10 LTS',
+                    '9.5' => '9 LTS',
                 ],
                 'expanded' => true,
+                'multiple' => true,
+                'required' => true,
+
             ])
             ->add('link',UrlType::class,[
                 'label' => 'Link Beispiel',
@@ -78,6 +58,7 @@ class TbsModuleType extends AbstractType
                     'multiple' => true,
                     'mapped' => false,
                     'required' => false,
+
                     // unmapped fields can't define their validation using annotations
                     // in the associated entity, so you can use the PHP constraint classes
                     'constraints' => [
