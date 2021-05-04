@@ -1,0 +1,47 @@
+{% extends '@layout/layout-index.html.twig' %}
+{% block title %}Content Element{% endblock %}
+
+{% block card %}
+    <div class="callout callout-info">
+        <h5><i class="fas fa-info"></i> Hinweis:</h5>
+        Es werden nur Snippets angezeigt, die vom Administrator erstellt wurden!
+        <a class="btn btn-link" href="https://gitlab.brettinghams-dev.de/-/snippets/new">Snippet hunzufügen</a>
+    </div>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-right">
+            <h3 class="card-title">Gitlab Snippet List</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            {% include 'Block/Flash/_flash_message.html.twig'  %}
+            <table id="table" class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Titel</th>
+                    <th>Beschreibung</th>
+                    <th>Erstellt</th>
+                    <th>Link</th>
+                    <th>Clone</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for snippet in gitlabSnippet %}
+                    <tr>
+                        <td class="text-success">{{ snippet.title }}</td>
+                        <td>{{ snippet.description }}</td>
+                        <td>{{ snippet.created_at ? snippet.created_at|date('Y-m-d H:i:s') : '' }}</td>
+                        <td><a href="{{ snippet.web_url }}"  class="btn btn-link">Gitlab</a> </td>
+                        <td>{{ snippet.http_url_to_repo }} </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="11">keine Datensätze gefunden</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+{% endblock %}
+

@@ -30,44 +30,25 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ path('client_index')}}" {% if route_name == "client_index" or route_name == "client_new"  or route_name == "client_edit"%} class="nav-link active" {% else %} class="nav-link" {% endif %}>
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>Kunden</p>
-                    </a>
-                </li>
+
+                <!-- client -->
+                {% include 'Partial/Sidebar/Item/Client/_sidebar_client.html.twig' %}
 
                 <li class="nav-header">Typo3 CMS</li>
-                {% include 'Partial/Sidebar/Item/Typo3 CMS/_siderbar_typo3_module.html.twig' %}
-                {% include 'Partial/Sidebar/Item/Typo3 CMS/_siderbar_typo3_plugin.html.twig' %}
-                {% include 'Partial/Sidebar/Item/Extension/_siderbar_typo3_extension.html.twig' %}
-
+                {% include 'Partial/Sidebar/Item/Typo3 CMS/_sidebar_typo3_module.html.twig' %}
+                {% include 'Partial/Sidebar/Item/Typo3 CMS/_sidebar_typo3_plugin.html.twig' %}
+                {% include 'Partial/Sidebar/Item/Extension/_sidebar_typo3_extension.html.twig' %}
 
                 <li class="nav-header">VCS</li>
-                {% include 'Partial/Sidebar/Item/Vcs/_siderbar_vcs.html.twig' %}
-
-
+                {% include 'Partial/Sidebar/Item/Vcs/_sidebar_vcs.html.twig' %}
 
                 <li class="nav-header">Snippet</li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-file-code"></i>
-                        <p>Backend</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-code"></i>
-                        <p>Frontend</p>
-                    </a>
-                </li>
+                {% include 'Partial/Sidebar/Item/Snippet/_sidebar_snippet.html.twig' %}
+
                 <li class="nav-header">System</li>
-                <li class="nav-item">
-                    <a href="{{ path('jmose_command_scheduler_list') }}" {% if route_name == "jmose_command_scheduler_list" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
-                        <i class="nav-icon fas fa-business-time"></i>
-                        <p>Scheduler</p>
-                    </a>
-                </li>
+                {% include 'Partial/Sidebar/Item/System/_sidebar_system.html.twig' %}
+
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

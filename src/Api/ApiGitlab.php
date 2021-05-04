@@ -201,4 +201,24 @@ class ApiGitlab
         }
         return null;
     }
+
+    /**
+     * @return array|null
+     * @throws ClientExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function fetchGitLabSnippet(): ?array
+    {
+        $response = $this->gitlab->request('GET', 'https://gitlab.brettinghams-dev.de/api/v4/snippets', [
+
+        ]);
+        if (200 === $response->getStatusCode()) {
+            // $contentType = 'application/json'
+            return $response->toArray();
+        }
+        return null;
+    }
 }

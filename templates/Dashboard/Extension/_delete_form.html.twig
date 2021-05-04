@@ -1,7 +1,7 @@
 <form method="post" action="{{ path('tbs_extension_delete', {'id': tbs_extension.id}) }}" onsubmit="return confirm('Sind Sie sicher, dass Sie dieses Element löschen möchten?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tbs_extension.id) }}">
 
-    <button class="btn btn-danger btn-flat mb-0 w-100" >
+    <button class="btn btn-default btn-flat mb-0 w-100" >
         <i class="far fa-trash-alt"></i>
     </button>
 </form>

@@ -64,4 +64,8 @@ $(function () {
     }).buttons().container().appendTo('#projectTable_wrapper .col-md-6:eq(0)');
 });
 
+$(function() {
+    $('.item').matchHeight();
+});
+
 
