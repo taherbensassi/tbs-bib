@@ -1,11 +1,11 @@
 <p>
     Hochgeladen am
-    {{ tbs_module.created ? tbs_module.created|date('d-m-Y') : '' }}<br>
-    {{ tbs_module.author.email }}
+    {{ tbs_extension.created ? tbs_extension.created|date('d-m-Y') : '' }}<br>
+    {{ tbs_extension.author.email }}
 </p>
 <p class="pb-0" style="padding-bottom: -2px">
-    <small>This Module supports TYPO3:</small><br>
-    {% for version in tbs_module.typo3Version %}
+    <small>This Extension supports TYPO3:</small><br>
+    {% for version in tbs_extension.typo3Version %}
         <button class="btn btn-success btn-sm mr-2" disabled="" >{{ version }}</button>
     {% endfor %}
 </p>

@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block title %}Neuer Tbs Extension{% endblock %}
 
-
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+    <script src="{{ asset('dist/js/module/tbs-extension.js') }}"></script>
+{% endblock %}
 
 {% block content %}
     <div class="content-wrapper">

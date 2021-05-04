@@ -1,6 +1,6 @@
 <div class="btn-group d-flex" role="group">
     <a href="{{ path('tbs_module_show', {'id': tbs_module.id}) }}" class="btn btn-default btn-flat mb-0 w-100"  rel="nofollow" href="#">
-        <i class="fa fa-eye"></i> Anzeigen
+        <i class="fa fa-book"></i> Dokumentation
     </a>
     {% if  app.user is defined %}
         {% if app.user.username == tbs_module.author.email %}

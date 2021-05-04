@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\Typo3VersionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=Typo3VersionRepository::class)
@@ -22,10 +23,7 @@ class Typo3Version
      */
     private $version;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=TbsExtension::class, inversedBy="typo3Version",cascade={"persist"})
-     */
-    private $tbsExtension;
+
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -61,15 +59,5 @@ class Typo3Version
         return $this;
     }
 
-    public function getTbsExtension(): ?TbsExtension
-    {
-        return $this->tbsExtension;
-    }
 
-    public function setTbsExtension(?TbsExtension $tbsExtension): self
-    {
-        $this->tbsExtension = $tbsExtension;
-
-        return $this;
-    }
 }

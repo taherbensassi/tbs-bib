@@ -3,13 +3,14 @@
 
 namespace App\Entity\Traits;
 
-
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 trait LinkTrait
 {
     /**
      * @ORM\Column(type="string",nullable=true)
+     * @Assert\Url
      */
     private $link;
 

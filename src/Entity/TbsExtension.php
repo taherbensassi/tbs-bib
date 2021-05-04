@@ -15,6 +15,8 @@ use App\Repository\TbsExtensionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=TbsExtensionRepository::class)
@@ -28,7 +30,6 @@ class TbsExtension
     use DeletedTrait;
     use HiddenTrait;
     use DescriptionTrait;
-    use LinkTrait;
     use ExtensionKeyTrait;
 
     /**
@@ -42,9 +43,16 @@ class TbsExtension
     private $extensionZip;
 
     /**
-     * @ORM\OneToMany(targetEntity=Typo3Version::class, mappedBy="tbsExtension",cascade={"persist", "remove"})
+     * @ORM\Column(type="array")
+     * @Assert\NotBlank
      */
     private $typo3Version;
+
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     * @Assert\Url
+     */
+    private $link;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
@@ -56,7 +64,6 @@ class TbsExtension
     {
         $this->typo3Version = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -91,35 +98,7 @@ class TbsExtension
         $this->extensionZip = $extensionZip;
     }
 
-    /**
-     * @return Collection|Typo3Version[]
-     */
-    public function getTypo3Version(): Collection
-    {
-        return $this->typo3Version;
-    }
 
-    public function addTypo3Version(Typo3Version $typo3Version): self
-    {
-        if (!$this->typo3Version->contains($typo3Version)) {
-            $this->typo3Version[] = $typo3Version;
-            $typo3Version->setTbsExtension($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTypo3Version(Typo3Version $typo3Version): self
-    {
-        if ($this->typo3Version->removeElement($typo3Version)) {
-            // set the owning side to null (unless already changed)
-            if ($typo3Version->getTbsExtension() === $this) {
-                $typo3Version->setTbsExtension(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getAuthor(): ?User
     {
@@ -132,6 +111,40 @@ class TbsExtension
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTypo3Version()
+    {
+        return $this->typo3Version;
+    }
+
+    /**
+     * @param mixed $typo3Version
+     */
+    public function setTypo3Version($typo3Version): void
+    {
+        $this->typo3Version = $typo3Version;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
+
+    /**
+     * @param mixed $link
+     */
+    public function setLink($link): void
+    {
+        $this->link = $link;
+    }
+
+
 
 
 }

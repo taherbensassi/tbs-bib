@@ -30,12 +30,12 @@
                         <div class="input-group">
                             <div class="custom-file">
                                 {{ form_widget(form.extensionZip, { 'attr': {'id': 'extensionZip'} }) }}
+                                <label class="custom-file-label" for="extensionZip">Choose file</label>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="col-md-6">
             <div class="card card-primary">
@@ -47,7 +47,7 @@
                         {% if apiVersionFailed == false %}
                             {% for data in typo3Version|slice(0, 3) %}
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="version[]">
+                                    <input class="form-check-input" value="{{ data.title }}" id="tbs_extension_typo3Version" type="checkbox" name="versions[]" >
                                     <label class="form-check-label">
                                         <dl class="row">
                                             <dt class="col-sm-4">Version</dt>

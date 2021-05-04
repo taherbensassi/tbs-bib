@@ -20,15 +20,15 @@
                                 <a href="{{ path('tbs_module_show', {'id': tbs_module.id}) }}" class="ml-2">{{ tbs_module.title }}</a>
                             </h3>
                         </div>
-                        <strong>
+                        <div class="item">
                             <p>
                             {% if tbs_module.description|length > 155%}
-                                {{ tbs_module.description|raw|slice(0,155) }}
+                                {{ tbs_module.description|raw|slice(0,155) }} ...
                             {% else %}
                                 {{ tbs_module.description }}
                             {% endif %}
                             </p>
-                        </strong>
+                        </div>
                         <hr>
                         {% include 'Dashboard/Content Elements/Brettinghams/Card/_typo3_version.html.twig'%}
                     </div>

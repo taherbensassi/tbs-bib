@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\TbsExtension;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +19,46 @@ class TbsExtensionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, TbsExtension::class);
     }
+
+    /**
+     * @param string $filter
+     * @param string $field
+     * @return int|mixed|string
+     */
+    public function filterByOrder(string $filter, string $field)
+    {
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.'.$field, $filter)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param string $version
+     * @return ArrayCollection
+     */
+    public function filerByVersion(string $version): ArrayCollection
+    {
+        $versionArray = array();
+        $versionArray[] = $version;
+
+
+        $ar = new ArrayCollection();
+        $qb = $this->createQueryBuilder('m');
+        $qb ->select('m');
+        foreach($versionArray as $item){
+            $qb->andWhere('m.typo3Version LIKE :v')
+                ->setParameter('v', '%"'.$item.'"%');
+        }
+        $results = $qb->getQuery()->getResult();
+        foreach ($results as $result){
+            $ar[] = $result;
+        }
+
+        return $ar;
+    }
+
+
 
     // /**
     //  * @return TbsExtension[] Returns an array of TbsExtension objects

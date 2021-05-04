@@ -62,8 +62,6 @@ class TbsModuleRepository extends ServiceEntityRepository
         }
 
         return $ar;
-
-
     }
 
 }

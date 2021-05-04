@@ -1,297 +1,48 @@
 <div class="col-md-9">
-    <div class="card-columns">
-        <div class="card">
-            <div class="card-body">
-                <div class="align-items-center w-100">
-                    <div class="d-flex justify-content-between">
-                        <h3 class="card-title">
-                            <img class="ter-ext-icon"  src="" height="32" width="32">
-                            <a href="#">Event management and registration</a>
-                        </h3>
-                    </div>
-                    <h4 class="card-subtitle text-muted mb-2">
-                        sf_event_mgt /
-                        <span class="ter-ext-state ter-ext-state-stable">stable</span>
-                    </h4>
-                    <p>
-                        <small>
-                            Configurable event management and registration extension based on ExtBase and Fluid
-                            <br>
-                            <em>
-                                Uploaded on
-                                02 May 2021
-                                by
-                                Torben Hansen
-                            </em>
-                        </small>
-                    </p>
+    <div class="row">
+        {% if tbs_extensions is empty %}
+            <div class="col-md-12">
+                <div class="alert alert-info alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-info"></i> Alert!</h5>
+                    Es gibt kein Extension
                 </div>
             </div>
-            <div>
-                <p class="col-sm-12">
-                    <small>This extension supports TYPO3:</small><br>
-                    <button class="btn btn-warning btn-sm mr-2" disabled="" title="Supports ELTS version 8 LTS.">8 LTS</button>
-                    <button class="btn btn-success btn-sm mr-2" disabled="" title="Supports currently supported version 9 LTS.">9 LTS</button>
-                    <button class="btn btn-success btn-sm mr-2" disabled="" title="Supports currently supported version 10 LTS.">10 LTS</button>
-                </p>
-            </div>
-            <div class="btn-group d-flex" role="group">
-                <a class="btn btn-primary mb-0 w-100" title="Downlad version 5.4.1 of TYPO3 extension sf_event_mgt" rel="nofollow" href="/extension/download/sf_event_mgt">
-                    <i class="fa fa-download"></i> v5.4.1
-                </a>
-                <a class="btn btn-info  mb-0 w-100" title="Go to documentation of extension sf_event_mgt" rel="nofollow" href="https://docs.typo3.org/p/derhansen/sf_event_mgt/5.4/en-us">
-                    <i class="fa fa-book"></i> Documentation
-                </a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <div class="align-items-center w-100">
-                    <div class="d-flex justify-content-between">
-                        <h3 class="card-title">
-                            <img class="ter-ext-icon"  src="" height="32" width="32">
-                            <a href="#">Event management and registration</a>
-                        </h3>
-
+        {% else %}
+            {% for tbs_extension in tbs_extensions %}
+                <div class="col-md-4 ">
+                    <div class="card ">
+                        <div class="card-body">
+                            <div class="align-items-center w-100 ">
+                                <div class="d-flex justify-content-between  pb-2">
+                                    <h3 class="card-title">
+                                        <img class="ter-ext-icon"  src="{{ asset('dist/img/extension/extension.svg') }}" height="20" width="20">
+                                        <a href="" class="ml-2">{{ tbs_extension.title }}</a>
+                                    </h3>
+                                </div>
+                                <small class="card-subtitle text-muted mb-2">
+                                    {{ tbs_extension.extensionKey }}
+                                </small>
+                                <div class="item">
+                                    <p>
+                                        {% if tbs_extension.description|length > 155%}
+                                            <a type="button" class="link-dark" data-description="{{ tbs_extension.description }}" data-toggle="modal" data-target="#descriptionModal" style="color: black">
+                                                {{ tbs_extension.description|raw|slice(0,155) }} <small class="btn btn-xs btn-link   ml-auto">weiter lesen</small>
+                                            </a>
+                                        {% else %}
+                                            {{ tbs_extension.description }}
+                                        {% endif %}
+                                    </p>
+                                </div>
+                                <hr>
+                                {% include 'Dashboard/Extension/Card/_typo3_version.html.twig'%}
+                            </div>
+                        </div>
+                        {% include 'Dashboard/Extension/Card/_button.html.twig'%}
                     </div>
-                    <h4 class="card-subtitle text-muted mb-2">
-                        sf_event_mgt /
-                        <span class="ter-ext-state ter-ext-state-stable">stable</span>
-                    </h4>
-                    <p>
-                        <small>
-                            Configurable event management and registration extension based on ExtBase and Fluid
-                            <br>
-                            <em>
-                                Uploaded on
-                                02 May 2021
-                                by
-                                Torben Hansen
-                            </em>
-                        </small>
-                    </p>
                 </div>
-            </div>
-            <div>
-                <p class="col-sm-12">
-                    <small>This extension supports TYPO3:</small><br>
-                    <button class="btn btn-warning btn-sm mr-2" disabled="" title="Supports ELTS version 8 LTS.">8 LTS</button>
-                    <button class="btn btn-success btn-sm mr-2" disabled="" title="Supports currently supported version 9 LTS.">9 LTS</button>
-                    <button class="btn btn-success btn-sm mr-2" disabled="" title="Supports currently supported version 10 LTS.">10 LTS</button>
-                </p>
-            </div>
-            <div class="btn-group d-flex" role="group">
-                <a class="btn btn-primary mb-0 w-100" title="Downlad version 5.4.1 of TYPO3 extension sf_event_mgt" rel="nofollow" href="/extension/download/sf_event_mgt">
-                    <i class="fa fa-download"></i> v5.4.1
-                </a>
-                <a class="btn btn-info  mb-0 w-100" title="Go to documentation of extension sf_event_mgt" rel="nofollow" href="https://docs.typo3.org/p/derhansen/sf_event_mgt/5.4/en-us">
-                    <i class="fa fa-book"></i> Documentation
-                </a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <div class="align-items-center w-100">
-                    <div class="d-flex justify-content-between">
-                        <h3 class="card-title">
-                            <img class="ter-ext-icon"  src="" height="32" width="32">
-                            <a href="#">Event management and registration</a>
-                        </h3>
-                    </div>
-                    <h4 class="card-subtitle text-muted mb-2">
-                        sf_event_mgt /
-                        <span class="ter-ext-state ter-ext-state-stable">stable</span>
-                    </h4>
-                    <p>
-                        <small>
-                            Configurable event management and registration extension based on ExtBase and Fluid
-                            <br>
-                            <em>
-                                Uploaded on
-                                02 May 2021
-                                by
-                                Torben Hansen
-                            </em>
-                        </small>
-                    </p>
-                </div>
-            </div>
-            <div>
-                <p class="col-sm-12">
-                    <small>This extension supports TYPO3:</small><br>
-                    <button class="btn btn-warning btn-sm mr-2" disabled="" title="Supports ELTS version 8 LTS.">8 LTS</button>
-                    <button class="btn btn-success btn-sm mr-2" disabled="" title="Supports currently supported version 9 LTS.">9 LTS</button>
-                    <button class="btn btn-success btn-sm mr-2" disabled="" title="Supports currently supported version 10 LTS.">10 LTS</button>
-                </p>
-            </div>
-            <div class="btn-group d-flex" role="group">
-                <a class="btn btn-primary mb-0 w-100" title="Downlad version 5.4.1 of TYPO3 extension sf_event_mgt" rel="nofollow" href="/extension/download/sf_event_mgt">
-                    <i class="fa fa-download"></i> v5.4.1
-                </a>
-                <a class="btn btn-info  mb-0 w-100" title="Go to documentation of extension sf_event_mgt" rel="nofollow" href="https://docs.typo3.org/p/derhansen/sf_event_mgt/5.4/en-us">
-                    <i class="fa fa-book"></i> Documentation
-                </a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <div class="align-items-center w-100">
-                    <div class="d-flex justify-content-between">
-                        <h3 class="card-title">
-                            <img class="ter-ext-icon"  src="" height="32" width="32">
-                            <a href="#">Event management and registration</a>
-                        </h3>
-                    </div>
-                    <h4 class="card-subtitle text-muted mb-2">
-                        sf_event_mgt /
-                        <span class="ter-ext-state ter-ext-state-stable">stable</span>
-                    </h4>
-                    <p>
-                        <small>
-                            Configurable event management and registration extension based on ExtBase and Fluid
-                            <br>
-                            <em>
-                                Uploaded on
-                                02 May 2021
-                                by
-                                Torben Hansen
-                            </em>
-                        </small>
-                    </p>
-                </div>
-            </div>
-            <div>
-                <p class="col-sm-12">
-                    <small>This extension supports TYPO3:</small><br>
-                    <button class="btn btn-warning btn-sm mr-2" disabled="" title="Supports ELTS version 8 LTS.">8 LTS</button>
-                    <button class="btn btn-success btn-sm mr-2" disabled="" title="Supports currently supported version 9 LTS.">9 LTS</button>
-                    <button class="btn btn-success btn-sm mr-2" disabled="" title="Supports currently supported version 10 LTS.">10 LTS</button>
-                </p>
-            </div>
-            <div class="btn-group d-flex" role="group">
-                <a class="btn btn-primary mb-0 w-100" title="Downlad version 5.4.1 of TYPO3 extension sf_event_mgt" rel="nofollow" href="/extension/download/sf_event_mgt">
-                    <i class="fa fa-download"></i> v5.4.1
-                </a>
-                <a class="btn btn-info  mb-0 w-100" title="Go to documentation of extension sf_event_mgt" rel="nofollow" href="https://docs.typo3.org/p/derhansen/sf_event_mgt/5.4/en-us">
-                    <i class="fa fa-book"></i> Documentation
-                </a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <div class="align-items-center w-100">
-                    <div class="d-flex justify-content-between">
-                        <h3 class="card-title">
-                            <img class="ter-ext-icon"  src="" height="32" width="32">
-                            <a href="#">Event management and registration</a>
-                        </h3>
-                    </div>
-                    <h4 class="card-subtitle text-muted mb-2">
-                        sf_event_mgt /
-                        <span class="ter-ext-state ter-ext-state-stable">stable</span>
-                    </h4>
-                    <p>
-                        <small>
-                            Configurable event management and registration extension based on ExtBase and Fluid
-                            <br>
-                            <em>
-                                Uploaded on
-                                02 May 2021
-                                by
-                                Torben Hansen
-                            </em>
-                        </small>
-                    </p>
-                </div>
-            </div>
-            <div>
-                <p class="col-sm-12">
-                    <small>This extension supports TYPO3:</small><br>
-                    <button class="btn btn-warning btn-sm mr-2" disabled="" title="Supports ELTS version 8 LTS.">8 LTS</button>
-                    <button class="btn btn-success btn-sm mr-2" disabled="" title="Supports currently supported version 9 LTS.">9 LTS</button>
-                    <button class="btn btn-success btn-sm mr-2" disabled="" title="Supports currently supported version 10 LTS.">10 LTS</button>
-                </p>
-            </div>
-            <div class="btn-group d-flex" role="group">
-                <a class="btn btn-primary mb-0 w-100" title="Downlad version 5.4.1 of TYPO3 extension sf_event_mgt" rel="nofollow" href="/extension/download/sf_event_mgt">
-                    <i class="fa fa-download"></i> v5.4.1
-                </a>
-                <a class="btn btn-info  mb-0 w-100" title="Go to documentation of extension sf_event_mgt" rel="nofollow" href="https://docs.typo3.org/p/derhansen/sf_event_mgt/5.4/en-us">
-                    <i class="fa fa-book"></i> Documentation
-                </a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <div class="align-items-center w-100">
-                    <div class="d-flex justify-content-between">
-                        <h3 class="card-title">
-                            <img class="ter-ext-icon"  src="" height="32" width="32">
-                            <a href="#">Event management and registration</a>
-                        </h3>
-                    </div>
-                    <h4 class="card-subtitle text-muted mb-2">
-                        sf_event_mgt /
-                        <span class="ter-ext-state ter-ext-state-stable">stable</span>
-                    </h4>
-                    <p>
-                        <small>
-                            Configurable event management and registration extension based on ExtBase and Fluid
-                            <br>
-                            <em>
-                                Uploaded on
-                                02 May 2021
-                                by
-                                Torben Hansen
-                            </em>
-                        </small>
-                    </p>
-                </div>
-            </div>
-            <div>
-                <p class="col-sm-12">
-                    <small>This extension supports TYPO3:</small><br>
-                    <button class="btn btn-warning btn-sm mr-2" disabled="" title="Supports ELTS version 8 LTS.">8 LTS</button>
-                    <button class="btn btn-success btn-sm mr-2" disabled="" title="Supports currently supported version 9 LTS.">9 LTS</button>
-                    <button class="btn btn-success btn-sm mr-2" disabled="" title="Supports currently supported version 10 LTS.">10 LTS</button>
-                </p>
-            </div>
-            <div class="btn-group d-flex" role="group">
-                <a class="btn btn-primary mb-0 w-100" title="Downlad version 5.4.1 of TYPO3 extension sf_event_mgt" rel="nofollow" href="/extension/download/sf_event_mgt">
-                    <i class="fa fa-download"></i> v5.4.1
-                </a>
-                <a class="btn btn-info  mb-0 w-100" title="Go to documentation of extension sf_event_mgt" rel="nofollow" href="https://docs.typo3.org/p/derhansen/sf_event_mgt/5.4/en-us">
-                    <i class="fa fa-book"></i> Documentation
-                </a>
-            </div>
-        </div>
+            {% endfor %}
+        {% endif %}
     </div>
-    <nav aria-label="Pagination" >
-        <ul class="pagination justify-content-center">
-            <li class="page-item active">
-                <a href="/" class="page-link solr-ajaxified">1</a>
-            </li>
-            <li class="page-item">
-                <a href="/?tx_solr%5Bpage%5D=2" class="page-link solr-ajaxified">2</a>
-            </li>
-            <li class="page-item">
-                <a href="/?tx_solr%5Bpage%5D=3" class="page-link solr-ajaxified">3</a>
-            </li>
-            <li class="page-item">
-                <a href="/?tx_solr%5Bpage%5D=4" class="page-link solr-ajaxified">4</a>
-            </li>
-            <li class="page-item">
-                <a href="/?tx_solr%5Bpage%5D=5" class="page-link solr-ajaxified">5</a>
-            </li>
-            <li class="page-item">
-                <a href="/?tx_solr%5Bpage%5D=6" class="page-link solr-ajaxified">6</a>
-            </li>
-            <li class="page-item"><a class="page-link">....</a></li>
-            <li class="page-item last next">
-                <a href="/?tx_solr%5Bpage%5D=2" class="page-link solr-ajaxified">
-                    »
-                </a>
-            </li>
-        </ul>
-    </nav>
 </div>
+{% include 'Dashboard/Extension/Modal/_modal.html.twig'%}
