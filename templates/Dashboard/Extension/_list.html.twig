@@ -44,5 +44,6 @@
             {% endfor %}
         {% endif %}
     </div>
+    {{ knp_pagination_render(tbs_extensions, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
 </div>
 {% include 'Dashboard/Extension/Modal/_modal.html.twig'%}

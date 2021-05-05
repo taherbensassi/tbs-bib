@@ -2,6 +2,7 @@
 {% block title %}Content Element{% endblock %}
 
 {% block card %}
+{% if apiFailed is defined and apiFailed == false  %}
     <div class="callout callout-info">
         <h5><i class="fas fa-info"></i> Hinweis:</h5>
         Es werden nur Snippets angezeigt, die vom Administrator erstellt wurden!
@@ -43,5 +44,13 @@
         </div>
         <!-- /.card-body -->
     </div>
+{% else %}
+    <div class="card-body ">
+        <div class="alert alert-danger ">
+            <h5><i class="icon fas fa-ban"></i> Achtung!</h5>
+            Bitte überprüfen Sie die Konfiguration der Gitlab-Api und aktualisieren Sie die Seite!
+        </div>
+    </div>
+{% endif %}
 {% endblock %}
 

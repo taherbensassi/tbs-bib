@@ -10,6 +10,7 @@ use App\Repository\FileRepository;
 use App\Repository\TbsExtensionRepository;
 use App\Repository\TbsModuleRepository;
 use App\Service\LoggedInUserService;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Service\FileUploader;
@@ -69,7 +70,7 @@ class TbsExtensionController extends AbstractController
     /**
      * @Route("/", name="tbs_extension_index", methods={"GET"})
      */
-    public function index(Request $request,TbsExtensionRepository $tbsExtensionRepository): Response
+    public function index(Request $request,TbsExtensionRepository $tbsExtensionRepository,PaginatorInterface $paginator): Response
     {
         $result = $this->tbsExtensionRepository->findAll();
 
@@ -97,9 +98,14 @@ class TbsExtensionController extends AbstractController
             }
 
         }
+        $pagination = $paginator->paginate(
+            $result, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            6 /*limit per page*/
+        );
 
         return $this->render('Dashboard/Extension/index.html.twig', [
-            'tbs_extensions' => $result,
+            'tbs_extensions' => $pagination,
             'filterTitle' => $filterTitle ?? null,
             'filterDate' => $filterDate ?? null,
             'filterTypo3_11' => $filterTypo3_11 ?? null,

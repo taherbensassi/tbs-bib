@@ -9,6 +9,7 @@ use App\Repository\FileRepository;
 use App\Repository\TbsModuleRepository;
 use App\Service\FileUploader;
 use App\Service\LoggedInUserService;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
@@ -60,7 +61,7 @@ class TbsModuleController extends AbstractController
      * @param TbsModuleRepository $tbsModuleRepository
      * @return Response
      */
-    public function index(Request $request): Response
+    public function index(Request $request,PaginatorInterface $paginator): Response
     {
         $result = $this->tbsModuleRepository->findAll();
 
@@ -86,10 +87,15 @@ class TbsModuleController extends AbstractController
             if($filterTypo3_9){
                 $result = $this->tbsModuleRepository->filerByVersion('9 LTS');
             }
+            $pagination = $paginator->paginate(
+                $result, /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                6 /*limit per page*/
+            );
         }
 
         return $this->render('Dashboard/Content Elements/Brettinghams/index.html.twig', [
-            'tbs_modules' => $result,
+            'tbs_modules' => $pagination,
             'filterTitle' => $filterTitle ?? null,
             'filterDate' => $filterDate ?? null,
             'filterTypo3_11' => $filterTypo3_11 ?? null,
