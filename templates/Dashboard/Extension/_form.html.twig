@@ -1,0 +1,83 @@
+{{ form_start(form) }}
+<div class="card-body">
+    {{ form_row(form._token) }}
+    {% include 'Block/Flash/_flash_message.html.twig'  %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">General</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group" >
+                        <label for="elementKey">{{ form_label(form.title) }} </label>
+                        {{ form_widget(form.title, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="elementTitle">{{ form_label(form.extensionKey) }} </label>
+                        {{ form_widget(form.extensionKey, { 'attr': {'class': 'form-control '} }) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="elementTitle">{{ form_label(form.description) }} </label>
+                        {{ form_widget(form.description, { 'attr': {'class': 'form-control '} }) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="elementTitle">{{ form_label(form.link) }} </label>
+                        {{ form_widget(form.link, { 'attr': {'class': 'form-control '} }) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="extensionZip">{{ form_label(form.extensionZip) }}</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                {{ form_widget(form.extensionZip, { 'attr': {'id': 'extensionZip'} }) }}
+                                <label class="custom-file-label" for="extensionZip">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Typo3 Version (https://get.typo3.org/v1/api/major)</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        {% if apiVersionFailed == false %}
+                            {% for data in typo3Version|slice(0, 3) %}
+                                <div class="form-check">
+                                    <input class="form-check-input" value="{{ data.title }}" id="tbs_extension_typo3Version" type="checkbox" name="versions[]" >
+                                    <label class="form-check-label">
+                                        <dl class="row">
+                                            <dt class="col-sm-4">Version</dt>
+                                            <dd class="col-sm-8">{{ data.version }}</dd>
+                                            <dt class="col-sm-4">Title</dt>
+                                            <dd class="col-sm-8">
+                                                {% if 'LTS' in data.title %}
+                                                    <button class="btn btn-success btn-sm mr-2" disabled="" >{{ data.title }}</button>
+                                                {% else %}
+                                                    {{ data.title }}
+                                                {% endif %}
+                                            </dd>
+                                            <dt class="col-sm-4">Subtitle</dt>
+                                            <dd class="col-sm-8">{{ data.subtitle }}</dd>
+                                        </dl>
+                                    </label>
+                                </div>
+                                {% if loop.last != true %}
+                                    <hr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card-footer">
+    <button type="submit" class="btn btn-dark" ><i class="fa fa-save"></i> <i class="fa fa-list"></i> Speichern</button>
+</div>
+{{ form_end(form, {'render_rest': false}) }}
+

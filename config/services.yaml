@@ -7,6 +7,7 @@ parameters:
     locale: 'de'
     app_locales: de|en
     upload_directory: '%kernel.project_dir%/public/uploads/images'
+    extension_directory: '%kernel.project_dir%/public/uploads/tbs-extension'
 
 services:
     # default configuration for services in *this* file

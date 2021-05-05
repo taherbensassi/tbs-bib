@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}Bearbeitung Extension{% endblock %}
+
+{% block content %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        {% include 'Partial/Breadcrumb/_breadcrumb.htnl.twig' with {'breadcrumb': 'Extension Bearbeitung'} %}
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+                <div class="card">
+                    <div class="card-header  d-flex justify-content-between align-items-right">
+                        <h3 class="card-title">Extension Bearbeiten</h3>
+                        <a href="{{ path('tbs_extension_index') }}" class="btn btn-outline-dark  ml-auto">
+                            Abbrechen
+                        </a>
+                    </div>
+                    <!-- /.card-header -->
+                    {{ include('Dashboard/Extension/_form.html.twig') }}
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+{% endblock %}

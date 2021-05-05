@@ -64,12 +64,6 @@
                         <div class="col-7">
                             <div class="icheck-secondary">
                                 {{ form_widget(registrationForm.agreeTerms) }}
-                                <label for="registration_form_agreeTerms">
-                                    {{"backend.register.first_term"|trans }} <a href="#"> {{"backend.register.second_term"|trans }}</a>
-                                    {% if locale == 'de' %}
-                                         {{"backend.register.third_term"|trans }}
-                                    {% endif %}
-                                </label>
                             </div>
                         </div>
                         <!-- /.col -->

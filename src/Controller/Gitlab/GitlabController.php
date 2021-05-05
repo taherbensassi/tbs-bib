@@ -3,7 +3,9 @@
 namespace App\Controller\Gitlab;
 
 use App\Api\ApiGitlab;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\VarDumper\VarDumper;
@@ -38,16 +40,25 @@ class GitlabController extends AbstractController
     /**
      * @Route("/users", name="gitlab_users")
      */
-    public function gitlabUsers(): Response
+    public function gitlabUsers(Request $request,PaginatorInterface $paginator): Response
     {
         $gitlabUsers = $this->apiGitlab->fetchGitLabUsers(100, 'desc');
 
         if($gitlabUsers == null)
             $apiFailed = true;
 
+        $pagination = $paginator->paginate(
+            $gitlabUsers, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            9 /*limit per page*/
+        );
+        $pagination->setCustomParameters([
+            'align' => 'center', # center|right (for template: twitter_bootstrap_v4_pagination and foundation_v6_pagination)
+        ]);
+
         return $this->render('Dashboard/Gitlab/Users/index.html.twig', [
             'controller_name' => 'GitlabController',
-            'gitlabUsers' => $gitlabUsers,
+            'gitlabUsers' => $pagination,
             'apiFailed' => $apiFailed ?? false,
         ]);
     }

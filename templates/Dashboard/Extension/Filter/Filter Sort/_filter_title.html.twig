@@ -1,0 +1,18 @@
+{% if filterTitle is defined  %}
+    {% if filterTitle is defined and filterTitle is null %}
+        {% set value = 'title+asc' %}
+    {% elseif filterTitle =='title+asc' %}
+        {% set value = 'title+desc' %}
+    {% elseif filterTitle =='title+desc' %}
+        {% set value = 'title+asc' %}
+    {% endif %}
+    <button type="submit"  name="filterTitle"  value="{{ value }}"  class="btn {% if filterTitle is defined and (filterTitle == 'title+asc' or filterTitle == 'title+desc' )%} btn-dark {% else %} btn-outline-dark {% endif %}btn-sm mb-1 mr-1">
+        {% if filterTitle is defined and filterTitle == 'title+asc' %}
+            <i class="fa fa-arrow-up"></i>
+        {% endif %}
+        {% if filterTitle is defined and filterTitle == 'title+desc' %}
+            <i class="fa fa-arrow-down"></i>
+        {% endif %}
+        Title
+    </button>
+{% endif %}

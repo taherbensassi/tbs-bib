@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}Neuer Tbs Extension{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+    <script src="{{ asset('dist/js/module/tbs-extension.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper">
+        {% include 'Partial/Breadcrumb/_breadcrumb.htnl.twig' with {'breadcrumb': 'Tbs Extension'} %}
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card border-0">
+
+                    <div class="card-header  d-flex justify-content-between align-items-right">
+                        <h3 class="card-title">Neuen Tbs Extension</h3>
+                        <a href="{{ path('tbs_extension_index') }}" class="btn btn-outline-dark  ml-auto">
+                            Abbrechen
+                        </a>
+                    </div>
+
+                    {{ include('Dashboard/Extension/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

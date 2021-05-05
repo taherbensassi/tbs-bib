@@ -1,0 +1,23 @@
+<div class="card-container">
+    <div class="facet-area-main">
+        <div class="solr-facets-available">
+            <div class="card card-size-large mb-3">
+                <div class="card-header  d-flex justify-content-between align-items-right">
+                    <span class="facet-label">Funktioniert mit TYPO3</span>
+                    <a href="{{ path("tbs_module_index") }}" class="btn btn-xs btn-outline-danger  ml-auto">
+                        löschen
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="facet-option-list facet-type-options" data-facet-name="typo3" data-facet-label="Funktioniert mit TYPO3">
+                        <form method="GET" action="{{ path('tbs_module_index') }}" name="filter-tbs-module-version" >
+                            {% include 'Dashboard/Content Elements/Brettinghams/Filter/Filter Version/_filter_version_11_dev.html.twig'%}
+                            {% include 'Dashboard/Content Elements/Brettinghams/Filter/Filter Version/_filter_version_10.html.twig'%}
+                            {% include 'Dashboard/Content Elements/Brettinghams/Filter/Filter Version/_filter_version_9.html.twig'%}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

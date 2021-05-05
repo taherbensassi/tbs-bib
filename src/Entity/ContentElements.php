@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Traits\CreatedTrait;
 use App\Entity\Traits\DeletedTrait;
+use App\Entity\Traits\DescriptionTrait;
 use App\Entity\Traits\HiddenTrait;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\UpdatedTrait;
@@ -21,6 +22,8 @@ class ContentElements
     use UpdatedTrait;
     use DeletedTrait;
     use HiddenTrait;
+    use DescriptionTrait;
+
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -39,13 +42,7 @@ class ContentElements
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $description;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $icon;
-
 
     /**
      * @ORM\Column(type="text")
@@ -117,21 +114,6 @@ class ContentElements
         $this->user = $user;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param mixed $description
-     */
-    public function setDescription($description): void
-    {
-        $this->description = $description;
-    }
 
     /**
      * @return mixed

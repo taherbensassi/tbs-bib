@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Gitlab-Users{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('plugins/matchHeight/jquery.matchHeight.js') }}"></script>
+    <script src="{{ asset('dist/js/module/gitlab.js') }}"></script>
+{% endblock %}
 {% block content %}
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">

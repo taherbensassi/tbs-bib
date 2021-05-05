@@ -1,0 +1,13 @@
+<div class="btn-group d-flex" role="group">
+    <a href="{{ path('tbs_module_show', {'id': tbs_module.id}) }}" class="btn btn-default btn-flat mb-0 w-100"  rel="nofollow" href="#">
+        <i class="fa fa-book"></i>
+    </a>
+    {% if  app.user is defined %}
+        {% if app.user.username == tbs_module.author.email %}
+            <a href="{{ path('tbs_module_edit', {'id': tbs_module.id}) }}" class="btn btn-default btn-flat  mb-0 w-100"  rel="nofollow" >
+                <i class="fa fa-edit"></i>
+            </a>
+            {{ include('Dashboard/Content Elements/Brettinghams/_delete_form.html.twig') }}
+        {% endif %}
+    {% endif %}
+</div>

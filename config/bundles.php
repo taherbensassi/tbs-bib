@@ -16,4 +16,5 @@ return [
     SymfonyCasts\Bundle\ResetPassword\SymfonyCastsResetPasswordBundle::class => ['all' => true],
     JMose\CommandSchedulerBundle\JMoseCommandSchedulerBundle::class => ['all' => true],
     SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle::class => ['all' => true],
+    Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
 ];

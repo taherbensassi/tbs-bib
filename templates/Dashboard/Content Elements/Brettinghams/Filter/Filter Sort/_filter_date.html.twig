@@ -1,0 +1,18 @@
+{% if filterDate is defined  %}
+    {% if filterDate is defined and filterDate is null %}
+        {% set value = 'key+asc' %}
+    {% elseif filterDate =='key+asc' %}
+        {% set value = 'key+desc' %}
+    {% elseif filterDate =='key+desc' %}
+        {% set value = 'key+asc' %}
+    {% endif %}
+    <button type="submit"  name="filterDate"  value="{{ value }}"  class="btn {% if filterDate is defined and (filterDate == 'key+asc' or filterDate == 'key+desc' )%} btn-dark {% else %} btn-outline-dark {% endif %}btn-sm mb-1 mr-1">
+        {% if filterDate is defined and filterDate == 'key+asc' %}
+            <i class="fa fa-arrow-up"></i>
+        {% endif %}
+        {% if filterDate is defined and filterDate == 'key+desc' %}
+            <i class="fa fa-arrow-down"></i>
+        {% endif %}
+        Letzter Upload
+    </button>
+{% endif %}
