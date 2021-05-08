@@ -12,6 +12,7 @@ use App\Repository\TbsModuleRepository;
 use App\Service\LoggedInUserService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Service\FileUploader;
 use Symfony\Component\HttpFoundation\Request;
@@ -128,7 +129,6 @@ class TbsExtensionController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $version = $request->get('versions');
             if(null === $version){
                 $this->addFlash(
@@ -141,9 +141,15 @@ class TbsExtensionController extends AbstractController
             }
 
             /** @var UploadedFile $extension */
-            $extension = $form->get('extensionZip')->getData();
-            if ($extension) {
-                $extensionFileName = $fileUploader->upload($extension,true);
+            $extensionFile = $form->get('extensionZip')->getData();
+            if(null === $extensionFile){
+                $this->addFlash(
+                    'danger',
+                    'Zip. Extension Required'
+                );
+                return $this->redirectToRoute('tbs_extension_new');
+            }else {
+                $extensionFileName = $fileUploader->upload($extensionFile,true);
                 $tbsExtension->setExtensionZip($extensionFileName);
             }
             $tbsExtension->setAuthor($this->loggedInUser);
@@ -165,8 +171,9 @@ class TbsExtensionController extends AbstractController
     /**
      * @Route("/{id}/edit", name="tbs_extension_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, TbsExtension $tbsExtension): Response
+    public function edit(Request $request, TbsExtension $tbsExtension,FileUploader $fileUploader): Response
     {
+        $oldExtensionFileName = $tbsExtension->getExtensionZip();
         $form = $this->createForm(TbsExtensionType::class, $tbsExtension);
         $form->handleRequest($request);
         $typo3Version = $this->apiVersion->fetchTypo3VersionInformation();
@@ -174,9 +181,22 @@ class TbsExtensionController extends AbstractController
             $apiVersionFailed = true;
         }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        $filesystem = new Filesystem();
+        $currentDirPath = getcwd();
 
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $extension */
+            $extensionFileNew = $form->get('extensionZip')->getData();
+
+            // new extension
+            if($oldExtensionFileName != $extensionFileNew) {
+                $filesystem->remove(['unlink',$currentDirPath.'/uploads/tbs-extension/'.$oldExtensionFileName]);
+                $extensionFileName = $fileUploader->upload($extensionFileNew,true);
+                $tbsExtension->setExtensionZip($extensionFileName);
+            }
+
+            $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('tbs_extension_index');
         }
 
@@ -194,6 +214,11 @@ class TbsExtensionController extends AbstractController
     public function delete(Request $request, TbsExtension $tbsExtension): Response
     {
         if ($this->isCsrfTokenValid('delete'.$tbsExtension->getId(), $request->request->get('_token'))) {
+
+            $filesystem = new Filesystem();
+            $currentDirPath = getcwd();
+            $filesystem->remove(['unlink',$currentDirPath.'/uploads/tbs-extension/'.$tbsExtension->getExtensionZip()]);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($tbsExtension);
             $entityManager->flush();

@@ -53,7 +53,7 @@ class GitlabController extends AbstractController
             9 /*limit per page*/
         );
         $pagination->setCustomParameters([
-            'align' => 'center', # center|right (for template: twitter_bootstrap_v4_pagination and foundation_v6_pagination)
+            'align' => 'left', # center|right (for template: twitter_bootstrap_v4_pagination and foundation_v6_pagination)
         ]);
 
         return $this->render('Dashboard/Gitlab/Users/index.html.twig', [
