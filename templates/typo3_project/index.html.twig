@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Typo3Project index{% endblock %}
+
+{% block body %}
+    <h1>Typo3Project index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Avatar</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for typo3_project in typo3_projects %}
+            <tr>
+                <td>{{ typo3_project.id }}</td>
+                <td>{{ typo3_project.name }}</td>
+                <td>{{ typo3_project.description }}</td>
+                <td>{{ typo3_project.avatar }}</td>
+                <td>
+                    <a href="{{ path('typo3_project_show', {'id': typo3_project.id}) }}">show</a>
+                    <a href="{{ path('typo3_project_edit', {'id': typo3_project.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('typo3_project_new') }}">Create new</a>
+{% endblock %}

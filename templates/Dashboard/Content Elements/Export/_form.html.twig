@@ -16,26 +16,13 @@
                     <label for="icon">Icon </label>
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="custom-control custom-radio image-checkbox">
-                                <input type="radio" class="custom-control-input"  id="content_elements_1" name="export_content_element[icon]" {% if export_content_element.icon=="dist/img/extension/extension.svg" %} checked {% endif  %}value="dist/img/extension/extension.svg" required>
-                                <label class="custom-control-label" for="content_elements_1">
-                                    <img src="{{ asset('dist/img/extension/extension.svg') }}" alt="#" width="50" height="50" class="img-fluid">
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="custom-control custom-radio image-checkbox">
-                                <input type="radio" class="custom-control-input" id="content_elements_2" {% if export_content_element.icon=="dist/img/extension/extension-2.svg" %} checked {% endif  %} name="export_content_element[icon]" value="dist/img/extension/extension-2.svg" required>
-                                <label class="custom-control-label" for="content_elements_2">
-                                    <img src="{{ asset('dist/img/extension/extension-2.svg') }}" alt="#" width="50" height="50"  class="img-fluid">
-                                </label>
-                            </div>
+                            <img src="{{ asset('dist/img/extension/extension.svg') }}" alt="#" width="50" height="50" class="img-fluid">
                         </div>
                     </div>
                     <hr>
                     <div class="form-group">
                         <label for="extensionName">{{ form_label(form.extensionName) }} </label>
-                        {{ form_widget(form.extensionName, { 'attr': {'class': 'form-control'} }) }}
+                        {{ form_widget(form.extensionName, { 'attr': {'class': 'form-control','value': 'tbs_content_elements'} }) }}
                     </div>
 
                     <div class="form-group">
@@ -44,7 +31,11 @@
                     </div>
                 </div>
             </div>
-            <div class="card card-dark">
+
+        </div>
+
+        <div class="col-md-6 ">
+          <div class="card card-dark">
                 <div class="card-header">
                     <h3 class="card-title">BRETTINGHAMS Module *</h3>
                 </div>
@@ -59,7 +50,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 ">
+        <!--
             <div class="card card-primary">
                 <div class="card-header">
                     <h3 class="card-title">Custom Module *</h3>
@@ -75,6 +66,7 @@
                 </div>
             </div>
         </div>
+        -->
     </div>
 </div>
 <div class="card-footer">

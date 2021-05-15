@@ -19,14 +19,18 @@ class ExportContentElementType extends AbstractType
                     'placeholder' => 'Extension Name'
                 ],
                 'required' => true,
-                'label' => 'Extension Name'
+                'label' => 'Extension Name',
+                'disabled' => true,
+                'data' => 'tbs_content_elements',
             ])
             ->add('vendorName', TextType::class,[
                 'attr' => [
                     'placeholder' => 'Vendor Name (Tbs)'
                 ],
                 'required' => true,
-                'label' => 'Vendor Name'
+                'label' => 'Vendor Name',
+                'data' => 'Tbs',
+                'disabled' => true,
             ])
             ->add('icon')
         ;

@@ -1,0 +1,11 @@
+lib.contentElement {
+    templateRootPaths {
+        200 = EXT:tbs_content_elements/Resources/Private/Templates/
+    }
+    partialRootPaths {
+        200 = EXT:tbs_content_elements/Resources/Private/Partials/
+    }
+    layoutRootPaths {
+        200 = EXT:tbs_content_elements/Resources/Private/Layouts/
+    }
+}

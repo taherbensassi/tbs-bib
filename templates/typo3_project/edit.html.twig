@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Typo3Project{% endblock %}
+
+{% block body %}
+    <h1>Edit Typo3Project</h1>
+
+    {{ include('typo3_project/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('typo3_project_index') }}">back to list</a>
+
+    {{ include('typo3_project/_delete_form.html.twig') }}
+{% endblock %}
