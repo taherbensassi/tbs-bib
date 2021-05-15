@@ -5,6 +5,7 @@ namespace App\Controller\Dashboard;
 use App\Api\ApiGitlab;
 use App\Repository\ClientRepository;
 use App\Repository\ContentElementsRepository;
+use App\Repository\TbsExtensionRepository;
 use App\Repository\TbsModuleRepository;
 use App\Repository\UserRepository;
 use App\Service\LoggedInUserService;
@@ -16,10 +17,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class DashboardController extends AbstractController
 {
-    /**
-     * @var ContentElementsRepository
-     */
-    private $contentElementRepository;
 
     /**
      * @var UserRepository
@@ -37,23 +34,29 @@ class DashboardController extends AbstractController
     private $tbsModuleRepository;
 
     /**
+     * @var TbsExtensionRepository
+     */
+    private $tbsExtensionRepository;
+
+    /**
      * @var ApiGitlab
      */
     private $apiGitlab;
 
     /**
      * DashboardController constructor.
-     * @param ContentElementsRepository $contentElementRepository
      * @param UserRepository $usersRepository
      * @param ClientRepository $clientRepository
+     * @param TbsModuleRepository $tbsModuleRepository
+     * @param TbsExtensionRepository $tbsExtensionRepository
      * @param ApiGitlab $apiGitlab
      */
-    public function __construct(ContentElementsRepository $contentElementRepository, UserRepository $usersRepository, ClientRepository $clientRepository, ApiGitlab $apiGitlab, TbsModuleRepository $tbsModuleRepository)
+    public function __construct(UserRepository $usersRepository, ClientRepository $clientRepository, TbsModuleRepository $tbsModuleRepository, TbsExtensionRepository $tbsExtensionRepository, ApiGitlab $apiGitlab)
     {
-        $this->contentElementRepository = $contentElementRepository;
-        $this->tbsModuleRepository = $tbsModuleRepository;
         $this->usersRepository = $usersRepository;
         $this->clientRepository = $clientRepository;
+        $this->tbsModuleRepository = $tbsModuleRepository;
+        $this->tbsExtensionRepository = $tbsExtensionRepository;
         $this->apiGitlab = $apiGitlab;
     }
 
@@ -64,8 +67,8 @@ class DashboardController extends AbstractController
     public function index(): Response
     {
         // content Element
-        $contentElement = $this->contentElementRepository->findAll();
-        $contentsElementCount = count($contentElement)  ?? 0;
+        $tbsExtension = $this->tbsExtensionRepository->findAll();
+        $tbsExtensionCount = count($tbsExtension)  ?? 0;
 
         // Users
         $users = $this->usersRepository->findAll();
@@ -94,7 +97,7 @@ class DashboardController extends AbstractController
 
         return $this->render('Dashboard/Index/index.html.twig', [
             'controller_name' => 'DashboardController',
-            'contentElementCount' => $contentsElementCount,
+            'tbsExtensionCount' => $tbsExtensionCount,
             'usersCount' => $usersCount,
             'clientsCount' => $clientsCount,
             'gitlabStats' => json_encode($gitlabStats),
