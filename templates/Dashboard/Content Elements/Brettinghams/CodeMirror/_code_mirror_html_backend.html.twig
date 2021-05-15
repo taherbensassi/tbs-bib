@@ -1,0 +1,35 @@
+<div class="col-md-12">
+    <div class="card card-outline card-info collapsed-card">
+        <div class="card-header">
+            <h3 class="card-title">
+                Backend Preview
+            </h3>
+            <div class="card-tools">
+                <span  class="badge bg-danger">Pflicht</span>
+                <span  class="badge bg-success">Html</span>
+                <span  class="badge bg-dark">#Backend</span>
+                <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+              <textarea id="codeMirrorHtmlBackend" name="tbs_module[backendPreviewCode]">
+<p>
+    <strong><f:translate key="LLL:EXT:tbs_content_elements/Resources/Private/Language/locallang.xlf:tbscontentelements_textcontent" /></strong>
+</p>
+<div class="container" style="width:100%">
+    <table>
+        <tbody>
+        <tr>
+            <td>{row.bodytext -> f:format.raw()}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+              </textarea>
+        </div>
+    </div>
+</div>

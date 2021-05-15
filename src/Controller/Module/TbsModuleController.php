@@ -118,7 +118,11 @@ class TbsModuleController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        /**
+         * @todo return  && $form->isValid()
+         */
+        if ($form->isSubmitted()) {
+
 
             /** @var UploadedFile $images */
             $images = $form->get('moduleImages')->getData();

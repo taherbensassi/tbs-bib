@@ -76,6 +76,13 @@ class TbsModuleType extends AbstractType
                     ],
                 )
             )
+            ->add('tsConfigCode', TextareaType::class,[])
+            ->add('typoScriptCode', TextareaType::class,[])
+            ->add('ttContentCode', TextareaType::class,[])
+            ->add('sqlOverrideCode', TextareaType::class,[])
+            ->add('sqlNewTableCode', TextareaType::class,[])
+            ->add('backendPreviewCode', TextareaType::class,[])
+            ->add('htmlCode', TextareaType::class,[])
 
 
         ;

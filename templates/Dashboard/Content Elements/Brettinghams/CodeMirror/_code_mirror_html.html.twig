@@ -1,0 +1,35 @@
+<div class="col-md-12">
+    <div class="card card-outline card-info collapsed-card">
+        <div class="card-header">
+            <h3 class="card-title">
+                HTML
+                <span class="small text-danger ml-auto px-md-5"><i class="fa fa-info"></i> Der Name der HTML-Datei hängt von der TypoScript-Datei ab. (file)</span>
+            </h3>
+            <div class="card-tools">
+                <span  class="badge bg-danger">Pflicht</span>
+                <span  class="badge bg-success">Html</span>
+                <span  class="badge bg-primary">#Frontend</span>
+                <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+              <textarea id="codeMirrorHtml" name="tbs_module[htmlCode]">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true" >
+<f:layout name="Default" />
+<f:section name="Main">
+    <div class="textcontent">
+
+        <h2><f:format.nl2br>{data.header}</f:format.nl2br></h2>
+
+        <f:format.html parseFuncTSPath="lib.parseFunc">{data.bodytext}</f:format.html>
+    </div>
+</f:section>
+</html>
+              </textarea>
+        </div>
+    </div>
+</div>

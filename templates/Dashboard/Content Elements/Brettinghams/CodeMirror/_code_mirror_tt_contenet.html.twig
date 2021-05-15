@@ -1,0 +1,54 @@
+<div class="col-md-12">
+    <div class="card card-outline card-info collapsed-card">
+        <div class="card-header">
+            <h3 class="card-title">
+                tt_content Php
+            </h3>
+            <div class="card-tools">
+                <span  class="badge bg-danger">Pflicht</span>
+                <span  class="badge bg-success">tt_content.php</span>
+                <span  class="badge bg-dark">#Backend</span>
+                <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+              <textarea id="codeMirrorTtContent"  name="tbs_module[ttContentCode]">
+<?php
+
+/** Text-Content-Element  **/
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(
+    array(
+        'Text Content Element',
+        'tbscontentelements_textcontent',
+        'tbscontentelements_textcontent'
+    ),
+    'CType',
+    'tbs_content_elements'
+);
+
+// Configure the default backend fields for the content element
+$GLOBALS['TCA']['tt_content']['types']['tbscontentelements_textcontent'] = array(
+    'showitem' => '
+      --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
+         --palette--;;general,
+         header;LLL:EXT:tbs_content_elements/Resources/Private/Language/locallang.xlf:tt_content.header,
+         bodytext;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:bodytext_formlabel,
+   ',
+    'columnsOverrides' => [
+        'bodytext' => [
+            'config' => [
+                'type' => 'text',
+                'enableRichtext' => true
+            ]
+        ],
+    ]
+);
+?>
+              </textarea>
+        </div>
+    </div>
+</div>

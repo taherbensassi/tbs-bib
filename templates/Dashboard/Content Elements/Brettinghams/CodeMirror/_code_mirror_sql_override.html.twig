@@ -1,0 +1,28 @@
+<div class="col-md-12">
+    <div class="card card-outline card-info collapsed-card">
+        <div class="card-header">
+            <h3 class="card-title">
+                SQL TT_CONTENT
+                <span class="small text-danger  ml-auto px-md-5"><i class="fa fa-info"></i> Dieses Sql ist nur für die Tabelle tt_content überschreibbar </span>
+            </h3>
+            <div class="card-tools">
+                <span  class="badge bg-warning">Abhängig</span>
+                <span  class="badge bg-success">ext_tables.sql</span>
+                <span  class="badge bg-dark">#Backend</span>
+                <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+              <textarea id="codeMirrorSqlOverride" name="tbs_module[sqlOverrideCode]">
+CREATE TABLE tt_content (
+	exemple int(11) unsigned DEFAULT '0' NOT NULL,
+);
+
+              </textarea>
+        </div>
+    </div>
+</div>

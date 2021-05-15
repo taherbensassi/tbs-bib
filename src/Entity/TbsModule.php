@@ -38,7 +38,6 @@ class TbsModule
      */
     private $title;
 
-
     /**
      * @ORM\OneToMany(targetEntity=File::class, mappedBy="module",cascade={"persist", "remove"})
      */
@@ -55,6 +54,42 @@ class TbsModule
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $tsConfigCode;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $typoScriptCode;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $ttContentCode;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $sqlOverrideCode;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $sqlNewTableCode;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $backendPreviewCode;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $htmlCode;
+
 
     /**
      * TbsModule constructor.
@@ -155,4 +190,118 @@ class TbsModule
     {
         $this->author = $author;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTsConfigCode()
+    {
+        return $this->tsConfigCode;
+    }
+
+    /**
+     * @param mixed $tsConfigCode
+     */
+    public function setTsConfigCode($tsConfigCode): void
+    {
+        $this->tsConfigCode = $tsConfigCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTypoScriptCode()
+    {
+        return $this->typoScriptCode;
+    }
+
+    /**
+     * @param mixed $typoScriptCode
+     */
+    public function setTypoScriptCode($typoScriptCode): void
+    {
+        $this->typoScriptCode = $typoScriptCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTtContentCode()
+    {
+        return $this->ttContentCode;
+    }
+
+    /**
+     * @param mixed $ttContentCode
+     */
+    public function setTtContentCode($ttContentCode): void
+    {
+        $this->ttContentCode = $ttContentCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSqlOverrideCode()
+    {
+        return $this->sqlOverrideCode;
+    }
+
+    /**
+     * @param mixed $sqlOverrideCode
+     */
+    public function setSqlOverrideCode($sqlOverrideCode): void
+    {
+        $this->sqlOverrideCode = $sqlOverrideCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSqlNewTableCode()
+    {
+        return $this->sqlNewTableCode;
+    }
+
+    /**
+     * @param mixed $sqlNewTableCode
+     */
+    public function setSqlNewTableCode($sqlNewTableCode): void
+    {
+        $this->sqlNewTableCode = $sqlNewTableCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBackendPreviewCode()
+    {
+        return $this->backendPreviewCode;
+    }
+
+    /**
+     * @param mixed $backendPreviewCode
+     */
+    public function setBackendPreviewCode($backendPreviewCode): void
+    {
+        $this->backendPreviewCode = $backendPreviewCode;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getHtmlCode()
+    {
+        return $this->htmlCode;
+    }
+
+    /**
+     * @param mixed $htmlCode
+     */
+    public function setHtmlCode($htmlCode): void
+    {
+        $this->htmlCode = $htmlCode;
+    }
+
 }

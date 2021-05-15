@@ -16,4 +16,58 @@ $(function () {
         bsCustomFileInput.init();
     });
 
+    $(function () {
+        // codeMirrorTsConfig
+        CodeMirror.fromTextArea(document.getElementById("codeMirrorTsConfig"), {
+            theme: "dracula",
+            lineNumbers: true,
+            autoRefresh:true,
+            lineWrapping: true,
+        });
+        // codeMirrorTypoScript
+        CodeMirror.fromTextArea(document.getElementById("codeMirrorTypoScript"), {
+            theme: "dracula",
+            autoRefresh:true,
+            lineNumbers: true,
+            lineWrapping: true,
+        });
+        // codeMirrorHtml
+        CodeMirror.fromTextArea(document.getElementById("codeMirrorHtml"), {
+            mode: "htmlmixed",
+            theme: "dracula",
+            autoRefresh:true,
+            lineNumbers: true,
+            lineWrapping: true,
+        });
+        // codeMirrorTtContent
+        CodeMirror.fromTextArea(document.getElementById("codeMirrorTtContent"), {
+            mode: "php",
+            theme: "dracula",
+            autoRefresh:true,
+            lineNumbers: true,
+            lineWrapping: true,
+        });
+        // codeMirrorSqlOverride
+        CodeMirror.fromTextArea(document.getElementById("codeMirrorSqlOverride"), {
+            mode: "sql",
+            theme: "dracula",
+            autoRefresh:true,
+            lineNumbers: true,
+            lineWrapping: true,
+        });
+        // codeMirrorSqlOverride
+        CodeMirror.fromTextArea(document.getElementById("codeMirrorSqlNew"), {
+            mode: "sql",
+            autoRefresh:true,
+            lineNumbers: true,
+            lineWrapping: true,
+        });
+        // codeMirrorHtmlBackend
+        CodeMirror.fromTextArea(document.getElementById("codeMirrorHtmlBackend"), {
+            mode: "htmlmixed",
+            autoRefresh:true,
+            lineNumbers: true,
+            lineWrapping: true,
+        });
+    })
 });
