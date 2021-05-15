@@ -1,0 +1,24 @@
+{
+    "name": "tbs/tbs-content-elements",
+    "type": "typo3-cms-extension",
+    "description": "",
+    "authors": [],
+    "version": "1.0.1",
+    "require": {
+
+    },
+    "autoload": {
+        "psr-4": {
+            "Tbs\\TbsContentElements\\": "Classes"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tbs\\TbsContentElements\\Tests\\": "Tests"
+        }
+    },
+    "replace": {
+        "tbs_content_elements": "self.version",
+        "typo3-ter/tbs-content-elements": "self.version"
+    }
+}

@@ -1,0 +1,17 @@
+#################################################
+# cType
+#################################################
+
+mod.wizards.newContentElement.wizardItems.common {
+    elements {
+        tbscontentelements_textcontent {
+            iconIdentifier = tbscontentelements_textcontent
+            title = LLL:EXT:tbs_content_elements/Resources/Private/Language/locallang.xlf:tbscontentelements_textcontent.wizard.title
+            description = LLL:EXT:tbs_content_elements/Resources/Private/Language/locallang.xlf:tbscontentelements_textcontent.wizard.description
+            tt_content_defValues {
+                CType = tbscontentelements_textcontent
+            }
+        }
+    }
+    show := addToList (tbscontentelements_textcontent)
+}

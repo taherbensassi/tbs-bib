@@ -1,0 +1,5 @@
+########################
+# TBS CONTENT ELEMENTS #
+########################
+@import 'EXT:tbs_content_elements/Configuration/TypoScript/Frontend/lib.typoscript'
+@import 'EXT:tbs_content_elements/Configuration/TypoScript/Frontend/tt_content.typoscript'

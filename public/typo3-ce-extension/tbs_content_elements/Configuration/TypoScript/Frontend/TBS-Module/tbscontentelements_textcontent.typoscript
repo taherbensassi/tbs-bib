@@ -1,0 +1,11 @@
+tt_content {
+
+    ## Text-Content-Element
+    tbscontentelements_textcontent =< lib.contentElement
+    tbscontentelements_textcontent {
+        templateName = TextContentElement
+        file = EXT:tbs_content_elements/Resources/Private/Templates/TextContentElement.html
+
+    }
+
+}
