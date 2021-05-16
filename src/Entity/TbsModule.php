@@ -8,6 +8,7 @@ use App\Entity\Traits\DescriptionTrait;
 use App\Entity\Traits\HiddenTrait;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\LinkTrait;
+use App\Entity\Traits\StatusTrait;
 use App\Entity\Traits\Typo3VersionTrait;
 use App\Entity\Traits\UpdatedTrait;
 use App\Repository\TbsModuleRepository;
@@ -35,6 +36,7 @@ class TbsModule
     use HiddenTrait;
     use LinkTrait;
     use DescriptionTrait;
+    use StatusTrait;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -370,5 +372,8 @@ class TbsModule
     {
         $this->deLangeCode = $deLangeCode;
     }
+
+
+
 
 }

@@ -21,8 +21,8 @@
         <p>Sitepackage</p>
     </a>
 </li>
-<li  {% if route_name in  "content_elements_index,content_elements_new,content_elements_edit,export_content_element_index,export_content_element_new,tbs_module_index,tbs_module_show,tbs_module_new,tbs_module_edit" %} class="nav-item menu-open" {% else %} class="nav-item" {% endif %}>
-    <a href="#" {% if route_name in  "content_elements_index,content_elements_new,content_elements_edit,export_content_element_index,export_content_element_new,tbs_module_index,tbs_module_show,tbs_module_new,tbs_module_edit" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+<li  {% if route_name in  "tbs_module_test,export_content_element_index,export_content_element_new,tbs_module_index,tbs_module_show,tbs_module_new,tbs_module_edit" %} class="nav-item menu-open" {% else %} class="nav-item" {% endif %}>
+    <a href="#" {% if route_name in  "tbs_module_test,export_content_element_index,export_content_element_new,tbs_module_index,tbs_module_show,tbs_module_new,tbs_module_edit" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
         <i class="nav-icon fas fa-photo-video"></i>
         <p>
             Typo3 Module
@@ -36,13 +36,14 @@
                 <p>BRETTINGHAMS Module</p>
             </a>
         </li>
-        <!--
+
         <li class="nav-item">
-            <a href="{{ path('content_elements_index') }}" {% if route_name == "content_elements_index" or route_name == "content_elements_edit"   %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
+            <a href="{{ path('tbs_module_test') }}" {% if route_name == "tbs_module_test"    %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
                 <i class="nav-icon far fa-circle nav-icon"></i>
-                <p>Custom Module</p>
+                <p>Module-Revision</p>
             </a>
         </li>
+        <!--
         <li class="nav-item">
             <a href="{{ path('content_elements_new') }}" {% if route_name == "content_elements_new"  %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
                 <i class="nav-icon far fa-circle nav-icon"></i>

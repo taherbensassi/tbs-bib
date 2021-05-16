@@ -185,7 +185,7 @@ class TbsModuleController extends AbstractController
                     'checkFrom' => $checkFrom,
                 ]);
             }
-            
+
             /** @var UploadedFile $images */
             $images = $form->get('moduleImages')->getData();
 
