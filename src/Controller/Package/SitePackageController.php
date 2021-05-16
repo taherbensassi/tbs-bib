@@ -153,6 +153,9 @@ class SitePackageController extends AbstractController
             $currentDirPath = getcwd();
             $filesystem->remove(['unlink', $currentDirPath.$sitePackage->getPath(),$fileName]);
 
+            $this->addFlash('success',
+                'Extension erfolgreich entfernt'
+            );
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($sitePackage);
             $entityManager->flush();

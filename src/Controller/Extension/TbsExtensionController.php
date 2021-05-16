@@ -133,7 +133,7 @@ class TbsExtensionController extends AbstractController
             if(null === $version){
                 $this->addFlash(
                     'danger',
-                    'Fehler beim Typo3 Version (Required)'
+                    'Typo3 Version Pflicht'
                 );
                 return $this->redirectToRoute('tbs_extension_new');
             }else{
@@ -152,6 +152,9 @@ class TbsExtensionController extends AbstractController
                 $extensionFileName = $fileUploader->upload($extensionFile,true);
                 $tbsExtension->setExtensionZip($extensionFileName);
             }
+            $this->addFlash('success',
+                'Extension wird erfolgreich angelegt'
+            );
             $tbsExtension->setAuthor($this->loggedInUser);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($tbsExtension);

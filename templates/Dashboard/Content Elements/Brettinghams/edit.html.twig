@@ -1,6 +1,25 @@
 {% extends 'base.html.twig' %}
 {% block title %}Bearbeitung Module{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('plugins/codemirror/codemirror.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/codemirror/theme/dracula.css') }}">
+{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+    <script src="{{ asset('plugins/codemirror/codemirror.js') }}"></script>
+    <script src="{{ asset('plugins/codemirror/addon/display/autorefresh.js') }}"></script>
+    <script src="{{ asset('plugins/codemirror/mode/css/css.js') }}"></script>
+    <script src="{{ asset('plugins/codemirror/mode/xml/xml.js') }}"></script>
+    <script src="{{ asset('plugins/codemirror/mode/clike/clike.js') }}"></script>
+    <script src="{{ asset('plugins/codemirror/mode/php/php.js') }}"></script>
+    <script src="{{ asset('plugins/codemirror/mode/sql/sql.js') }}"></script>
+    <script src="{{ asset('plugins/codemirror/mode/htmlmixed/htmlmixed.js') }}"></script>
+    <script src="{{ asset('plugins/matchHeight/jquery.matchHeight.js') }}"></script>
+    <script src="{{ asset('dist/js/module/tbs-content-element.js') }}"></script>
+{% endblock %}
 {% block content %}
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">

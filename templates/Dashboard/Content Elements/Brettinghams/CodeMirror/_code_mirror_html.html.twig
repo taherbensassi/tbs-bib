@@ -1,20 +1,13 @@
 <div class="col-md-12">
-    <div class="card card-outline card-info collapsed-card">
-        <div class="card-header">
-            <h3 class="card-title">
-                HTML
-                <span class="small text-danger ml-auto px-md-5"><i class="fa fa-info"></i> Der Name der HTML-Datei hängt von der TypoScript-Datei ab. (file)</span>
-            </h3>
-            <div class="card-tools">
-                <span  class="badge bg-danger">Pflicht</span>
-                <span  class="badge bg-success">Html</span>
-                <span  class="badge bg-primary">#Frontend</span>
-                <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-plus"></i>
-                </button>
-            </div>
-        </div>
+    <div class="card card-outline card-primary collapsed-card">
+        {% include 'Dashboard/Content Elements/Brettinghams/CodeMirror/Card/_header.html.twig'
+            with {
+            'title': 'HTML',
+            'info':'Der Name der HTML-Datei hängt von der TypoScript-Datei ab.(file)',
+            'type':'primary',
+            'typeText':'Frontend',
+            'name':'HTML'}
+        %}
         <!-- /.card-header -->
         <div class="card-body">
               <textarea id="codeMirrorHtml" name="tbs_module[htmlCode]">

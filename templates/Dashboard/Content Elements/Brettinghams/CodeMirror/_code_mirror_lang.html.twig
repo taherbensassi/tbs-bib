@@ -1,5 +1,5 @@
 <div class="col-md-12">
-    <div class="card card-outline card-primary collapsed-card">
+    <div class="card card-outline card-info collapsed-card">
         {% include 'Dashboard/Content Elements/Brettinghams/CodeMirror/Card/_header.html.twig'
             with {
             'title': 'TypoScript',
@@ -20,7 +20,7 @@ templateName = TextContentElement
 file = EXT:tbs_content_elements/Resources/Private/Templates/TextContentElement.html
 }
 {% else %}
-{{ tbs_module.typoScriptCode }}
+    {{ tbs_module.typoScriptCode }}
 {% endif %}
               </textarea>
         </div>

@@ -68,7 +68,7 @@ class ClientController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', sprintf(
-                'Client wird erfolgreich bearbeitet ! Id = %s',
+                'Kunde wird erfolgreich bearbeitet ! Id = %s',
                 $client->getId()
             ));
             return $this->redirectToRoute('client_index');
@@ -86,6 +86,9 @@ class ClientController extends AbstractController
     public function delete(Request $request, Client $client): Response
     {
         if ($this->isCsrfTokenValid('delete'.$client->getId(), $request->request->get('_token'))) {
+            $this->addFlash('success',
+                'Kunde erfolgreich entfernt'
+            );
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($client);
             $entityManager->flush();

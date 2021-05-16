@@ -15,11 +15,15 @@ use App\Service\FileUploader;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TbsModuleRepository::class)
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity(fields={"title"})
+ * @UniqueEntity(fields={"moduleKey"})
+ *
  */
 class TbsModule
 {
@@ -37,6 +41,11 @@ class TbsModule
      * @Assert\NotBlank
      */
     private $title;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $moduleKey;
 
     /**
      * @ORM\OneToMany(targetEntity=File::class, mappedBy="module",cascade={"persist", "remove"})
@@ -89,6 +98,16 @@ class TbsModule
      * @ORM\Column(type="text")
      */
     private $htmlCode;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $localLangCode;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $deLangeCode;
 
 
     /**
@@ -302,6 +321,54 @@ class TbsModule
     public function setHtmlCode($htmlCode): void
     {
         $this->htmlCode = $htmlCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModuleKey()
+    {
+        return $this->moduleKey;
+    }
+
+    /**
+     * @param mixed $moduleKey
+     */
+    public function setModuleKey($moduleKey): void
+    {
+        $this->moduleKey = $moduleKey;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocalLangCode()
+    {
+        return $this->localLangCode;
+    }
+
+    /**
+     * @param mixed $localLangCode
+     */
+    public function setLocalLangCode($localLangCode): void
+    {
+        $this->localLangCode = $localLangCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeLangeCode()
+    {
+        return $this->deLangeCode;
+    }
+
+    /**
+     * @param mixed $deLangeCode
+     */
+    public function setDeLangeCode($deLangeCode): void
+    {
+        $this->deLangeCode = $deLangeCode;
     }
 
 }

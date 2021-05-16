@@ -28,6 +28,14 @@ class TbsModuleType extends AbstractType
                 'label' => 'Module Titel'
             ])
 
+            ->add('moduleKey', TextType::class,[
+                'attr' => [
+                    'placeholder' => 'Module Key'
+                ],
+                'required' => true,
+                'label' => 'Module Key'
+            ])
+
             ->add('description', TextareaType::class,[
                 'attr' => [
                     'placeholder' => 'Module Beschreibung',
@@ -83,6 +91,8 @@ class TbsModuleType extends AbstractType
             ->add('sqlNewTableCode', TextareaType::class,[])
             ->add('backendPreviewCode', TextareaType::class,[])
             ->add('htmlCode', TextareaType::class,[])
+            ->add('localLangCode', TextareaType::class,[])
+            ->add('deLangeCode', TextareaType::class,[])
 
 
         ;

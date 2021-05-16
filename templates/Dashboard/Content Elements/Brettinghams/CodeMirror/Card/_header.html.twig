@@ -1,0 +1,27 @@
+<div class="card-header">
+    <h3 class="card-title">
+        {{ title }}
+        {% if depend is not defined  %}
+            <span class="text-danger">*</span>
+        {% endif %}
+
+        {% if info is defined %}
+            <span class="small text-decoration-none5">:{{ info }}</span>
+        {% endif %}
+    </h3>
+    <div class="card-tools">
+        {% if depend is defined and depend == 1 %}
+            <span  class="badge bg-warning">Abhängig</span>
+        {% endif %}
+        {% if error is defined  %}
+            <span  class="badge bg-danger">{{ error }}</span>
+        {% endif %}
+
+        <span  class="badge bg-success">{{ name }}</span>
+        <span  class="badge bg-{{ type }}">#{{ typeText }}</span>
+        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+</div>

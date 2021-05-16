@@ -1,20 +1,16 @@
 <div class="col-md-12">
-    <div class="card card-outline card-info collapsed-card">
-        <div class="card-header">
-            <h3 class="card-title">
-                SQL - Neue Tabelle
-                <span class="small text-danger  ml-auto px-md-5"><i class="fa fa-info"></i> Dies ist für das Hinzufügen einer neuen Tabelle sql </span>
-            </h3>
-            <div class="card-tools">
-                <span title="3 New Messages" class="badge bg-warning">Abhängig</span>
-                <span title="3 New Messages" class="badge bg-success">ext_tables.sql</span>
-                <span  class="badge bg-dark">#Backend</span>
-                <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-plus"></i>
-                </button>
-            </div>
-        </div>
+    <div class="card card-outline card-primary collapsed-card">
+        {% include 'Dashboard/Content Elements/Brettinghams/CodeMirror/Card/_header.html.twig'
+            with {
+            'title': 'SQL - Neue Tabelle',
+            'info': 'Dies ist für das Hinzufügen einer neuen Tabelle sql',
+            'type':'dark',
+            'typeText':'Backend',
+            'name':'ext_tables.sql',
+            'depend': 1
+        }
+        %}
+
         <!-- /.card-header -->
         <div class="card-body">
               <textarea id="codeMirrorSqlNew" name="tbs_module[sqlNewTableCode]">

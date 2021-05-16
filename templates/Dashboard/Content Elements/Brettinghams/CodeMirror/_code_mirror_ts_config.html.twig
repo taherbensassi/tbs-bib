@@ -1,36 +1,36 @@
 <div class="col-md-12">
-    <div class="card card-outline card-info collapsed-card">
-        <div class="card-header">
-            <h3 class="card-title">
-                TsConfig
-            </h3>
-            <div class="card-tools">
-                <span  class="badge bg-danger">Pflicht</span>
-                <span  class="badge bg-success">NewContentElementWizard.ts</span>
-                <span  class="badge bg-dark">#Backend</span>
-                <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-plus"></i>
-                </button>
-            </div>
-        </div>
+    <div class="card card-outline card-primary collapsed-card">
+        {% include 'Dashboard/Content Elements/Brettinghams/CodeMirror/Card/_header.html.twig'
+            with {
+            'title': 'TsConfig',
+            'type':'dark',
+            'typeText':'Backend',
+            'name':'NewContentElementWizard.ts',
+            'error':   checkFrom.error.tsConfig ?? null
+        }
+        %}
         <!-- /.card-header -->
         <div class="card-body">
-                              <textarea id="codeMirrorTsConfig" name="tbs_module[tsConfigCode]" >
+          <textarea id="codeMirrorTsConfig" name="tbs_module[tsConfigCode]" >
+{% if tbs_module.tsConfigCode is not null %}
+{{ tbs_module.tsConfigCode }}
+{% else %}
+#Dies-ist-nur-ein-Beispiel ! Bitte entfernen Sie diese Zeile
 mod.wizards.newContentElement.wizardItems.tbsModule {
-    elements {
-        tbscontentelements_[ModuleName] {
-            iconIdentifier = tbscontentelements_[ModuleName]
-            title = [trans.id]
-            description = [trans.id]
-            tt_content_defValues {
-                CType = tbscontentelements_[ModuleName]
-            }
+elements {
+    tbscontentelements_[ModuleName] {
+        iconIdentifier = tbscontentelements_[ModuleName]
+        title = [trans.id]
+        description = [trans.id]
+        tt_content_defValues {
+            CType = tbscontentelements_[ModuleName]
         }
     }
 }
+}
 mod.wizards.newContentElement.wizardItems.tbsModule.show = tbscontentelements_[ModuleName]
-                              </textarea>
+{% endif %}
+          </textarea>
         </div>
     </div>
 </div>

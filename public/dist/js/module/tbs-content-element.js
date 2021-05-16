@@ -22,7 +22,7 @@ $(function () {
             theme: "dracula",
             lineNumbers: true,
             autoRefresh:true,
-            lineWrapping: true,
+            showTrailingSpace: true
         });
         // codeMirrorTypoScript
         CodeMirror.fromTextArea(document.getElementById("codeMirrorTypoScript"), {
@@ -68,6 +68,24 @@ $(function () {
             autoRefresh:true,
             lineNumbers: true,
             lineWrapping: true,
+            theme: "dracula",
         });
+        // codeMirrorLocalLang
+        CodeMirror.fromTextArea(document.getElementById("codeMirrorLocalLang"), {
+            mode: "xml",
+            autoRefresh:true,
+            lineNumbers: true,
+            lineWrapping: true,
+            theme: "dracula",
+        });
+        // codeMirrorDeLang
+        CodeMirror.fromTextArea(document.getElementById("codeMirrorDeLang"), {
+            mode: "xml",
+            autoRefresh:true,
+            lineNumbers: true,
+            lineWrapping: true,
+            theme: "dracula",
+        });
+
     })
 });

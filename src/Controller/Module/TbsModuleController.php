@@ -12,6 +12,7 @@ use App\Service\LoggedInUserService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -118,10 +119,23 @@ class TbsModuleController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
 
-        /**
-         * @todo return  && $form->isValid()
-         */
-        if ($form->isSubmitted()) {
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $checkFrom = $this->checkForm($form);
+            if(true == ($checkFrom['checkForm'])){
+
+                $this->addFlash(
+                    'danger',
+                    'Bitte prüfen Sie Ihr Formular'
+                );
+                return $this->render('Dashboard/Content Elements/Brettinghams/new.html.twig', [
+                    'tbs_module' => $tbsModule,
+                    'form' => $form->createView(),
+                    'checkFrom' => $checkFrom,
+                ]);
+
+            }
 
 
             /** @var UploadedFile $images */
@@ -140,7 +154,9 @@ class TbsModuleController extends AbstractController
             $tbsModule->setAuthor($this->loggedInUser);
             $entityManager->persist($tbsModule);
             $entityManager->flush();
-
+            $this->addFlash('success',
+                'Modul erfolgreich hinzugefügt'
+            );
             return $this->redirectToRoute('tbs_module_index');
         }
 
@@ -161,6 +177,7 @@ class TbsModuleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+
             /** @var UploadedFile $images */
             $images = $form->get('moduleImages')->getData();
 
@@ -177,6 +194,9 @@ class TbsModuleController extends AbstractController
             }
             $tbsModule->setAuthor($this->loggedInUser);
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success',
+                'Modul erfolgreich hinzugefügt'
+            );
             return $this->redirectToRoute('tbs_module_index');
         }
         return $this->render('Dashboard/Content Elements/Brettinghams/edit.html.twig', [
@@ -218,6 +238,9 @@ class TbsModuleController extends AbstractController
                     $filesystem->remove(['unlink',$currentDirPath.'/uploads/images/'.$file->getImageName()]);
                 }
             }
+            $this->addFlash('success',
+                'Modul erfolgreich entfernt'
+            );
             $entityManager->remove($tbsModule);
             $entityManager->flush();
         }
@@ -234,4 +257,32 @@ class TbsModuleController extends AbstractController
         return strtoupper(substr($paramater,$sortPos+1));
     }
 
+
+    /**
+     * @param FormInterface $form
+     * @return array
+     */
+    private function checkForm(FormInterface $form) : array{
+
+        $result['checkForm'] = false;
+
+        $tsConfig = $form->get('tsConfigCode')->getData();
+        $typoScriptCode = $form->get('typoScriptCode')->getData();
+
+
+        if ((null == $tsConfig) || (str_contains($tsConfig, '#Dies-ist-nur-ein-Beispiel'))  ) {
+            $result['checkForm'] = true;
+            $result['tsConfig'] = true;
+            $result['error']['tsConfig'] = 'Sie müssen den tsConfig-Code ändern';
+        }
+
+        if ((null == $typoScriptCode) || (str_contains($typoScriptCode, '#Dies-ist-nur-ein-Beispiel'))  ) {
+            $result['checkForm'] = true;
+            $result['typoScriptCode'] = true;
+            $result['error']['typoScriptCode'] = 'Sie müssen den typoScript-Code ändern';
+        }
+
+
+        return $result;
+    }
 }

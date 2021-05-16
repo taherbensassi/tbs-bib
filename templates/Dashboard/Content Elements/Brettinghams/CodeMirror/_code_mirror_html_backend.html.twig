@@ -1,19 +1,13 @@
 <div class="col-md-12">
-    <div class="card card-outline card-info collapsed-card">
-        <div class="card-header">
-            <h3 class="card-title">
-                Backend Preview
-            </h3>
-            <div class="card-tools">
-                <span  class="badge bg-danger">Pflicht</span>
-                <span  class="badge bg-success">Html</span>
-                <span  class="badge bg-dark">#Backend</span>
-                <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-plus"></i>
-                </button>
-            </div>
-        </div>
+    <div class="card card-outline card-primary collapsed-card">
+        {% include 'Dashboard/Content Elements/Brettinghams/CodeMirror/Card/_header.html.twig'
+            with {
+            'title': 'Backend Preview',
+            'type':'dark',
+            'typeText':'Backend',
+            'name':'Html'}
+        %}
+
         <!-- /.card-header -->
         <div class="card-body">
               <textarea id="codeMirrorHtmlBackend" name="tbs_module[backendPreviewCode]">
