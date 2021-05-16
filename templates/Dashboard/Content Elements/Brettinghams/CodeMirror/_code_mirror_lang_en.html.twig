@@ -13,6 +13,9 @@
     <!-- /.card-header -->
     <div class="card-body">
               <textarea id="codeMirrorLocalLang" name="tbs_module[localLangCode]">
+{% if tbs_module.localLangCode is not null %}
+{{ tbs_module.localLangCode }}
+{% else %}
 <trans-unit id="tbscontentelements_textcontent.wizard.description">
     <source>Add Text content Element with Header</source>
     <target>Zum Einfügen von einem Text</target>
@@ -21,6 +24,7 @@
     <source>Headline</source>
     <target>Überschrift</target>
 </trans-unit>
+{% endif %}
               </textarea>
     </div>
 </div>

@@ -11,6 +11,9 @@
         <!-- /.card-header -->
         <div class="card-body">
               <textarea id="codeMirrorHtml" name="tbs_module[htmlCode]">
+{% if tbs_module.htmlCode is not null %}
+{{ tbs_module.htmlCode }}
+{% else %}
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true" >
 <f:layout name="Default" />
 <f:section name="Main">
@@ -22,6 +25,7 @@
     </div>
 </f:section>
 </html>
+{% endif %}
               </textarea>
         </div>
     </div>

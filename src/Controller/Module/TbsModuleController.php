@@ -203,7 +203,7 @@ class TbsModuleController extends AbstractController
             $tbsModule->setAuthor($this->loggedInUser);
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success',
-                'Modul erfolgreich hinzugefügt'
+                'Modul erfolgreich bearbeitet'
             );
             return $this->redirectToRoute('tbs_module_index');
         }

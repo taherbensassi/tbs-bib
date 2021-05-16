@@ -11,6 +11,9 @@
         <!-- /.card-header -->
         <div class="card-body">
               <textarea id="codeMirrorHtmlBackend" name="tbs_module[backendPreviewCode]">
+{% if tbs_module.backendPreviewCode is not null %}
+{{ tbs_module.backendPreviewCode }}
+{% else %}
 <p>
     <strong><f:translate key="LLL:EXT:tbs_content_elements/Resources/Private/Language/locallang.xlf:tbscontentelements_textcontent" /></strong>
 </p>
@@ -23,6 +26,7 @@
         </tbody>
     </table>
 </div>
+{% endif %}
               </textarea>
         </div>
     </div>

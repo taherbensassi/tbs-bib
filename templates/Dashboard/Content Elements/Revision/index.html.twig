@@ -1,11 +1,15 @@
 {% extends '@layout/layout-index.html.twig' %}
 {% block title %}Revision Module{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}" />
+{% endblock %}
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('dist/js/module/tbs-content-element-test.js') }}" ></script>
+    <script src="{{ asset('plugins/toastr/toastr.min.js') }}" ></script>
 {% endblock %}
 {% block card %}
-    {% include 'Dashboard/Content Elements/Test/_modal.html.twig' %}
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-right">
             <h3 class="card-title">Revision Module Liste</h3>
@@ -31,9 +35,9 @@
                         <td>{{ tbs_module.author.email }}</td>
                         <td class="project-state">
                             {% if tbs_module.status == 0 %}
-                                <span class="badge badge-danger">Noch nicht geprüft</span>
+                                <span class="badge badge-danger" id="spanFalse">Noch nicht geprüft</span>
                             {% else %}
-                                <span class="badge badge-success">Geprüft</span>
+                                <span class="badge badge-success" id="spanTrue">Geprüft</span>
                             {% endif %}
                         </td>
 
@@ -42,7 +46,7 @@
                                 <td>
                                     <div class="form-group">
                                         <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="toggle-status-{{ tbs_module.id }}" value="{{ tbs_module.id }}" data-id="{{ tbs_module.id }}"  {% if tbs_module.status %}checked{% endif %}>
+                                            <input type="checkbox" class="custom-control-input" id="toggle-status-{{ tbs_module.id }}" data-url="{{ path('tbs_module_change_status') }}" value="{{ tbs_module.id }}" data-id="{{ tbs_module.id }}"  {% if tbs_module.status %}checked{% endif %}>
                                             <label class="custom-control-label" for="toggle-status-{{ tbs_module.id }}">Freigeben</label>
                                         </div>
                                     </div>

@@ -12,12 +12,16 @@
     <!-- /.card-header -->
     <div class="card-body">
               <textarea id="codeMirrorDeLang" name="tbs_module[deLangeCode]">
+{% if tbs_module.deLangeCode is not null %}
+{{ tbs_module.deLangeCode }}
+{% else %}
 <trans-unit id="tbscontentelements_textcontent">
    <source>Text Content Element</source>
 </trans-unit>
 <trans-unit id="tbscontentelements_textcontent.wizard.title">
     <source>Text Content Element</source>
 </trans-unit>
+{% endif %}
               </textarea>
     </div>
 </div>
