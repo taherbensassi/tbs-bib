@@ -61,6 +61,7 @@ $(function () {
             autoRefresh:true,
             lineNumbers: true,
             lineWrapping: true,
+            theme: "dracula",
         });
         // codeMirrorHtmlBackend
         CodeMirror.fromTextArea(document.getElementById("codeMirrorHtmlBackend"), {

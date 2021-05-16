@@ -119,12 +119,10 @@ class TbsModuleController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
 
-
         if ($form->isSubmitted() && $form->isValid()) {
 
             $checkFrom = $this->checkForm($form);
             if(true == ($checkFrom['checkForm'])){
-
                 $this->addFlash(
                     'danger',
                     'Bitte prüfen Sie Ihr Formular'
@@ -134,9 +132,7 @@ class TbsModuleController extends AbstractController
                     'form' => $form->createView(),
                     'checkFrom' => $checkFrom,
                 ]);
-
             }
-
 
             /** @var UploadedFile $images */
             $images = $form->get('moduleImages')->getData();
@@ -177,7 +173,19 @@ class TbsModuleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-
+            $checkFrom = $this->checkForm($form);
+            if(true == ($checkFrom['checkForm'])){
+                $this->addFlash(
+                    'danger',
+                    'Bitte prüfen Sie Ihr Formular'
+                );
+                return $this->render('Dashboard/Content Elements/Brettinghams/new.html.twig', [
+                    'tbs_module' => $tbsModule,
+                    'form' => $form->createView(),
+                    'checkFrom' => $checkFrom,
+                ]);
+            }
+            
             /** @var UploadedFile $images */
             $images = $form->get('moduleImages')->getData();
 
@@ -268,20 +276,26 @@ class TbsModuleController extends AbstractController
 
         $tsConfig = $form->get('tsConfigCode')->getData();
         $typoScriptCode = $form->get('typoScriptCode')->getData();
+        $ttContentCode = $form->get('ttContentCode')->getData();
 
 
         if ((null == $tsConfig) || (str_contains($tsConfig, '#Dies-ist-nur-ein-Beispiel'))  ) {
             $result['checkForm'] = true;
-            $result['tsConfig'] = true;
-            $result['error']['tsConfig'] = 'Sie müssen den tsConfig-Code ändern';
+            $result['tsConfigCode'] = true;
+            $result['error']['tsConfigCode'] = 'Error: Bitte prüfen Sie den TsConfig-Code!';
         }
 
         if ((null == $typoScriptCode) || (str_contains($typoScriptCode, '#Dies-ist-nur-ein-Beispiel'))  ) {
             $result['checkForm'] = true;
             $result['typoScriptCode'] = true;
-            $result['error']['typoScriptCode'] = 'Sie müssen den typoScript-Code ändern';
+            $result['error']['typoScriptCode'] = 'Error: Bitte prüfen Sie den Typoscript-Code!';
         }
 
+        if ((null == $ttContentCode) || (str_contains($ttContentCode, '#Dies-ist-nur-ein-Beispiel'))  ) {
+            $result['checkForm'] = true;
+            $result['ttContentCode'] = true;
+            $result['error']['ttContentCode'] = 'Error: Bitte prüfen Sie den ttContent-Code!';
+        }
 
         return $result;
     }

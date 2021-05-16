@@ -13,7 +13,7 @@
         {% if depend is defined and depend == 1 %}
             <span  class="badge bg-warning">Abhängig</span>
         {% endif %}
-        {% if error is defined  %}
+        {% if error is defined and error is not null %}
             <span  class="badge bg-danger">{{ error }}</span>
         {% endif %}
 
