@@ -1,28 +1,8 @@
-<div class="col-md-12">
-    <div class="card card-outline card-info collapsed-card">
-        {% include 'Dashboard/Content Elements/Brettinghams/CodeMirror/Card/_header.html.twig'
-            with {
-            'title': 'TypoScript',
-            'type':'dark',
-            'typeText':'Backend',
-            'name':'tt_content.typoscript',
-            'error':   checkFrom.error.typoScriptCode ?? null
-        }
-        %}
-        <!-- /.card-header -->
-        <div class="card-body">
-              <textarea id="codeMirrorTypoScript" name="tbs_module[typoScriptCode]">
-{% if tbs_module.typoScriptCode is  null %}
-#Dies-ist-nur-ein-Beispiel ! Bitte entfernen Sie diese Zeile
-tbscontentelements_textcontent =< lib.contentElement
-tbscontentelements_textcontent {
-templateName = TextContentElement
-file = EXT:tbs_content_elements/Resources/Private/Templates/TextContentElement.html
-}
-{% else %}
-    {{ tbs_module.typoScriptCode }}
-{% endif %}
-              </textarea>
-        </div>
-    </div>
+
+<div class="col-md-6">
+    {% include 'Dashboard/Content Elements/Brettinghams/CodeMirror/_code_mirror_lang_en.html.twig'  %}
 </div>
+<div class="col-md-6">
+    {% include 'Dashboard/Content Elements/Brettinghams/CodeMirror/_code_mirror_lang_de.html.twig'  %}
+</div>
+

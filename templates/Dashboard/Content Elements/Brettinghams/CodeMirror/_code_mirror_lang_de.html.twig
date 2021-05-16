@@ -1,0 +1,23 @@
+<div class="card card-outline card-primary collapsed-card">
+    {% include 'Dashboard/Content Elements/Brettinghams/CodeMirror/Card/_header.html.twig'
+        with {
+        'title': 'Language De',
+        'type':'dark',
+        'typeText':'Backend',
+        'name':'de.locallang.xlf',
+        'depend': 1
+    }
+    %}
+
+    <!-- /.card-header -->
+    <div class="card-body">
+              <textarea id="codeMirrorDeLang" name="tbs_module[deLangeCode]">
+<trans-unit id="tbscontentelements_textcontent">
+   <source>Text Content Element</source>
+</trans-unit>
+<trans-unit id="tbscontentelements_textcontent.wizard.title">
+    <source>Text Content Element</source>
+</trans-unit>
+              </textarea>
+    </div>
+</div>

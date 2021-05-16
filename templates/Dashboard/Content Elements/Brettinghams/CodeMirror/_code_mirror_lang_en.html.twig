@@ -1,9 +1,26 @@
-<div class="col-md-12">
-    <div class="col-md-6">
-x
-    </div>
-    <div class="col-md-6">
-s
-    </div>
+<div class="card card-outline card-primary collapsed-card">
+    {% include 'Dashboard/Content Elements/Brettinghams/CodeMirror/Card/_header.html.twig'
+        with {
+        'title': 'Language En',
+        'type':'dark',
+        'typeText':'Backend',
+        'name':'locallang.xlf',
+        'depend': 1
 
+    }
+    %}
+
+    <!-- /.card-header -->
+    <div class="card-body">
+              <textarea id="codeMirrorLocalLang" name="tbs_module[localLangCode]">
+<trans-unit id="tbscontentelements_textcontent.wizard.description">
+    <source>Add Text content Element with Header</source>
+    <target>Zum Einfügen von einem Text</target>
+</trans-unit>
+<trans-unit id="tt_content.header">
+    <source>Headline</source>
+    <target>Überschrift</target>
+</trans-unit>
+              </textarea>
+    </div>
 </div>
