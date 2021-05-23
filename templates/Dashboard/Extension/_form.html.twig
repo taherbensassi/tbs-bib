@@ -30,11 +30,12 @@
                         <div class="input-group">
                             <div class="custom-file">
                                 {{ form_widget(form.extensionZip, { 'attr': {'id': 'extensionZip'} }) }}
-
-
                                 <label class="custom-file-label" for="extensionZip">Choose file</label>
                             </div>
                         </div>
+                        {% if edit is defined and edit == 1 %}
+                         <small id="extensionZip" class="form-text text-muted">durch Hochladen der Erweiterung wird die alte Erweiterung aus der Datenbank und aus dem Upload-Ordner entfernt</small>
+                        {% endif %}
                     </div>
                 </div>
             </div>

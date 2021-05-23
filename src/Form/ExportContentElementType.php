@@ -32,7 +32,7 @@ class ExportContentElementType extends AbstractType
                 'data' => 'Tbs',
                 'disabled' => true,
             ])
-            ->add('icon')
+            ->add('tbsModule')
         ;
     }
 

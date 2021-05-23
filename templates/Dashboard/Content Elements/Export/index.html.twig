@@ -20,7 +20,6 @@
                     <th>User</th>
                     <th>ExtensionName</th>
                     <th>VendorName</th>
-                    <th>Icon</th>
                     <th>Status</th>
                 </tr>
                 </thead>
@@ -30,9 +29,8 @@
                         <td>{{ export_content_element.user.email }}</td>
                         <td>{{ export_content_element.extensionName }}</td>
                         <td>{{ export_content_element.vendorName }}</td>
-                        <td>{{ export_content_element.icon }}</td>
                         <td class="project-state">
-                            <span class="badge badge-success">{{ export_content_element.status }}</span>
+                            <span class="badge badge-success">Done</span>
                         </td>
                     </tr>
                 {% else %}

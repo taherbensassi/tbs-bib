@@ -26,27 +26,17 @@ class ExportContentElement
     use StatusTrait;
     use ExtensionNameTrait;
 
-
-
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $vendorName;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $icon;
 
     /**
-     * @ORM\Column(type="text",nullable=false)
+     * @ORM\Column(type="array")
      */
     private $tbsModule;
 
-    /**
-     * @ORM\Column(type="text",nullable=false)
-     */
-    private $customModule;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
@@ -67,17 +57,6 @@ class ExportContentElement
         return $this;
     }
 
-    public function getIcon(): ?string
-    {
-        return $this->icon;
-    }
-
-    public function setIcon(string $icon): self
-    {
-        $this->icon = $icon;
-
-        return $this;
-    }
 
     public function getUser(): ?User
     {
@@ -107,19 +86,5 @@ class ExportContentElement
         $this->tbsModule = $tbsModule;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCustomModule()
-    {
-        return $this->customModule;
-    }
 
-    /**
-     * @param mixed $customModule
-     */
-    public function setCustomModule($customModule): void
-    {
-        $this->customModule = $customModule;
-    }
 }

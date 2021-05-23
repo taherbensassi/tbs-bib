@@ -193,7 +193,7 @@ class TbsExtensionController extends AbstractController
             $extensionFileNew = $form->get('extensionZip')->getData();
 
             // new extension
-            if($oldExtensionFileName != $extensionFileNew) {
+            if(($oldExtensionFileName != $extensionFileNew) && (null != $extensionFileNew)) {
                 $filesystem->remove(['unlink',$currentDirPath.'/uploads/tbs-extension/'.$oldExtensionFileName]);
                 $extensionFileName = $fileUploader->upload($extensionFileNew,true);
                 $tbsExtension->setExtensionZip($extensionFileName);
@@ -206,6 +206,7 @@ class TbsExtensionController extends AbstractController
         return $this->render('Dashboard/Extension/edit.html.twig', [
             'tbs_extension' => $tbsExtension,
             'form' => $form->createView(),
+            'edit' => true,
             'typo3Version' => $typo3Version,
             'apiVersionFailed' => $apiVersionFailed ?? false,
         ]);

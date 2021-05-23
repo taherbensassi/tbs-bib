@@ -1,0 +1,84 @@
+<f:spaceless>
+    <f:if condition="{image}">
+        <f:variable name="propTitle">{f:if(condition:'{image.referenceProperties.title}', then: '{image.referenceProperties.title}', else: '{f:if(condition:\'{image.originalResource.properties.title}\', then: \'{image.originalResource.properties.title}\', else: \'{image.originalFile.properties.title}\')}')}</f:variable>
+        <f:variable name="propDescription">{f:if(condition:'{image.referenceProperties.description}', then: '{image.referenceProperties.description}', else: '{f:if(condition:\'{image.originalResource.properties.description}\', then: \'{image.originalResource.properties.description}\', else: \'{image.originalFile.properties.description}\')}')}</f:variable>
+
+        <div class="image">
+            <div class="image__wrapper">
+                <f:if condition="{image.referenceProperties.link}">
+                    <f:then>
+                        <f:link.typolink parameter="{image.referenceProperties.link}">
+                            <f:render section="renderPicture" arguments="{image:image,image_display_width:image_display_width,cropVariant:cropVariant}"/>
+                        </f:link.typolink>
+                    </f:then>
+                    <f:else>
+                        <f:render section="renderPicture" arguments="{image:image,image_display_width:image_display_width,cropVariant:cropVariant}"/>
+                    </f:else>
+                </f:if>
+
+                <f:if condition="{propTitle}">
+                    <div class="image__copyright">&copy; {propTitle}</div>
+                </f:if>
+            </div>
+
+            <f:if condition="{propDescription}">
+                <small class="image__caption">{propDescription}</small>
+            </f:if>
+        </div>
+    </f:if>
+</f:spaceless>
+
+
+<f:section name="renderPicture">
+    <f:comment>--- default image widths ---</f:comment>
+    <f:variable name="widthSmall">992</f:variable>
+    <f:variable name="widthSmall2x">1200</f:variable>
+    <f:variable name="widthLarge">1200</f:variable>
+    <f:variable name="widthLarge2x">1440</f:variable>
+
+    <f:comment>--- image widths for 50% image_display_width ---</f:comment>
+    <f:if condition="{image_display_width} == '1'">
+        <f:variable name="widthSmall">500</f:variable>
+        <f:variable name="widthSmall2x">600</f:variable>
+        <f:variable name="widthLarge">600</f:variable>
+        <f:variable name="widthLarge2x">800</f:variable>
+    </f:if>
+
+    <f:comment>--- image widths for 33% image_display_width ---</f:comment>
+    <f:if condition="{image_display_width} == '2'">
+        <f:variable name="widthSmall">330</f:variable>
+        <f:variable name="widthSmall2x">400</f:variable>
+        <f:variable name="widthLarge">400</f:variable>
+        <f:variable name="widthLarge2x">600</f:variable>
+    </f:if>
+
+
+    <f:comment>--- crop variant ---</f:comment>
+    <f:variable name="cropV">default</f:variable>
+    <f:if condition="{cropVariant}">
+        <f:variable name="cropV">{cropVariant}</f:variable>
+    </f:if>
+
+
+    <f:comment>----------- Empty Image ---------------</f:comment>
+    <f:variable name="empty">data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==</f:variable>
+
+    <f:variable name="propTitle">{f:if(condition:'{image.referenceProperties.title}', then: '{image.referenceProperties.title}', else: '{f:if(condition:\'{image.originalResource.properties.title}\', then: \'{image.originalResource.properties.title}\', else: \'{image.originalFile.properties.title}\')}')}</f:variable>
+    <f:variable name="propAlternative">{f:if(condition:'{image.referenceProperties.alternative}', then: '{image.referenceProperties.alternative}', else: '{f:if(condition:\'{image.originalResource.properties.alternative}\', then: \'{image.originalResource.properties.alternative}\', else: \'{image.originalFile.properties.alternative}\')}')}</f:variable>
+
+
+    <picture class="image__picture">
+        <f:comment><!--srcset for desktop--></f:comment>
+        <source srcset={empty} data-srcset="{f:uri.image(image:image, maxWidth: widthLarge, cropVariant: cropV)}, {f:uri.image(image:image, maxWidth: widthLarge2x, cropVariant: cropV)} 2x" media="(min-width: 992px)">
+
+        <f:comment><!--srcset for mobile--></f:comment>
+        <source srcset={empty} data-srcset="{f:uri.image(image:image, maxWidth: widthSmall, cropVariant: cropV)}, {f:uri.image(image:image, maxWidth: widthSmall2x, cropVariant: cropV)} 2x" media="(max-width: 992px)">
+
+        <f:comment><!-- Fallback --></f:comment>
+        <f:variable name="imgTitleDefault">{f:if(condition:'{propAlternative}', then: '{propAlternative}', else: '')}</f:variable>
+        <f:variable name="imgTitle">{f:if(condition:'{propTitle}', then: '{propTitle}', else: '{imgTitleDefault}')}</f:variable>
+        <f:variable name="imgAlt">{f:if(condition:'{propAlternative}',then:'{propAlternative}',else:'{imgTitle}')}</f:variable>
+
+        <img class="img-responsive" src="{f:uri.image(image:image, maxWidth: widthSmall, cropVariant: cropV)}"  alt="{imgAlt}" title="{imgTitle}">
+    </picture>
+</f:section>

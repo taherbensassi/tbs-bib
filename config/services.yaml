@@ -8,6 +8,18 @@ parameters:
     app_locales: de|en
     upload_directory: '%kernel.project_dir%/public/uploads/images'
     extension_directory: '%kernel.project_dir%/public/uploads/tbs-extension'
+    tbs_content_element_directory: '%kernel.project_dir%/public/typo3-ce-extension'
+    tbs_content_element_directory_project: '/typo3-ce-extension/tbs_content_elements_project'
+    tbs_content_element_directory_project_init: '/typo3-ce-extension/tbs_content_elements'
+    tbs_content_element_directory_tsconfig: '/typo3-ce-extension/tbs_content_elements/Configuration/TsConfig/Mod/TBS-Module/'
+    tbs_content_element_directory_typoscript: '/typo3-ce-extension/tbs_content_elements/Configuration/TypoScript/Frontend/TBS-Module/'
+    tbs_content_element_directory_tt_content: '/typo3-ce-extension/tbs_content_elements/Configuration/TCA/Overrides/TBS-Module/'
+    tbs_content_element_directory_tt_content_override: '/typo3-ce-extension/tbs_content_elements/Configuration/TCA/Overrides/'
+    tbs_content_element_directory_sql: '/typo3-ce-extension/tbs_content_elements/'
+    tbs_content_element_directory_html_backend: '/typo3-ce-extension/tbs_content_elements/Resources/Private/Backend/Templates/'
+    tbs_content_element_directory_html_frontend: '/typo3-ce-extension/tbs_content_elements/Resources/Private/Templates/'
+    tbs_content_element_directory_language: '/typo3-ce-extension/tbs_content_elements/Resources/Private/Language/'
+    tbs_content_element_directory_download: '%kernel.project_dir%/public'
 
 services:
     # default configuration for services in *this* file
