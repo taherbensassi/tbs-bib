@@ -31,7 +31,6 @@ class ExportContentElementController extends AbstractController
      */
     private $loggedInUser;
 
-
     /**
      * @var ContentElementsRepository
      */
@@ -75,13 +74,11 @@ class ExportContentElementController extends AbstractController
         $this->exportContentElementRepository= $exportContentElementRepository;
     }
 
-
     /**
      * @Route("/", name="export_content_element_index", methods={"GET"})
      */
     public function index(ExportContentElementRepository $exportContentElementRepository): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
         $tbsContentElement = $this->tbsModuleRepository->findBy([
             'status' => true,
         ]);
@@ -92,6 +89,7 @@ class ExportContentElementController extends AbstractController
     }
 
     /**
+     * @todo make it work in frontend
      * @Route("/regenerate_export", name="regenerate_export", methods={"POST"})
      */
     public function regenerateExport(Request $request): Response
@@ -126,7 +124,6 @@ class ExportContentElementController extends AbstractController
 
             //-- initialize extension
             $this->zipServiceInterface->initialize();
-
             //-- handle Export
             $export = $this->handelExport($exportRepo->getTbsModule());
 
@@ -137,9 +134,7 @@ class ExportContentElementController extends AbstractController
                 //-- unset extension
                 $this->zipServiceInterface->unsetTbsExtension();
                 //- downloaded extension
-
                 return $this->zipServiceInterface->downloadExtension();
-
             }else{
                 $this->zipServiceInterface->unsetTbsExtension();
                 return new JsonResponse(array(
@@ -147,7 +142,6 @@ class ExportContentElementController extends AbstractController
                     'message' => 'Error'),
                     400);
             }
-
         }
         return new JsonResponse(array(
             'status' => 'Error',
@@ -201,9 +195,7 @@ class ExportContentElementController extends AbstractController
                 //-- unset extension
                 $this->zipServiceInterface->unsetTbsExtension();
                 //- downloaded extension
-
                 return $this->zipServiceInterface->downloadExtension();
-
             }else{
                 $unset = $this->zipServiceInterface->unsetTbsExtension();
                 if(true === $unset){
@@ -256,13 +248,11 @@ class ExportContentElementController extends AbstractController
      * @return array|bool
      */
     private function handelExport(array $selectedModules) {
-
         //-- loop over all modules
         foreach ($selectedModules as $key => $selectedModule){
 
             //-- get Module
             $module = $this->tbsModuleRepository->find($selectedModule);
-
 
             $tsConfig = $this->exportServiceInterface->exportTsConfig($module->getTsConfigCode(),$module->getModuleKey());
             if(false == $tsConfig){
@@ -327,9 +317,6 @@ class ExportContentElementController extends AbstractController
                     $result['error']['exportTtContentNewCode'] = 'Error Module: '.$module->getModuleKey().': Problem beim Exportieren von TtContentNewCode!';
                 }
             }
-
-
-
         }
 
         // update icons

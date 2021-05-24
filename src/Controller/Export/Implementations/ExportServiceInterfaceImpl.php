@@ -116,6 +116,7 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
                 return $this->export($ttContentRootOverride,'tt_content.php',"\r\ninclude_once 'TBS-Module/".$fileName."';",false);
             }
         }else{
+            // @todo update ext_tables.php
             $TtContentRootNew = $this->container->getParameter('tbs_content_element_directory_tt_content_new');
             return $this->export($TtContentRootNew,$tableName."php",$content);
         }
@@ -139,6 +140,7 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
                 array_unshift($file, $content);
                 array_unshift($file, $firstLine);
                 $fp = fopen($this->currentDirPath . $sqlCodeRoot . "ext_tables.sql", 'w');
+                // @todo check spacing in sql or Formatter
                 fwrite($fp, implode("\n", $file));
                 fclose($fp);
                 return true;
@@ -202,6 +204,7 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
         } else {
             $fileName = $this->currentDirPath . $xmlCodeRoot . "de.locallang.xlf";
         }
+        // @todo make it in one function
         $specific_line = 9;
         $contents = file($fileName, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         if($specific_line > sizeof($contents)) {
@@ -247,20 +250,16 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
         if($specific_line > sizeof($contents)) {
             $specific_line = sizeof($contents) + 1;
         }
-
         //-- loop over all modules
         foreach ($selectedModules as $key => $selectedModule) {
-
             //-- get Module
             $module = $this->tbsModuleRepository->find($selectedModule);
-
             $CType = 'tbscontentelements_'.$module->getModuleKey();
             $content .=
                 <<<EOS
     '$CType' => 'tbs_contentelements_icon.svg',
 EOS;
         }
-
         array_splice($contents, $specific_line-1, 0, array($content));
         $contents = implode("\n", $contents);
         file_put_contents($fileName, $contents);
@@ -285,28 +284,22 @@ EOS;
 
         //-- loop over all modules
         foreach ($selectedModules as $key => $selectedModule) {
-
             //-- get Module
             $module = $this->tbsModuleRepository->find($selectedModule);
-
             $indexFile = strpos($module->getTypoScriptCode(),"file");
-
             if ($indexFile) {
                 //- get the the index of .html
                 $htmlIndex = strpos($module->getTypoScriptCode(), '.html');
                 $path = substr($module->getTypoScriptCode(), $indexFile, ($htmlIndex - $indexFile));
                 $templateFileName = basename($path);
-
-
-
-            $CType = 'tbscontentelements_'.$module->getModuleKey();
-            $content .= <<<EOS
-    '$CType' => '$templateFileName',
+                $CType = 'tbscontentelements_'.$module->getModuleKey();
+$content .= <<<EOS
+'$CType' => '$templateFileName',
 EOS;
-        }else{
-                return false;
-        }
-    }
+}else{
+    return false;
+}
+}
         array_splice($contents, $specific_line-1, 0, array($content));
         $contents = implode("\n", $contents);
         file_put_contents($fileName, $contents);
