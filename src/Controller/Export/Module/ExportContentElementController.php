@@ -123,9 +123,12 @@ class ExportContentElementController extends AbstractController
                 //create zip
                 $this->zipServiceInterface->createZip();
                 //-- unset extension
-                $this->zipServiceInterface->unsetTbsExtension();
-
+                //$this->zipServiceInterface->unsetTbsExtension();
                 //- downloaded extension
+                $this->addFlash(
+                    'success',
+                    'Ihre Extension wird heruntergeladen'
+                );
                 return $this->zipServiceInterface->downloadExtension();
             }else{
                 $unset = $this->zipServiceInterface->unsetTbsExtension();
@@ -243,7 +246,23 @@ class ExportContentElementController extends AbstractController
                     $result['error']['DeLanguage'] = 'Error Module:'.$module->getModuleKey().': Problem beim Exportieren von DeLanguage!';
                 }
             }
+
+
+
         }
+
+        // update icons
+        $icons = $this->exportServiceInterface->generateModuleIcons($selectedModules);
+        if(true !== $icons){
+            $result['error']['icons'] = 'Error : Problem beim Exportieren von Icons!';
+        }
+
+        // update preview
+        $icons = $this->exportServiceInterface->generateModuleBackendPreview($selectedModules);
+        if(true !== $icons){
+            $result['error']['moduleBackendPreview'] = 'Error : Problem beim Exportieren von moduleBackendPreview!';
+        }
+
         return $result ?? true;
     }
 }

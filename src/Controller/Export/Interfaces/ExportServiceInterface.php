@@ -45,7 +45,6 @@ interface ExportServiceInterface
      */
     public function exportTypoScript(string $content,string $CType);
 
-
     /**
      *
      * This function will export the content of the TtContent into file
@@ -55,7 +54,6 @@ interface ExportServiceInterface
      * @return mixed
      */
     public function exportTtContent(string $content,string $CType);
-
 
     /**
      *
@@ -67,7 +65,6 @@ interface ExportServiceInterface
      * @return mixed
      */
     public function exportSql(string $content,string $CType, int $type);
-
 
     /**
      *
@@ -92,13 +89,22 @@ interface ExportServiceInterface
      */
     public function exportXml(string $content,string $CType,int $type);
 
-
     /**
      * @param string $filename
      * @return mixed
      */
     function validFilename(string $filename);
 
+    /**
+     * @param array $selectedModules
+     * @return mixed
+     */
+    function generateModuleIcons(array $selectedModules);
 
+    /**
+     * @param array $selectedModules
+     * @return mixed
+     */
+    function generateModuleBackendPreview(array $selectedModules);
 
 }

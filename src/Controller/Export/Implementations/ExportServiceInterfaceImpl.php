@@ -4,6 +4,7 @@
 namespace App\Controller\Export\Implementations;
 
 
+use App\Repository\TbsModuleRepository;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
@@ -29,13 +30,20 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
     private $currentDirPath;
 
     /**
+     * @var TbsModuleRepository
+     */
+    private $tbsModuleRepository;
+
+    /**
      * ExportServiceInterfaceImpl constructor.
+     * @param TbsModuleRepository $tbsModuleRepository
      * @param ContainerInterface $container
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container,TbsModuleRepository $tbsModuleRepository)
     {
         $this->container = $container;
         $this->currentDirPath = getcwd();
+        $this->tbsModuleRepository = $tbsModuleRepository;
     }
 
 
@@ -44,7 +52,7 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
      * @param string $CType
      * @return mixed|void
      */
-    public function exportTsConfig(string $content, string $CType)
+    public function exportTsConfig(string $content, string $CType): bool
     {
         $fileName = 'tbscontentelements_'.$CType.'.typoscript';
         $TsConfigDirectoryRoot = $this->container->getParameter('tbs_content_element_directory_tsconfig');
@@ -83,7 +91,7 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
      * @param string $CType
      * @return mixed
      */
-    public function exportTypoScript(string $content, string $CType)
+    public function exportTypoScript(string $content, string $CType): bool
     {
         $fileName = 'tbscontentelements_'.$CType.'.typoscript';
         $TypScriptConfigDirectoryRoot = $this->container->getParameter('tbs_content_element_directory_typoscript');
@@ -95,7 +103,7 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
      * @param string $CType
      * @return mixed
      */
-    public function exportTtContent(string $content, string $CType)
+    public function exportTtContent(string $content, string $CType): bool
     {
         $fileName = 'tbscontentelements_'.$CType.'.php';
         $TtContentRoot = $this->container->getParameter('tbs_content_element_directory_tt_content');
@@ -114,7 +122,7 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
      * @param int $type
      * @return mixed
      */
-    public function exportSql(string $content, string $CType, int $type)
+    public function exportSql(string $content, string $CType, int $type): bool
     {
         $sqlCodeRoot = $this->container->getParameter('tbs_content_element_directory_sql');
         if(1 === $type) {
@@ -133,7 +141,6 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
             }
         }else if(2 === $type){
             return $this->export($sqlCodeRoot,'ext_tables.sql',$content,false);
-
         }
         return false;
     }
@@ -145,7 +152,7 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
      * @param int $type
      * @return mixed
      */
-    public function exportHtml(string $content,string $CType,string $fileNameContent,int $type)
+    public function exportHtml(string $content,string $CType,string $fileNameContent,int $type): bool
     {
         $indexFile = strpos($fileNameContent,"file");
 
@@ -178,7 +185,7 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
      * @param int $type
      * @return mixed
      */
-    public function exportXml(string $content,string $CType,int $type)
+    public function exportXml(string $content,string $CType,int $type): bool
     {
         $xmlCodeRoot = $this->container->getParameter('tbs_content_element_directory_language');
         //-- type 1 = en
@@ -197,41 +204,6 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
         $contents = implode("\n", $contents);
         file_put_contents($fileName, $contents);
         return true;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function createZip()
-    {
-        /*
-    // Initialize archive object
-    $zip = new \ZipArchive();
-    $zip->open('test.zip', \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
-
-// Create recursive directory iterator
-    /** @var SplFileInfo[] $files
-    $files = new \RecursiveIteratorIterator(new RecursiveDirectoryIterator($currentDirPath.'/typo3-ce-extension/tbs_content_elements',1), \RecursiveIteratorIterator::LEAVES_ONLY,1);
-
-    foreach ($files as $name => $file)
-    {
-        // Get real and relative path for current file
-        $filePath = $file->getRealPath();
-        $relativePath = substr($filePath, strlen($currentDirPath.'/typo3-ce-extension/tbs_content_elements') + 1);
-
-        if (!$file->isDir())
-        {
-            // Add current file to archive
-            $zip->addFile($filePath, $relativePath);
-        }else {
-            if($relativePath !== false)
-                $zip->addEmptyDir($relativePath);
-        }
-    }
-
-// Zip archive will be created only after closing object
-    $zip->close();
-    */
     }
 
 
@@ -254,4 +226,90 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
     }
 
 
+    /**
+     * @param array $selectedModules
+     * @return mixed|void
+     */
+    function generateModuleIcons(array $selectedModules): bool
+    {
+        $content ="";
+        $root = $this->container->getParameter('tbs_content_element_directory_project_init');
+        $fileName = $this->currentDirPath . $root . "/ext_localconf.php";
+        $specific_line = 6;
+        $contents = file($fileName, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if($specific_line > sizeof($contents)) {
+            $specific_line = sizeof($contents) + 1;
+        }
+
+        //-- loop over all modules
+        foreach ($selectedModules as $key => $selectedModule) {
+
+            //-- get Module
+            $module = $this->tbsModuleRepository->find($selectedModule);
+
+            $CType = 'tbscontentelements_'.$module->getModuleKey();
+            $content .=
+                <<<EOS
+\$icons = [
+    '$CType' => 'tbs_contentelements_icon.svg',
+];
+EOS;
+        }
+
+        array_splice($contents, $specific_line-1, 0, array($content));
+        $contents = implode("\n", $contents);
+        file_put_contents($fileName, $contents);
+        return true;
+
+    }
+
+    /**
+     * @param array $selectedModules
+     * @return mixed
+     */
+    function generateModuleBackendPreview(array $selectedModules)
+    {
+        $content ="";
+        $root = $this->container->getParameter('tbs_content_element_directory_backend_preview_php');
+        $fileName = $this->currentDirPath . $root . "PageLayoutViewDrawItem.php";
+        $specific_line = 19;
+        $contents = file($fileName, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if($specific_line > sizeof($contents)) {
+            $specific_line = sizeof($contents) + 1;
+        }
+
+        //-- loop over all modules
+        foreach ($selectedModules as $key => $selectedModule) {
+
+            //-- get Module
+            $module = $this->tbsModuleRepository->find($selectedModule);
+
+            $indexFile = strpos($module->getTypoScriptCode(),"file");
+
+            if ($indexFile) {
+                //- get the the index of .html
+                $htmlIndex = strpos($module->getTypoScriptCode(), '.html');
+                $path = substr($module->getTypoScriptCode(), $indexFile, ($htmlIndex - $indexFile) + 5);
+                $templateFileName = basename($path);
+                if ($this->validFilename($templateFileName)) {
+
+            $CType = 'tbscontentelements_'.$module->getModuleKey();
+            $content .=
+                <<<EOS
+protected \$supportedContentTypes = [
+    '$CType' => '$templateFileName',
+];
+EOS;
+        }else{
+                return false;
+                }
+        }else{
+                return false;
+        }
+    }
+        array_splice($contents, $specific_line-1, 0, array($content));
+        $contents = implode("\n", $contents);
+        file_put_contents($fileName, $contents);
+        return true;
+    }
 }
