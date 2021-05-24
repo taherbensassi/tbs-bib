@@ -16,11 +16,24 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
  */
 class PageLayoutViewDrawItem implements PageLayoutViewDrawItemHookInterface
 {
+    /**
+     * @var array
+     */
+    protected $supportedContentTypes = [
+        //code
+
+    ];
+
 
     /**
      * @var StandaloneView
      */
     protected $view;
+
+    /**
+     * PageLayoutViewDrawItem constructor.
+     * @param StandaloneView|null $view
+     */
     public function __construct(StandaloneView $view = null)
     {
         $this->view = $view ?: GeneralUtility::makeInstance(StandaloneView::class);

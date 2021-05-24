@@ -18,7 +18,6 @@ use Symfony\Component\VarDumper\VarDumper;
 class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\ExportServiceInterface
 {
 
-
     /**
      * @var ContainerInterface
      */
@@ -101,18 +100,26 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
     /**
      * @param string $content
      * @param string $CType
+     * @param int $type
+     * @param string $tableName
      * @return mixed
      */
-    public function exportTtContent(string $content, string $CType): bool
+    public function exportTtContent(string $content, string $CType,int $type, string $tableName): bool
     {
         $fileName = 'tbscontentelements_'.$CType.'.php';
         $TtContentRoot = $this->container->getParameter('tbs_content_element_directory_tt_content');
 
-        $created = $this->export($TtContentRoot,$fileName,$content);
-        if (false != $created){
-            $ttContentRootOverride = $this->container->getParameter('tbs_content_element_directory_tt_content_override');
-            return $this->export($ttContentRootOverride,'tt_content.php',"\r\ninclude_once 'TBS-Module/".$fileName."';",false);
+        if(1 === $type){
+            $created = $this->export($TtContentRoot,$fileName,$content);
+            if (false != $created){
+                $ttContentRootOverride = $this->container->getParameter('tbs_content_element_directory_tt_content_override');
+                return $this->export($ttContentRootOverride,'tt_content.php',"\r\ninclude_once 'TBS-Module/".$fileName."';",false);
+            }
+        }else{
+            $TtContentRootNew = $this->container->getParameter('tbs_content_element_directory_tt_content_new');
+            return $this->export($TtContentRootNew,$tableName."php",$content);
         }
+
         return  false;
     }
 
@@ -235,7 +242,7 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
         $content ="";
         $root = $this->container->getParameter('tbs_content_element_directory_project_init');
         $fileName = $this->currentDirPath . $root . "/ext_localconf.php";
-        $specific_line = 6;
+        $specific_line = 7;
         $contents = file($fileName, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         if($specific_line > sizeof($contents)) {
             $specific_line = sizeof($contents) + 1;
@@ -250,9 +257,7 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
             $CType = 'tbscontentelements_'.$module->getModuleKey();
             $content .=
                 <<<EOS
-\$icons = [
     '$CType' => 'tbs_contentelements_icon.svg',
-];
 EOS;
         }
 
@@ -272,7 +277,7 @@ EOS;
         $content ="";
         $root = $this->container->getParameter('tbs_content_element_directory_backend_preview_php');
         $fileName = $this->currentDirPath . $root . "PageLayoutViewDrawItem.php";
-        $specific_line = 20;
+        $specific_line = 23;
         $contents = file($fileName, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         if($specific_line > sizeof($contents)) {
             $specific_line = sizeof($contents) + 1;
@@ -295,11 +300,8 @@ EOS;
 
 
             $CType = 'tbscontentelements_'.$module->getModuleKey();
-            $content .=
-                <<<EOS
-protected \$supportedContentTypes = [
+            $content .= <<<EOS
     '$CType' => '$templateFileName',
-];
 EOS;
         }else{
                 return false;

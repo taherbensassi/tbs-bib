@@ -87,6 +87,15 @@ $(function () {
             lineWrapping: true,
             theme: "dracula",
         });
+        // codeMirrorTtContentNewCode
+        CodeMirror.fromTextArea(document.getElementById("codeMirrorTtContentNewCode"), {
+            mode: "php",
+            autoRefresh:true,
+            lineNumbers: true,
+            lineWrapping: true,
+            theme: "dracula",
+        });
+
 
     })
 });

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Module;
 
+use App\Entity\SitePackage;
 use App\Entity\TbsModule;
 use App\Form\TbsModuleType;
 use App\Repository\ContentElementsRepository;
@@ -120,7 +121,6 @@ class TbsModuleController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $checkFrom = $this->checkForm($form);
             if(true == ($checkFrom['checkForm'])){
                 $this->addFlash(
@@ -151,7 +151,7 @@ class TbsModuleController extends AbstractController
             $entityManager->persist($tbsModule);
             $entityManager->flush();
             $this->addFlash('success',
-                'Modul erfolgreich hinzugefügt'
+                'Module erfolgreich hinzugefügt'
             );
             return $this->redirectToRoute('tbs_module_index');
         }

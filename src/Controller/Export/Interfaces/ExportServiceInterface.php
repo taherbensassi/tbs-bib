@@ -51,9 +51,11 @@ interface ExportServiceInterface
      *
      * @param string $content
      * @param string $CType
+     * @param int $type
+     * @param string $tableName
      * @return mixed
      */
-    public function exportTtContent(string $content,string $CType);
+    public function exportTtContent(string $content,string $CType,int $type, string $tableName);
 
     /**
      *

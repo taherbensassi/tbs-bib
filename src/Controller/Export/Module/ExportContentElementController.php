@@ -274,7 +274,7 @@ class ExportContentElementController extends AbstractController
                 $result['error']['exportTypoScriptCode'] = 'Error Module: '.$module->getModuleKey().': Problem beim Exportieren von TypoScript!';
             }
 
-            $ttContent = $this->exportServiceInterface->exportTtContent($module->getTtContentCode(),$module->getModuleKey());
+            $ttContent = $this->exportServiceInterface->exportTtContent($module->getTtContentCode(),$module->getModuleKey(),1,"");
             if(false == $ttContent){
                 $result['error']['exportTtContentCode'] = 'Error Module: '.$module->getModuleKey().': Problem beim Exportieren von TtContentCode!';
             }
@@ -318,6 +318,13 @@ class ExportContentElementController extends AbstractController
                 $xmlDeLanguage = $this->exportServiceInterface->exportXml($module->getDeLangeCode(),$module->getModuleKey(),2);
                 if(false == $xmlDeLanguage){
                     $result['error']['DeLanguage'] = 'Error Module:'.$module->getModuleKey().': Problem beim Exportieren von DeLanguage!';
+                }
+            }
+
+            if (null != $module->getTtContentNewCode()){
+                $ttContent = $this->exportServiceInterface->exportTtContent($module->getTtContentNewCode(),$module->getModuleKey(),2,$module->getTtContentTableName());
+                if(false == $ttContent){
+                    $result['error']['exportTtContentNewCode'] = 'Error Module: '.$module->getModuleKey().': Problem beim Exportieren von TtContentNewCode!';
                 }
             }
 

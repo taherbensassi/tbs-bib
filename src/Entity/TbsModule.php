@@ -82,6 +82,11 @@ class TbsModule
     private $ttContentCode;
 
     /**
+     * @ORM\Column(type="text")
+     */
+    private $ttContentNewCode;
+
+    /**
      * @ORM\Column(type="text",nullable=true)
      */
     private $sqlOverrideCode;
@@ -110,6 +115,11 @@ class TbsModule
      * @ORM\Column(type="text",nullable=true)
      */
     private $deLangeCode;
+
+    /**
+     * @ORM\Column(type="text",nullable=true)
+     */
+    private $ttContentTableName;
 
 
     /**
@@ -371,6 +381,38 @@ class TbsModule
     public function setDeLangeCode($deLangeCode): void
     {
         $this->deLangeCode = $deLangeCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTtContentNewCode()
+    {
+        return $this->ttContentNewCode;
+    }
+
+    /**
+     * @param mixed $ttContentNewCode
+     */
+    public function setTtContentNewCode($ttContentNewCode): void
+    {
+        $this->ttContentNewCode = $ttContentNewCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTtContentTableName()
+    {
+        return $this->ttContentTableName;
+    }
+
+    /**
+     * @param mixed $ttContentTableName
+     */
+    public function setTtContentTableName($ttContentTableName): void
+    {
+        $this->ttContentTableName = $ttContentTableName;
     }
 
 

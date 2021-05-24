@@ -1,0 +1,29 @@
+<div class="col-md-12">
+    <div class="card card-outline card-primary collapsed-card">
+        {% include 'Dashboard/Content Elements/Brettinghams/CodeMirror/Card/_header.html.twig'
+            with {
+            'title': 'New tt_content !!',
+            'type':'dark',
+            'typeText':'Backend',
+            'name':'tx_tbs_table.php',
+            'error':   checkFrom.error.ttContentNewCode ?? null,
+            'depend': 1
+        }
+        %}
+
+        <!-- /.card-header -->
+        <div class="card-body">
+
+            <div class="form-group" >
+                <label for="ttContentTableName">{{ form_label(form.ttContentTableName) }} <span class="text-danger">*</span> </label>
+                {{ form_widget(form.ttContentTableName, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+
+            <textarea id="codeMirrorTtContentNewCode"  name="tbs_module[ttContentNewCode]">
+{% if tbs_module.ttContentNewCode is not null %}
+    {{ tbs_module.ttContentNewCode }}
+{% endif %}
+              </textarea>
+        </div>
+    </div>
+</div>

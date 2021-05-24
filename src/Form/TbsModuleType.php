@@ -93,6 +93,10 @@ class TbsModuleType extends AbstractType
             ->add('htmlCode', TextareaType::class,[])
             ->add('localLangCode', TextareaType::class,[])
             ->add('deLangeCode', TextareaType::class,[])
+            ->add('ttContentNewCode', TextareaType::class,[])
+            ->add('ttContentTableName', TextType::class,[
+                'required' => false
+            ])
 
 
         ;

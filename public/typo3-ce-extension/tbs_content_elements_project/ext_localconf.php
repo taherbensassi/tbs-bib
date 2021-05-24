@@ -3,7 +3,9 @@
  * CONTENT ELEMENT ICONS
  ************************************************************************/
 if (TYPO3_MODE === 'BE') {
+    $icons = [
 
+    ];
     $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
     foreach ($icons as $identifier => $path) {
         $iconRegistry->registerIcon(
