@@ -1,6 +1,14 @@
 {% extends '@layout/layout-index.html.twig' %}
 {% block title %}Export Content Element {% endblock %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}" />
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('plugins/toastr/toastr.min.js') }}" ></script>
+    <script src="{{ asset('dist/js/module/export-content-element-index.js') }}" ></script>
+{% endblock %}
 {% block card %}
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-right">
@@ -18,20 +26,30 @@
                 <thead>
                 <tr>
                     <th>User</th>
-                    <th>ExtensionName</th>
-                    <th>VendorName</th>
+                    <th>Erstellt Am</th>
+                    <th>Modules</th>
                     <th>Status</th>
+                    <!--
+                    <th>Herunterladen</th>
+                    -->
                 </tr>
                 </thead>
                 <tbody>
                 {% for export_content_element in export_content_elements %}
                     <tr>
                         <td>{{ export_content_element.user.email }}</td>
-                        <td>{{ export_content_element.extensionName }}</td>
-                        <td>{{ export_content_element.vendorName }}</td>
+                        <td>{{ export_content_element.Created|date('d-m-Y')}}</td>
+                        {% for module in tbsContentElement %}
+                            {% if module.id in export_content_element.tbsModule %}
+                                <td> {{ module.title }} </td>
+                            {% endif %}
+                        {% endfor %}
                         <td class="project-state">
                             <span class="badge badge-success">Done</span>
                         </td>
+                        <!--<td>
+                            <button class="btn btn-link downloadButton" data-id="{{ export_content_element.id }}" data-url="{{ path('regenerate_export') }}" ><i class="fa fa-download"></i> Herunterladen</button>
+                        </td>-->
                     </tr>
                 {% else %}
                     <tr>

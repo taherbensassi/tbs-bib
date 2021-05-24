@@ -19,7 +19,7 @@ parameters:
     tbs_content_element_directory_html_backend: '/typo3-ce-extension/tbs_content_elements/Resources/Private/Backend/Templates/'
     tbs_content_element_directory_html_frontend: '/typo3-ce-extension/tbs_content_elements/Resources/Private/Templates/'
     tbs_content_element_directory_language: '/typo3-ce-extension/tbs_content_elements/Resources/Private/Language/'
-    tbs_content_element_directory_backend_preview_php: '/typo3-ce-extension/tbs_content_elements_project/Classes/Hooks/PageLayoutView/'
+    tbs_content_element_directory_backend_preview_php: '/typo3-ce-extension/tbs_content_elements/Classes/Hooks/PageLayoutView/'
     tbs_content_element_directory_download: '%kernel.project_dir%/public'
 
 services:

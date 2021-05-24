@@ -272,7 +272,7 @@ EOS;
         $content ="";
         $root = $this->container->getParameter('tbs_content_element_directory_backend_preview_php');
         $fileName = $this->currentDirPath . $root . "PageLayoutViewDrawItem.php";
-        $specific_line = 19;
+        $specific_line = 20;
         $contents = file($fileName, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         if($specific_line > sizeof($contents)) {
             $specific_line = sizeof($contents) + 1;
@@ -289,9 +289,10 @@ EOS;
             if ($indexFile) {
                 //- get the the index of .html
                 $htmlIndex = strpos($module->getTypoScriptCode(), '.html');
-                $path = substr($module->getTypoScriptCode(), $indexFile, ($htmlIndex - $indexFile) + 5);
+                $path = substr($module->getTypoScriptCode(), $indexFile, ($htmlIndex - $indexFile));
                 $templateFileName = basename($path);
-                if ($this->validFilename($templateFileName)) {
+
+
 
             $CType = 'tbscontentelements_'.$module->getModuleKey();
             $content .=
@@ -300,9 +301,6 @@ protected \$supportedContentTypes = [
     '$CType' => '$templateFileName',
 ];
 EOS;
-        }else{
-                return false;
-                }
         }else{
                 return false;
         }

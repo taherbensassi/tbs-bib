@@ -132,6 +132,8 @@ class ZipServiceInterfaceImpl implements \App\Controller\Export\Interfaces\ZipSe
             $fileNameZip
         );
 
+        //delete file after send response
+        $response->deleteFileAfterSend(true);
         return $response;
     }
 }

@@ -20,12 +20,5 @@ $(function () {
 
         $("label[for='bootstrap-duallistbox-selected-list_']").css('color','#28a745');
 
-
-        $('#exportForm').submit(function(e) {
-
-
-        });
-
-
     })
 })

@@ -14,6 +14,7 @@ use App\Service\LoggedInUserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -47,6 +48,11 @@ class ExportContentElementController extends AbstractController
     private $exportServiceInterface;
 
     /**
+     * @var ExportContentElementRepository
+     */
+    private $exportContentElementRepository;
+
+    /**
      * @var ZipServiceInterface
      */
     private $zipServiceInterface;
@@ -59,13 +65,14 @@ class ExportContentElementController extends AbstractController
      * @param ZipServiceInterface $zipServiceInterface
      * @param LoggedInUserService $loggedInUser
      */
-    public function __construct(ContentElementsRepository $contentElementRepository, TbsModuleRepository $tbsModuleRepository, ExportServiceInterface $exportServiceInterface, ZipServiceInterface $zipServiceInterface,LoggedInUserService $loggedInUser)
+    public function __construct(ContentElementsRepository $contentElementRepository, TbsModuleRepository $tbsModuleRepository, ExportServiceInterface $exportServiceInterface, ZipServiceInterface $zipServiceInterface,LoggedInUserService $loggedInUser,ExportContentElementRepository $exportContentElementRepository)
     {
         $this->contentElementRepository = $contentElementRepository;
         $this->tbsModuleRepository = $tbsModuleRepository;
         $this->exportServiceInterface = $exportServiceInterface;
         $this->zipServiceInterface = $zipServiceInterface;
         $this->loggedInUser= $loggedInUser->getUser();
+        $this->exportContentElementRepository= $exportContentElementRepository;
     }
 
 
@@ -74,9 +81,78 @@ class ExportContentElementController extends AbstractController
      */
     public function index(ExportContentElementRepository $exportContentElementRepository): Response
     {
+        $entityManager = $this->getDoctrine()->getManager();
+        $tbsContentElement = $this->tbsModuleRepository->findBy([
+            'status' => true,
+        ]);
         return $this->render('Dashboard/Content Elements/Export/index.html.twig', [
             'export_content_elements' => $exportContentElementRepository->findAll(),
+            'tbsContentElement' => $tbsContentElement,
         ]);
+    }
+
+    /**
+     * @Route("/regenerate_export", name="regenerate_export", methods={"POST"})
+     */
+    public function regenerateExport(Request $request): Response
+    {
+        if (!$request->isXmlHttpRequest()) {
+            return new JsonResponse(array(
+                'status' => 'Error',
+                'message' => 'Error'),
+                400);
+        }
+        if ($request->isXmlHttpRequest()) {
+            // Get data from ajax
+            $exportedModule = $request->get('id');
+
+            $id = intval($exportedModule);
+            if ($id <= 0)
+            {
+                return new JsonResponse(array(
+                    'status' => 'Error',
+                    'message' => 'Error'),
+                    400);
+            }
+            $exportRepo = $this->exportContentElementRepository->find($id);
+            if (null === $exportRepo)
+            {
+                // Looks like something went wrong
+                return new JsonResponse(array(
+                    'status' => 'Error',
+                    'message' => 'Error'),
+                    400);
+            }
+
+            //-- initialize extension
+            $this->zipServiceInterface->initialize();
+
+            //-- handle Export
+            $export = $this->handelExport($exportRepo->getTbsModule());
+
+            //-- export done
+            if(true === $export){
+                //create zip
+                $this->zipServiceInterface->createZip();
+                //-- unset extension
+                $this->zipServiceInterface->unsetTbsExtension();
+                //- downloaded extension
+
+                return $this->zipServiceInterface->downloadExtension();
+
+            }else{
+                $this->zipServiceInterface->unsetTbsExtension();
+                return new JsonResponse(array(
+                    'status' => 'Error',
+                    'message' => 'Error'),
+                    400);
+            }
+
+        }
+        return new JsonResponse(array(
+            'status' => 'Error',
+            'message' => 'Error'),
+            400);
     }
 
     /**
@@ -123,13 +199,11 @@ class ExportContentElementController extends AbstractController
                 //create zip
                 $this->zipServiceInterface->createZip();
                 //-- unset extension
-                //$this->zipServiceInterface->unsetTbsExtension();
+                $this->zipServiceInterface->unsetTbsExtension();
                 //- downloaded extension
-                $this->addFlash(
-                    'success',
-                    'Ihre Extension wird heruntergeladen'
-                );
+
                 return $this->zipServiceInterface->downloadExtension();
+
             }else{
                 $unset = $this->zipServiceInterface->unsetTbsExtension();
                 if(true === $unset){
@@ -265,4 +339,8 @@ class ExportContentElementController extends AbstractController
 
         return $result ?? true;
     }
+
+
+
+
 }
