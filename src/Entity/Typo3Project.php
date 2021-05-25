@@ -2,20 +2,20 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\DescriptionTrait;
+use App\Entity\Traits\IdTrait;
 use App\Repository\Typo3ProjectRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=Typo3ProjectRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Typo3Project
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use IdTrait;
+    use DescriptionTrait;
+
 
     /**
      * @ORM\Column(type="string", length=255)

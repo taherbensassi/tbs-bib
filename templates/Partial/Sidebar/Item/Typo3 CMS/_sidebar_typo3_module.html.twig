@@ -1,5 +1,6 @@
 <li class="nav-item" >
-    <a href="#"  class="nav-link">
+<li  {% if route_name == "typo3_project_index"  %} class="nav-item menu-open" {% else %} class="nav-item" {% endif %}>
+    <a href="#" {% if route_name in  "typo3_project_index" %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
         <i class="nav-icon fas fa-project-diagram"></i>
         <p>
             Typo3 Projekt
@@ -8,7 +9,7 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ path('typo3_project_index') }}" {% if route_name in "typo3_project_index"    %} class="nav-link active" {% else %} class="nav-link" {% endif %}>
                 <i class="nav-icon far fa-circle"></i>
                 <p>Projekt generieren</p>
             </a>

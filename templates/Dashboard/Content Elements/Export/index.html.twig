@@ -39,13 +39,19 @@
                     <tr>
                         <td>{{ export_content_element.user.email }}</td>
                         <td>{{ export_content_element.Created|date('d-m-Y')}}</td>
+                        <td>
+                            <ul>
                         {% for module in tbsContentElement %}
                             {% if module.id in export_content_element.tbsModule %}
-                                <td> {{ module.title }} </td>
+                             <li>
+                                 <small>{{ module.title }}</small>
+                             </li>
                             {% endif %}
                         {% endfor %}
+                            </ul>
+                        </td>
                         <td class="project-state">
-                            <span class="badge badge-success">Done</span>
+                            <span class="badge badge-success">Generiert</span>
                         </td>
                         <!--<td>
                             <button class="btn btn-link downloadButton" data-id="{{ export_content_element.id }}" data-url="{{ path('regenerate_export') }}" ><i class="fa fa-download"></i> Herunterladen</button>

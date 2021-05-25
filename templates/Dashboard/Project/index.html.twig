@@ -1,39 +1,46 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Typo3Project index{% endblock %}
-
-{% block body %}
-    <h1>Typo3Project index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Avatar</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for typo3_project in typo3_projects %}
-            <tr>
-                <td>{{ typo3_project.id }}</td>
-                <td>{{ typo3_project.name }}</td>
-                <td>{{ typo3_project.description }}</td>
-                <td>{{ typo3_project.avatar }}</td>
-                <td>
-                    <a href="{{ path('typo3_project_show', {'id': typo3_project.id}) }}">show</a>
-                    <a href="{{ path('typo3_project_edit', {'id': typo3_project.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('typo3_project_new') }}">Create new</a>
+{% extends '@layout/layout-index.html.twig' %}
+{% block title %}Typo3Project{% endblock %}
+{% block card %}
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-right">
+            <h3 class="card-title">Typo3 Projekt mit Extension (tbs,provider)</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <div class="alert alert-warning">
+                Wird in der nächsten Version x.x implementiert
+            </div>
+            <table id="table" class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Avatar</th>
+                    <!--<th>actions</th>-->
+                </tr>
+                </thead>
+                <tbody>
+                {% for typo3_project in typo3_projects %}
+                    <tr>
+                        <td>{{ typo3_project.id }}</td>
+                        <td>{{ typo3_project.name }}</td>
+                        <td>{{ typo3_project.description }}</td>
+                        <td>{{ typo3_project.avatar }}</td>
+                        <!--<td>
+                            <a href="{{ path('typo3_project_show', {'id': typo3_project.id}) }}">show</a>
+                            <a href="{{ path('typo3_project_edit', {'id': typo3_project.id}) }}">edit</a>
+                        </td>-->
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="11">keine Datensätze gefunden</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
 {% endblock %}
+

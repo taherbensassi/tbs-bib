@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Project;
+
 
 use App\Entity\Typo3Project;
 use App\Form\Typo3ProjectType;
@@ -11,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/typo3/project")
+ * @Route("/admin/typo3-project")
  */
 class Typo3ProjectController extends AbstractController
 {
@@ -20,7 +21,7 @@ class Typo3ProjectController extends AbstractController
      */
     public function index(Typo3ProjectRepository $typo3ProjectRepository): Response
     {
-        return $this->render('typo3_project/index.html.twig', [
+        return $this->render('Dashboard/Project/index.html.twig', [
             'typo3_projects' => $typo3ProjectRepository->findAll(),
         ]);
     }
