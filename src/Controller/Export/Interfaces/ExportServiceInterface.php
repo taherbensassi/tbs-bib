@@ -109,4 +109,10 @@ interface ExportServiceInterface
      */
     function generateModuleBackendPreview(array $selectedModules);
 
+    /**
+     * @param string $tableName
+     * @return mixed
+     */
+    function generateTableName(string $tableName);
+
 }

@@ -116,9 +116,10 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
                 return $this->export($ttContentRootOverride,'tt_content.php',"\r\ninclude_once 'TBS-Module/".$fileName."';",false);
             }
         }else{
-            // @todo update ext_tables.php
             $TtContentRootNew = $this->container->getParameter('tbs_content_element_directory_tt_content_new');
-            return $this->export($TtContentRootNew,$tableName."php",$content);
+            if($this->generateTableName($tableName)){
+                return $this->export($TtContentRootNew,$tableName.".php",$content);
+            }
         }
 
         return  false;
@@ -141,10 +142,9 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
                 array_unshift($file, $firstLine);
                 $fp = fopen($this->currentDirPath . $sqlCodeRoot . "ext_tables.sql", 'w');
                 // @todo check spacing in sql or Formatter
-                fwrite($fp, implode("\n", $file));
+                fwrite($fp, implode("", $file));
                 fclose($fp);
                 return true;
-
             }else{
                 return false;
             }
@@ -204,13 +204,9 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
         } else {
             $fileName = $this->currentDirPath . $xmlCodeRoot . "de.locallang.xlf";
         }
-        // @todo make it in one function
-        $specific_line = 9;
-        $contents = file($fileName, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        if($specific_line > sizeof($contents)) {
-            $specific_line = sizeof($contents) + 1;
-        }
-        array_splice($contents, $specific_line-1, 0, array($content));
+        $specificLine = 9;
+        $contents = file($fileName, FILE_IGNORE_NEW_LINES);
+        array_splice($contents, $specificLine-1, 0, array($content));
         $contents = implode("\n", $contents);
         file_put_contents($fileName, $contents);
         return true;
@@ -247,9 +243,6 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
         $fileName = $this->currentDirPath . $root . "/ext_localconf.php";
         $specific_line = 7;
         $contents = file($fileName, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        if($specific_line > sizeof($contents)) {
-            $specific_line = sizeof($contents) + 1;
-        }
         //-- loop over all modules
         foreach ($selectedModules as $key => $selectedModule) {
             //-- get Module
@@ -257,7 +250,7 @@ class ExportServiceInterfaceImpl implements \App\Controller\Export\Interfaces\Ex
             $CType = 'tbscontentelements_'.$module->getModuleKey();
             $content .=
                 <<<EOS
-    '$CType' => 'tbs_contentelements_icon.svg',
+    '$CType' => 'tbs_contentelements_icon.svg',\n
 EOS;
         }
         array_splice($contents, $specific_line-1, 0, array($content));
@@ -276,12 +269,8 @@ EOS;
         $content ="";
         $root = $this->container->getParameter('tbs_content_element_directory_backend_preview_php');
         $fileName = $this->currentDirPath . $root . "PageLayoutViewDrawItem.php";
-        $specific_line = 23;
+        $specificLine = 23;
         $contents = file($fileName, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        if($specific_line > sizeof($contents)) {
-            $specific_line = sizeof($contents) + 1;
-        }
-
         //-- loop over all modules
         foreach ($selectedModules as $key => $selectedModule) {
             //-- get Module
@@ -294,15 +283,36 @@ EOS;
                 $templateFileName = basename($path);
                 $CType = 'tbscontentelements_'.$module->getModuleKey();
 $content .= <<<EOS
-'$CType' => '$templateFileName',
+'$CType' => '$templateFileName',\n
 EOS;
 }else{
     return false;
 }
 }
-        array_splice($contents, $specific_line-1, 0, array($content));
+        array_splice($contents, $specificLine-1, 0, array($content));
         $contents = implode("\n", $contents);
         file_put_contents($fileName, $contents);
+        return true;
+    }
+
+    /**
+     * @param string $tableName
+     * @return mixed
+     */
+    function generateTableName(string $tableName): bool
+    {
+        $content = "";
+        static $specificLine = 8;
+        $root = $this->container->getParameter('tbs_content_element_directory_ex_tables');
+        $fileName = $this->currentDirPath . $root . "ext_tables.php";
+        $contents = file($fileName, FILE_IGNORE_NEW_LINES);
+        $content .= <<<EOS
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('$tableName');
+EOS;
+        array_splice($contents, $specificLine-1, 0, array($content));
+        $contents = implode("\n", $contents);
+        file_put_contents($fileName, $contents);
+        $specificLine ++;
         return true;
     }
 }
