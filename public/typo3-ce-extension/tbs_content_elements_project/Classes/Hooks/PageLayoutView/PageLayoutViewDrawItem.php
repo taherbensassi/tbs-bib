@@ -20,7 +20,6 @@ class PageLayoutViewDrawItem implements PageLayoutViewDrawItemHookInterface
      * @var array
      */
     protected $supportedContentTypes = [
-        //code
 
     ];
 

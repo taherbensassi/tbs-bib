@@ -1,8 +1,13 @@
 {
     "name": "tbs/tbs-content-elements",
     "type": "typo3-cms-extension",
-    "description": "",
-    "authors": [],
+    "description": "content-elements Extension",
+    "authors": [
+        {
+            "name": "Taher Ben Sassi",
+            "role": "Developer"
+        }
+    ],
     "version": "1.0.1",
     "require": {
 
